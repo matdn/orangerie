@@ -1,0 +1,19 @@
+@import '_imports/functions';
+#GAME{
+
+    @import '_imports/reset';
+    @import '_imports/common';
+    @import '_imports/buttons';
+    @import '_imports/soundtester';
+    @import '_imports/quickLinks';
+    @import '_imports/theaterpreload';
+    @import '_imports/virtualGamePad';
+    @import '_imports/stats';
+    @import '_imports/basepixi';
+    
+}
+
+html,
+body {
+    overscroll-behavior: none;
+}

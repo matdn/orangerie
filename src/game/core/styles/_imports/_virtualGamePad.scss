@@ -1,0 +1,179 @@
+.virtualGamePadReactView {
+    pointer-events: none;
+
+    .interactive {
+        pointer-events: all;
+        cursor: pointer;
+
+        >* {
+            pointer-events: none;
+        }
+    }
+
+    .button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 1px solid #ffffff;
+        width: 50px;
+        height: 50px;
+        transform: translate(-50%, -50%);
+
+        span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .analog {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+
+        &.analogLeft {
+            bottom: 20px;
+            left: 80px;
+        }
+
+        &.analogRight {
+            bottom: 20px;
+            right: 80px;
+        }
+
+        .padContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+
+            .background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 100%;
+                border: 1px solid #ffffff;
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .pad {
+                top: 50%;
+                left: 50%;
+            }
+        }
+    }
+
+    .buttons {
+        position: absolute;
+        bottom: 230px;
+        right: 100px;
+
+        .buttonA {
+            top: 0;
+            left: 50px;
+        }
+
+        .buttonB {
+            top: 50px;
+            left: 0;
+        }
+
+        .buttonX {
+            top: -50px;
+            left: 0px;
+        }
+
+        .buttonY {
+            top: 0px;
+            left: -50px;
+        }
+    }
+
+    .dPad {
+        position: absolute;
+        bottom: 230px;
+        left: 100px;
+
+        .button span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0px;
+            height: 0px;
+            border-style: solid;
+            border-width: 0 10px 20px 10px;
+            border-color: transparent transparent #ffffff transparent;
+
+        }
+
+        .buttonUp {
+            top: -50px;
+            left: 0;
+        }
+
+        .buttonDown {
+            top: 50px;
+            left: 0;
+
+            span {
+                transform: translate(-50%, -50%) rotate(180deg);
+            }
+        }
+
+        .buttonLeft {
+            top: 0;
+            left: -50px;
+
+            span {
+                transform: translate(-50%, -50%) rotate(-90deg);
+            }
+        }
+
+        .buttonRight {
+            top: 0;
+            left: 50px;
+
+            span {
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+        }
+
+    }
+
+    .shoulder {
+        position: absolute;
+        bottom: 370px;
+
+        &.left {
+            left: 100px;
+
+            .LT {
+                left: -50px;
+            }
+
+            .LB {
+                left: 50px;
+            }
+        }
+
+        &.right {
+            right: 100px;
+            .RT {
+                left: -50px;
+            }
+
+            .RB {
+                left: 50px;
+            }
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "name": "cooker/pixi",
+    "version": "1.1.5",
+    "description": "Pixi Loaders and Assets Managers",
+    "documentation": "https://app.clickup.com/3684641/v/dc/3ge91-61142/3ge91-19522",
+    "main": "index.ts",
+    "license": "ISC"
+}

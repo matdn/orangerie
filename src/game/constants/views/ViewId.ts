@@ -1,0 +1,7 @@
+export enum ViewId {
+    NONE = 'NONE',
+    TRANSLATION_KEY = 'TRANSLATION_KEY',
+
+    THREE_MAIN = 'THREE_MAIN',
+    THREE_LOBBY = 'THREE_LOBBY',
+}

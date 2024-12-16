@@ -1,0 +1,62 @@
+.soundTesterReactView {
+    background-color: black;
+    color: #ffffff;
+
+    .title {
+        font-size: 2em;
+        margin-bottom: 3em;
+    }
+
+    .soundsContainer {
+        display: inline-flex;
+        flex-direction: column;
+        gap: 3em;
+
+        .soundTester {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+            .name{
+                display: flex;
+                gap: 1em;
+            }
+            .timeline{
+                pointer-events: all;
+                height: 1em;
+                position: relative;
+                background-color: #444444;
+                cursor: pointer;
+                .position{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 50%;
+                    height: 100%;
+                    background-color: #ffffff;
+
+                }
+            }
+            .loop{
+                display: flex;
+                gap: 4em;
+
+                .start,
+                .end{
+                    display: flex;
+                    gap:1em;
+                }
+                input{
+                    border: 1px solid #eeeeee;
+                    text-align: right;
+                    color: #000000;
+                }
+            }
+            .buttonsContainer{
+                display: flex;
+                gap: 1em;
+            }
+        }
+    }
+
+    // pointer-events: none;
+}

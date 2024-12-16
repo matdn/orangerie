@@ -1,0 +1,190 @@
+substitutions:
+  _BOILERPLATE_DEPLOY_TOKEN_USERNAME: 'gitlab+deploy-token-2354331'
+  _BOILERPLATE_DEPLOY_TOKEN: '6D9ipp8Lt5sLe5BCMLrq'
+  _ENV: '${ENV}'
+  _BUCKET_NAME: '${PROJECT_NAME}-front-end-${ENV}'
+  _URL_MAP_NAME: '${ENV}.${PROJECT_URL_KEY}.emeraude.games'
+  _REGION: 'europe-west3'
+  _IS_SCORM: 'FALSE'
+
+steps:
+  # Step - fix schema and locales
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ "$_ENV" == "staging" ]; then
+          echo "start fixing the schema and json files..."
+          docker pull $_REGION-docker.pkg.dev/emeraude-hermes/emeraude-script/scripts-staging &&
+          docker run --rm $_REGION-docker.pkg.dev/emeraude-hermes/emeraude-script/scripts-staging \
+            i18n-schema-build \
+            --token ${EMERAUDE_GITLAB_TOKEN} \
+            --project ${PROJECT_ID} \
+            --branch staging \
+            --input public/locales
+        fi
+
+  # Step 1: Use a Node.js Docker image to ensure the correct Node.js version
+  - name: 'node:20'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+          # Clone the repository
+          echo "git clone boilerplate..."
+          mkdir -p boilerplate
+          git clone --branch staging https://$_BOILERPLATE_DEPLOY_TOKEN_USERNAME:$_BOILERPLATE_DEPLOY_TOKEN@gitlab.com/goapps4/emeraude/emeraude-react-vite-storyblok.git boilerplate
+
+          # Copy the files from the project to the boilerplate directory
+          echo "copy project files..."
+          cp -rf libs boilerplate/
+          cp -rf src/components/gameboard/* boilerplate/src/components/gameboard/
+          cp -rf src/components/customUI/* boilerplate/src/components/customUI/
+          cp -rf src/components/utilityUI/* boilerplate/src/components/utilityUI/
+          cp -rf src/components/pages/* boilerplate/src/components/pages/
+          cp -rf src/configs/* boilerplate/src/configs/
+          cp -rf src/game boilerplate/src/
+          cp -rf src/i18n.js boilerplate/src/
+          cp -rf src/index.css boilerplate/src/index.css
+          cp -rf public/assets/* boilerplate/public/assets/
+          cp -rf public/jsons/* boilerplate/public/jsons/
+          cp -rf public/locales/* boilerplate/public/locales-project/
+          cp -rf public/locales/audio boilerplate/public/locales/
+          cp -rf public/locales/schema.json boilerplate/public/locales/schema.json
+          cp -rf public/permanent-elements/* boilerplate/public/permanent-elements/
+          cp -rf .env.local boilerplate/.env.local
+          cp -rf .env.staging boilerplate/.env.staging
+          cp -rf .env.preprod boilerplate/.env.preprod
+          cp -rf .env.production boilerplate/.env.production
+          cp -rf index.html boilerplate/index.html
+          cp -rf package.json boilerplate/package.json
+          cp -rf tailwind.config.js boilerplate/tailwind.config.js
+          cp -rf tsconfig.json boilerplate/tsconfig.json
+
+          # Change to the boilerplate directory
+          cd boilerplate
+
+          # update the revision
+          echo '{ "gitRevision": "'$(date +%s)'" }' > "./public/jsons/version-info.json"
+
+          # Install project dependencies
+          echo "install project dependencies..."
+          rm package-lock.json
+          npm install
+          
+          # merge i18n local translations
+          echo "merge i18n local translations..."
+          npm run i18n:merge-locales
+
+          # Build the project
+          if [ "$_IS_SCORM" == "FALSE" ]; then
+            echo "Building web version... $_IS_SCORM"
+            npm run build:$_ENV
+          else
+            echo "Building SCORM archive..."
+            
+            npm run build:scorm:$_ENV
+          fi
+
+  # Step X: create SCORM archive
+  - name: 'alpine:latest'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        if [ "$_IS_SCORM" == "FALSE" ]; then
+          echo "Skipping SCORM archive creation step as _IS_SCORM is false"
+          exit 0
+        fi
+
+        apk update && apk add zip
+
+        cd boilerplate/dist
+        zip -r archive.zip .
+
+        echo "SCORM archive created"  
+
+  # Step 2: Upload the built files to Cloud Storage if the marker file exists
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ "$_IS_SCORM" == "FALSE" ]; then
+          echo "uploading dist files to bucket"
+          gsutil -m rsync -r boilerplate/dist/ gs://$_BUCKET_NAME
+        else
+          echo "uploading scorm archive to bucket"
+
+          # Write archive-name to value.txt
+          echo "archive-name=$_PROJECT_NAME-$_ENV-$(date +%Y%m%d-%H%M).zip" > /workspace/value.txt
+
+          # Read the value directly from value.txt and assign it to _ARCHIVE_NAME
+          ARCHIVE_NAME=$(cat /workspace/value.txt | cut -d'=' -f2)
+          echo "archive-name=$$ARCHIVE_NAME"
+
+          gsutil -m cp -r boilerplate/dist/archive.zip gs://devops-bucket_public/scorm-archives/$_PROJECT_NAME/$_ENV/$$ARCHIVE_NAME
+        fi
+
+  # Step 8: Set cache control headers (optional)
+  # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  #   args: ['gsutil', '-m', 'setmeta', '-h', 'Cache-Control:public, max-age=3600', 'gs://$_BUCKET_NAME/**']
+  
+  # Step 4: invalidate the cache
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ "$_IS_SCORM" == "FALSE" ]; then
+          echo "Start cache invalidation step"
+          gcloud compute url-maps invalidate-cdn-cache emeraude-loadbalancer \
+            --host $_URL_MAP_NAME --path '/*'
+        else
+          echo "Skipping cache invalidation step as _IS_SCORM is true"
+        fi
+
+  # Step 5: deploy new text files to assets buckets
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ "$_IS_ON_MTC" == "TRUE" ]; then
+          gsutil -m cp public/locales/*.json gs://devops-bucket_public/$_PROJECT_NAME/$_ENV/locales/
+        else
+          echo "Skipping copying translation files to bucket step as _IS_ON_MTC is false"
+        fi
+
+  # Step X: post on slack the message
+  - name: 'alpine:latest'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        apk update && apk add curl
+        if [ "$_IS_SCORM" == "TRUE" ]; then
+          ARCHIVE_NAME=$(cat /workspace/value.txt | cut -d'=' -f2)
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{
+              \"text\": \"The SCORM archive has been uploaded. <https://asset.emeraude.games/scorm-archives/$_PROJECT_NAME/$_ENV/$$ARCHIVE_NAME|Download here> the new archive!\",
+              \"icon_emoji\": \":rocket:\",
+              \"username\": \"pipeline-bot\"
+            }" \
+            "${SLACK_HOOK_URL}"
+        else
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{
+              \"text\": \"The $_ENV environment has been updated successfully. <https://$_URL_MAP_NAME|Test it here>\",
+              \"icon_emoji\": \":rocket:\",
+              \"username\": \"pipeline-bot\"
+            }" \
+            "${SLACK_HOOK_URL}"
+        fi
+
+timeout: '1200s'  # 20 minutes
+
+options:
+  substitution_option: ALLOW_LOOSE
+  logging: CLOUD_LOGGING_ONLY  # Use Cloud Logging

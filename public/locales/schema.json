@@ -1,0 +1,19 @@
+{
+  "supportedLanguages": [
+    "en",
+    "fr"
+  ],
+  "activeLanguages": [
+    "en",
+    "fr"
+  ],
+  "mainLanguage": "en",
+  "schema": [
+    {
+      "name": "Global.SelectALanguage"
+    },
+    {
+      "name": "Global.SelectACountry"
+    }
+  ]
+}

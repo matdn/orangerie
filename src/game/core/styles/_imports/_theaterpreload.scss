@@ -1,0 +1,12 @@
+.theaterPreloadReactView{
+    background-color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+
+    .loaded{
+        display: none;
+    }
+    
+}

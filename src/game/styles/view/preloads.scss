@@ -1,0 +1,19 @@
+.preloadView {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000000;
+    color: #ffffff;
+
+    .loadingContent {
+        transition: opacity 0.5s ease-in-out;  
+
+        &.loading {
+            opacity: 100%;
+        }
+
+        &.loaded {
+            opacity: 0%;
+        }
+    }
+}
