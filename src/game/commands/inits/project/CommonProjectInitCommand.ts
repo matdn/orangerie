@@ -22,7 +22,6 @@ export class CommonProjectInitCommand extends InitCommandBase {
 
     public override async initManagers(): Promise<void> {
         DayCycleManager.Init();
-
     }
 
 
@@ -44,7 +43,7 @@ export class CommonProjectInitCommand extends InitCommandBase {
     }
 
     public override async addViews(): Promise<void> {
-        //
+
         ViewsProxy.AddView(new ReactHTMLView(ViewId.TRANSLATION_KEY, ViewPlacementId.TRANSLATION_KEY, TranslationKeyReactView));
         ViewsProxy.AddView(new ReactHTMLView(MainThree.VIEW_ID, ViewPlacementId.REACT_THREE, MainThreeReactView));
     }

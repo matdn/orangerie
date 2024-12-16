@@ -10,6 +10,9 @@ import { ThreeCamerasProxy } from '../../../core/_engine/threejs/proxies/ThreeCa
 import { LobbyCameraController } from '../../../cameras/LobbyCameraController';
 import { ThreePostProcessingsProxy } from '../../../core/_engine/threejs/proxies/ThreePostProcessingsProxy';
 import { BloomPostProcessing } from '../../../postprocessings/BloomPostProcessing';
+import ReactHTMLView from '../../../core/_engine/htmls/views/ReactHTMLView';
+import { ViewPlacementId } from '../../../constants/views/ViewPlacementId';
+import LobbyReactView from '../../../views/doms/reacts/LobbyReactView';
 
 
 export class LobbyInitCommand extends InitCommandBase {
@@ -40,11 +43,12 @@ export class LobbyInitCommand extends InitCommandBase {
         ThreeAssetsManager.AddModel(AssetId.GLTF_LOBBY, this._getAssetPath('models/lobby.glb'));
         ThreeAssetsManager.AddRGBE(AssetId.HDR_WINTER, this._getAssetPath('hdr/kloppenheim_02_puresky_1k.hdr'));
         ThreeAssetsManager.AddRGBE(AssetId.HDR_AUTOMN, this._getAssetPath('hdr/autumn_forest_01_1k.hdr'));
+        ThreeAssetsManager.AddRGBE(AssetId.HDR_LOBBY, this._getAssetPath('hdr/lobby.hdr'));
     }
 
     public override async addViews(): Promise<void> {
         ViewsProxy.AddViewConstructor(ViewId.THREE_LOBBY, LobbyThreeView);
-        // ViewsProxy.AddViewConstructor(ViewId.THREE_JAPAN, JapanThreeView);
+        ViewsProxy.AddView(new ReactHTMLView(ViewId.LOBBY_REACT, ViewPlacementId.NONE, LobbyReactView, 0));
     }
 
     public override async addTheaters(): Promise<void> {

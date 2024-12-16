@@ -1,4 +1,4 @@
-import { AmbientLight, CameraHelper, Mesh, MeshPhysicalMaterial, Object3D, PMREMGenerator, SpotLight, TextureLoader, Vector2 } from "three";
+import { AmbientLight, CameraHelper, Mesh, MeshPhysicalMaterial, Object3D, PMREMGenerator, SpotLight, SpotLightHelper, TextureLoader, Vector2 } from "three";
 import { Object3DId } from "../../constants/games/Object3DId";
 import { ViewId } from "../../constants/views/ViewId";
 import { ViewPlacementId } from "../../constants/views/ViewPlacementId";
@@ -20,35 +20,23 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this._camera = ThreeCamerasProxy.CamerasMap.get('LOBBY');
         this.add(this._camera);
         this._camera.rotation.z = (Math.PI / 2) * 4;
-        // const ambiantLight = new AmbientLight(0xffffff, 100);
-        const spotLight = new SpotLight(0xffffff, 100000);
-        spotLight.position.set(0, 100, 100);
-        spotLight.castShadow = true;
-        spotLight.shadow.mapSize.width = 1024;
-        spotLight.shadow.mapSize.height = 1024;
-        MainThree.Scene.add(spotLight);
 
-        // MainThree.Scene.add(ambiantLight);
-        // const cameraHelper = new CameraHelper(this._camera.camera);
-        // MainThree.Scene.add(cameraHelper);
+        const cameraHelper = new CameraHelper(this._camera.camera);
+        MainThree.Scene.add(cameraHelper);
 
-        // ADD MATERIALS
         const glassMaterial = new MeshPhysicalMaterial({
             color: 0xffffff,
             transparent: true,
-            opacity: 0.5,
-            roughness: 0.1,
-            metalness: 0.1,
-            clearcoat: 1,
-            clearcoatRoughness: 0.1,
+            opacity: 0.7,
+            roughness: 0.7,
+            metalness: 0.8,
+            clearcoat: 0,
         });
-
         const whiteMaterial = new MeshPhysicalMaterial({
             color: 0xffffff,
-            // roughness: 0.1,
-            // metalness: 0.1,
-            // clearcoat: 1,
-            // clearcoatRoughness: 0.1,
+            metalness: 0.6,
+            roughness: 0.3,
+            clearcoat: 0.1,
         });
 
         this._lobbyMesh.traverse((child) => {

@@ -1,24 +1,22 @@
 import { CommonAssetsManager } from '@cooker/common';
-import { TextsProxy } from 'peppermill';
 import { Core } from '../../Core';
+import { AugmentedObject3D } from '../../_engine/threejs/views/components/AugmentedObject3D';
 import { CoreInitCommand } from './initcommands/CoreInitCommand';
 import InitCommandBase from './initcommands/bases/InitCommandBase';
-import { AudioMixerManager } from '../../../../../libs/cooker/_src/managers/AudioMixerManager';
-import { TheatersProxy } from 'pancake';
-import { SuperTheaterBase } from '../../theaters/SuperTheaterBase';
-import { AugmentedObject3D } from '../../_engine/threejs/views/components/AugmentedObject3D';
 
 export default class InitCommand {
+
   private static _InitCommandsList: Array<InitCommandBase> = [];
 
   private static _PixiAssetsManager: any;
   private static _ThreeAssetsManager: any;
 
   private static _IsInitCore: boolean = false;
-  private static _IsInitI18n: boolean = false;
+  // private static _IsInitI18n: boolean = false;
 
 
   public static async Execute(initCommands: Array<InitCommandBase>) {
+    console.log('InitCommand');
     this._InitCommandsList = [];
     if (Core.UsePixi) this._PixiAssetsManager = (await import('@cooker/pixi')).PixiAssetsManager;
     if (Core.UseThree) this._ThreeAssetsManager = (await import('@cooker/three')).ThreeAssetsManager;
@@ -40,10 +38,10 @@ export default class InitCommand {
     }
     this._InitCommandsList = this._InitCommandsList.concat(initCommands);
     await this._LoadAssets();
-    if (!this._IsInitI18n) {
-      this._IsInitI18n = true;
-      await TextsProxy.Init();
-    }
+    // if (!this._IsInitI18n) {
+    //   this._IsInitI18n = true;
+    //   await TextsProxy.Init();
+    // }
     await this._InitProxies();
     await this._InitManagers();
 
@@ -123,7 +121,7 @@ export default class InitCommand {
   }
 
   //#region Getters
-  public static get PixiAssetsManager(): any { return this._PixiAssetsManager };
-  public static get ThreeAssetsManager(): any { return this._ThreeAssetsManager };
+  public static get PixiAssetsManager(): any { return this._PixiAssetsManager; };
+  public static get ThreeAssetsManager(): any { return this._ThreeAssetsManager; };
   //#endregion
 }
