@@ -5,6 +5,7 @@ export enum AssetId {
     // 3D models
     GLTF_LOBBY = 'GLTF_LOBBY',
     HDR_LOBBY = 'HDR_LOBBY',
+    HDR_PARK = 'HDR_PARK',
     HDR_AUTOMN = 'HDR_AUTOMN',
     HDR_WINTER = 'HDR_WINTER',
     GLTF_COMMON = 'GLTF_COMMON',

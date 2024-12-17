@@ -12,7 +12,7 @@ import { PostProcessingId } from "../constants/games/PostProcessingId";
 export class LobbyThreeTheater extends ThreeTheaterBase {
 
     private readonly _fog: Fog;
-
+    private _fogScale: number = 250;
 
     constructor() {
         super(TheaterId.LOBBY, TheaterPlacementId.MAIN);
@@ -20,13 +20,12 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
 
         this._initCommandsList.push(new LobbyInitCommand());
         this._cameraId = CameraId.LOBBY;
-
         this._viewsList.add(ViewId.THREE_LOBBY);
         this._viewsList.add(ViewId.LOBBY_REACT);
-        this._fog = new Fog(0xffffff, 10, 350);
+        this._fog = new Fog(0xffffff, 0, 350);
 
         this._environment = {
-            background: AssetId.HDR_LOBBY,
+            background: AssetId.HDR_PARK,
             environmentMapId: AssetId.HDR_LOBBY,
         };
 
@@ -36,5 +35,14 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
         this._threePostProcessingId = PostProcessingId.BLOOM;
 
         MainThree.Scene.fog = this._fog;
+    }
+
+    public setFogScale(value: number): void {
+        this._fogScale = value;
+        this._fog.far = 450 - this._fogScale * 300;
+        if (this._fog.far < 1) {
+            this._fog.far = 1;
+        }
+        console.log(this._fog.far);
     }
 }

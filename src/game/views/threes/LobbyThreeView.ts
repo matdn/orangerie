@@ -7,29 +7,35 @@ import { MainThree } from "../../core/_engine/threejs/MainThree";
 import { Object3DsProxy } from "../../core/_engine/threejs/proxies/Object3DsProxy";
 import { ThreeCamerasProxy } from "../../core/_engine/threejs/proxies/ThreeCamerasProxy";
 import { WithoutTransitionThreeView } from "../../core/_engine/threejs/views/WithoutTransitionThreeView";
+import { LobbyThreeTheater } from "../../theaters/LobbyThreeTheater";
+import { TheatersProxy } from "pancake";
 
 export default class LobbyThreeView extends WithoutTransitionThreeView {
     private _lobbyMesh: Object3D;
     private _camera: ThreeCameraControllerBase;
     private _mouse: Vector2 = new Vector2(0, 0);
     private _cameraRotationFactor: number = 0.09;
+    private _scrollProgress: number = 0;
+
+
     constructor() {
         super(ViewId.THREE_LOBBY, ViewPlacementId.THREE_MAIN);
         this._lobbyMesh = Object3DsProxy.GetObject3D(Object3DId.LOBBY);
         this.add(this._lobbyMesh);
         this._camera = ThreeCamerasProxy.CamerasMap.get('LOBBY');
         this.add(this._camera);
+        this._camera.position.y = -10;
         this._camera.rotation.z = (Math.PI / 2) * 4;
-
         const cameraHelper = new CameraHelper(this._camera.camera);
-        MainThree.Scene.add(cameraHelper);
+        // MainThree.Scene.add(cameraHelper);
+        window.addEventListener('updateCameraPosition', this._onUpdateCameraPosition.bind(this));
 
         const glassMaterial = new MeshPhysicalMaterial({
             color: 0xffffff,
             transparent: true,
-            opacity: 0.7,
-            roughness: 0.7,
-            metalness: 0.8,
+            opacity: 0.2,
+            roughness: 0.6,
+            metalness: 1,
             clearcoat: 0,
         });
         const whiteMaterial = new MeshPhysicalMaterial({
@@ -81,9 +87,12 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         });
     }
 
+    private _onUpdateCameraPosition(event: CustomEvent) {
+        this._scrollProgress = event.detail;
+    }
+
     public override update(dt: number): void {
         super.update(dt);
-        // Appliquer le mouvement de la caméra basé sur la position du curseur
 
         const rotationX = this._mouse.y * this._cameraRotationFactor;
         const rotationY = this._mouse.x * this._cameraRotationFactor;
@@ -91,7 +100,13 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this._camera.rotation.x += (rotationX - this._camera.rotation.x) * 0.1;
         this._camera.rotation.y += (Math.PI / 2) + (rotationY - this._camera.rotation.y) * 0.1;
 
-        // // Mettre à jour la caméra
+        const cameraTargetZ = -200 * this._scrollProgress;
+        this._camera.position.z += 15 + (cameraTargetZ - this._camera.position.z) * 0.1;
+        let theater = TheatersProxy.GetTheater<LobbyThreeTheater>('LOBBY');
+        let fogScale = theater.setFogScale(this._scrollProgress * 1.5);
+        fogScale;
+        // theater.update();
+
         this._camera.start();
     }
 }

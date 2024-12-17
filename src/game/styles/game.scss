@@ -1,3 +1,40 @@
 @import '../core/styles/core.scss';
 @import './view/preloads.scss';
 @import './view/components/buttons.scss';
+
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.titlesContainer {
+    z-index: 100;
+    height: 200dvh !important;
+    overflow: scroll !important;
+    width: 100%;
+
+    div {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+
+        h1 {
+            font-family: Orsay;
+            font-size: 124px;
+            color: #FF7F00;
+            text-align: center;
+
+            span {
+                font-size: 64px;
+            }
+        }
+    }
+}
