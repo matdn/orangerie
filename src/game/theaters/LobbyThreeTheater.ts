@@ -25,6 +25,7 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
         this._fog = new Fog(0xffffff, 0, 350);
 
         this._environment = {
+            // background: 0xD5D5D5,
             background: AssetId.HDR_PARK,
             environmentMapId: AssetId.HDR_LOBBY,
         };

@@ -33,16 +33,20 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         const glassMaterial = new MeshPhysicalMaterial({
             color: 0xffffff,
             transparent: true,
-            opacity: 0.2,
-            roughness: 0.6,
-            metalness: 1,
+            opacity: 0.05,
+            roughness: 0.1,
+            metalness: 0.5,
             clearcoat: 0,
         });
         const whiteMaterial = new MeshPhysicalMaterial({
             color: 0xffffff,
-            metalness: 0.6,
-            roughness: 0.3,
-            clearcoat: 0.1,
+
+        });
+        const paintMaterial = new MeshPhysicalMaterial({
+            color: 0xffffff,
+            roughness: 0,
+            metalness: 0.8,
+            clearcoat: 0,
         });
 
         this._lobbyMesh.traverse((child) => {
@@ -60,7 +64,13 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
                     }
                 });
             }
-
+            if (child.name === Object3DId.LOBBY_PAINT) {
+                child.traverse((paintChild: Object3D) => {
+                    if (paintChild instanceof Mesh) {
+                        paintChild.material = paintMaterial;
+                    }
+                });
+            }
 
 
         });
