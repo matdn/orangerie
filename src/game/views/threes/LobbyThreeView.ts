@@ -115,7 +115,6 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         let theater = TheatersProxy.GetTheater<LobbyThreeTheater>('LOBBY');
         let fogScale = theater.setFogScale(this._scrollProgress * 1.5);
         fogScale;
-        // theater.update();
 
         this._camera.start();
     }

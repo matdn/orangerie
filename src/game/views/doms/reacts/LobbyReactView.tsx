@@ -2,6 +2,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { memo, useEffect } from "react";
 import ReactViewBase, { TransitionProps } from "../../../core/_engine/reacts/views/bases/ReactViewBase";
+import { TheatersManager } from "pancake";
+import { TheaterId } from "../../../constants/theaters/TheaterId";
 
 gsap.registerPlugin(ScrollTrigger);
 

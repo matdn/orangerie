@@ -17,15 +17,13 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
     constructor() {
         super(TheaterId.LOBBY, TheaterPlacementId.MAIN);
 
-
         this._initCommandsList.push(new LobbyInitCommand());
         this._cameraId = CameraId.LOBBY;
         this._viewsList.add(ViewId.THREE_LOBBY);
         this._viewsList.add(ViewId.LOBBY_REACT);
-        this._fog = new Fog(0xffffff, 0, 350);
+        this._fog = new Fog(0xffffff, 0, 250);
 
         this._environment = {
-            // background: 0xD5D5D5,
             background: AssetId.HDR_PARK,
             environmentMapId: AssetId.HDR_LOBBY,
         };
@@ -44,6 +42,5 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
         if (this._fog.far < 1) {
             this._fog.far = 1;
         }
-        console.log(this._fog.far);
     }
 }

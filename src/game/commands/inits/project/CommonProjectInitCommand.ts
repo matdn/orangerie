@@ -51,6 +51,7 @@ export class CommonProjectInitCommand extends InitCommandBase {
     public override async addTheaters(): Promise<void> {
         TheatersProxy.AddTheater(new MainTheater());
         TheatersProxy.AddTheater(new LobbyThreeTheater());
+        // TheatersProxy.AddTheater(new MuseumThreeTheater());
     }
 
 
