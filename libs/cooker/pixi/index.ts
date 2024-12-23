@@ -1,5 +1,5 @@
-import PixiAssetsManager from "../_src/managers/PixiAssetsManager";
+import PixiAssetsManager from "../src/managers/PixiAssetsManager";
 
 export {
     PixiAssetsManager
-}
+};

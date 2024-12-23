@@ -1,3 +1,3 @@
-import ThreeAssetsManager from '../_src/managers/ThreeAssetsManager';
+import ThreeAssetsManager from '../src/managers/ThreeAssetsManager';
 
 export { ThreeAssetsManager };

@@ -85,9 +85,9 @@
     "yuka": "^0.7.8"
   },
   "devDependencies": {
-    "@cooker/common": "file:libs/cooker/common",
-    "@cooker/pixi": "file:libs/cooker/pixi",
-    "@cooker/three": "file:libs/cooker/three",
+    "@cooker/common": "file:./libs/cooker/common",
+    "@cooker/pixi": "file:./libs/cooker/pixi",
+    "@cooker/three": "file:./libs/cooker/three",
     "@tailwindcss/forms": "^0.5.7",
     "@types/howler": "^2.2.11",
     "@types/node": "^20.11.19",
