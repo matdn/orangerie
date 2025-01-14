@@ -20,7 +20,6 @@ export class ThreeInteractive {
 
     public readonly onInteraction = new Action<[InteractionName, Intersection | null]>;
     public interactWhenNotVisible: boolean = false;
-    public interactWhenNotInScene: boolean = false;
     public passTrhough: boolean = false;
 
     public cursor = CursorConstant.POINTER;
@@ -30,15 +29,16 @@ export class ThreeInteractive {
         if (target) {
             this.setTarget(target);
         }
+
     }
-    
+
     public setTarget(target: Object3D) {
-        ThreeInteractiveManager.RemoveInteractive(this);
         this._targets.length = 0;
         this.addTarget(target);
     }
 
     public addTarget(target: Object3D) {
+        ThreeInteractiveManager.RemoveInteractive(this);
         target.traverse((child: Object3D) => {
             if (child instanceof Mesh) {
                 this._targets.push(child);
@@ -80,7 +80,7 @@ export class ThreeInteractive {
         }
         this._sendInteraction(name, intersect);
         if (isClick) this._sendInteraction(InteractionName.CLICK, intersect);
-    }
+    };
 
     protected _sendInteraction(name: InteractionName, intersect: Intersection | null) {
         if (this.onInteraction) {

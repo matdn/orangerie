@@ -39,7 +39,7 @@ const LobbyReactView = memo((props: TransitionProps) => {
     return (
         <ReactViewBase {...props} className="titlesContainer">
             <div>
-                <h1 className="title"><span>Musee de</span><br />l'Orangerie</h1>
+                <h1 className="title"><span>Les Reveries de</span><br />l'Orangerie</h1>
             </div>
         </ReactViewBase>
     );

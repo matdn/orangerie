@@ -5,4 +5,5 @@ export enum InteractionName {
     MOUSE_DOWN = 'mouseDown',
     MOUSE_UP = 'mouseUp',
     CLICK = 'click',
+    HOVER = 'hover',
 }

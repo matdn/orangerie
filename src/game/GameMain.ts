@@ -45,9 +45,9 @@ export default class GameMain {
         ScormService.SetScormStatus('incomplete');
         ViewsManager.RemoveAll();
         if (DebugManager.IsDev) {
-            // CustomStats.Init();
+            CustomStats.Init();
             QuickLinksReactViewOptions.className = "bottom left";
-            // ViewsManager.ShowById(QuickLinksReactViewId);
+            ViewsManager.ShowById(QuickLinksReactViewId);
         }
 
         console.log("Game Start");
@@ -56,7 +56,6 @@ export default class GameMain {
     }
 
     private static _ShowFirstTheater(): void {
-        console.log("Show First Theater");
         const shortcut: string = new URLSearchParams(window.location.search).get('game');
         if (shortcut) {
             for (let id in TheaterId) {
@@ -66,6 +65,7 @@ export default class GameMain {
                 }
             }
         }
+        // TheaterTransitionCommand.Show(TheaterId.MUSEUM);
         TheaterTransitionCommand.Show(TheaterId.LOBBY);
     }
 

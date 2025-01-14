@@ -12,6 +12,7 @@ import { ThreeAssetsManager } from '@cooker/three';
 import { AssetId } from '../../../constants/games/AssetId';
 import { AnalyseGLTFCommand } from '../AnalyseGLTFCommand';
 import { DayCycleManager } from '../../../managers/DayCycleManager';
+import { MuseumThreeTheater } from '../../../theaters/MuseeThreeTheater';
 
 
 export class CommonProjectInitCommand extends InitCommandBase {
@@ -51,7 +52,7 @@ export class CommonProjectInitCommand extends InitCommandBase {
     public override async addTheaters(): Promise<void> {
         TheatersProxy.AddTheater(new MainTheater());
         TheatersProxy.AddTheater(new LobbyThreeTheater());
-        // TheatersProxy.AddTheater(new MuseumThreeTheater());
+        TheatersProxy.AddTheater(new MuseumThreeTheater());
     }
 
 

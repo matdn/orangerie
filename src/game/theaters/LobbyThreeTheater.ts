@@ -12,7 +12,7 @@ import { PostProcessingId } from "../constants/games/PostProcessingId";
 export class LobbyThreeTheater extends ThreeTheaterBase {
 
     private readonly _fog: Fog;
-    private _fogScale: number = 250;
+    private _fogScale: number = 350;
 
     constructor() {
         super(TheaterId.LOBBY, TheaterPlacementId.MAIN);
@@ -22,9 +22,12 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
         this._viewsList.add(ViewId.THREE_LOBBY);
         this._viewsList.add(ViewId.LOBBY_REACT);
         this._fog = new Fog(0xffffff, 0, 250);
+        // this._fog = new Fog(0x8da7be, 0, 250);
+        // this._fog = new Fog(0xcde6f5, 0, 250);
 
         this._environment = {
             background: AssetId.HDR_PARK,
+
             environmentMapId: AssetId.HDR_LOBBY,
         };
 

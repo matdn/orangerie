@@ -6,6 +6,7 @@ import {
   Color,
   EquirectangularReflectionMapping,
   MeshStandardMaterial,
+  PCFSoftShadowMap,
   SRGBColorSpace,
   Scene,
   Texture,
@@ -91,6 +92,7 @@ export class MainThree {
       preserveDrawingBuffer: true,
     });
     this.Renderer.shadowMap.enabled = true;
+    this.Renderer.shadowMap.type = PCFSoftShadowMap;
     this.Renderer.shadowMap.autoUpdate = true;
     // this._Renderer.shadowMap.type = VSMShadowMap; // celle la est la bonne si ca fonctionne
     this._Renderer.outputColorSpace = SRGBColorSpace;
