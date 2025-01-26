@@ -1,4 +1,4 @@
-import { Fog } from "three";
+import { Fog, Mesh, MeshStandardMaterial, PlaneGeometry } from "three";
 import { LobbyInitCommand } from "../commands/inits/project/LobbyInitCommand";
 import { AssetId } from "../constants/games/AssetId";
 import { CameraId } from "../constants/games/CameraId";
@@ -20,14 +20,13 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
         this._initCommandsList.push(new LobbyInitCommand());
         this._cameraId = CameraId.LOBBY;
         this._viewsList.add(ViewId.THREE_LOBBY);
-        this._viewsList.add(ViewId.LOBBY_REACT);
+        // this._viewsList.add(ViewId.LOBBY_REACT);
         this._fog = new Fog(0xffffff, 0, 250);
         // this._fog = new Fog(0x8da7be, 0, 250);
         // this._fog = new Fog(0xcde6f5, 0, 250);
 
         this._environment = {
             background: AssetId.HDR_PARK,
-
             environmentMapId: AssetId.HDR_LOBBY,
         };
 

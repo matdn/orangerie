@@ -1,4 +1,4 @@
-import { AmbientLight, CameraHelper, Mesh, MeshPhysicalMaterial, Object3D, PMREMGenerator, PointLight, SpotLight, SpotLightHelper, TextureLoader, Vector2 } from "three";
+import { AmbientLight, CameraHelper, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PMREMGenerator, PointLight, SpotLight, SpotLightHelper, TextureLoader, Vector2 } from "three";
 import { Object3DId } from "../../constants/games/Object3DId";
 import { ViewId } from "../../constants/views/ViewId";
 import { ViewPlacementId } from "../../constants/views/ViewPlacementId";
@@ -20,6 +20,9 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
     private _cameraRotationFactor: number = 0.09;
     private _scrollProgress: number = 0;
     private _pointLight: PointLight;
+    private _imagePlane: Mesh;
+    private _titlePlane: Mesh;
+
 
     constructor() {
         super(ViewId.THREE_LOBBY, ViewPlacementId.THREE_MAIN);
@@ -27,9 +30,23 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this.add(this._lobbyMesh);
         this._camera = ThreeCamerasProxy.CamerasMap.get('LOBBY');
         this.add(this._camera);
+        this._imagePlane = new Mesh();
         this._camera.position.y = -10;
         this._camera.rotation.z = (Math.PI / 2) * 8;
         const cameraHelper = new CameraHelper(this._camera.camera);
+        this._titlePlane = new Mesh();
+        const geometry = new PlaneGeometry(100, 100, 1, 1);
+        this._titlePlane.geometry = geometry;
+        this._titlePlane.position.set(0, 2, 100);
+        this._titlePlane.scale.set(0.35, 0.35, 0.35);
+        this._titlePlane.rotation.z = Math.PI;
+        this._titlePlane.rotation.y = Math.PI;
+        this._titlePlane.material = new MeshStandardMaterial({
+            map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_TITLE),
+            side: DoubleSide,
+            transparent: true,
+        });
+        this.add(this._titlePlane);
         // MainThree.Scene.add(cameraHelper);
         window.addEventListener('updateCameraPosition', this._onUpdateCameraPosition.bind(this));
         this._pointLight = new PointLight(0xffffff, 250, 100);
@@ -40,9 +57,9 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         // this.add(spotLight);
 
         const glassMaterial = new MeshPhysicalMaterial({
-            color: 0xcde6f5,
+            color: 0xeeeeee,
             transparent: true,
-            opacity: 0.6,
+            opacity: 0.7,
             metalness: 0.9,
             roughness: 1,
             clearcoat: 1,
@@ -50,7 +67,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
             envMapIntensity: 1,
         });
         const whiteMaterial = new MeshPhysicalMaterial({
-            color: 0xE3E8E9,
+            color: 0xffffff,
 
         });
         const paintMaterial = new MeshPhysicalMaterial({
@@ -83,17 +100,34 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
                 });
             }
             if (child.name === Object3DId.LOBBY_MIDDLE_BLOC) {
+                const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_MIDDLE_BLOC) });
+                // const basMat = new MeshBasicMaterial({ color: 0xff0000 });
+
                 child.traverse((child: Object3D) => {
                     if (child instanceof Mesh) {
-                        // child.material.map = ThreeAssetsManager.GetTexture(AssetId.TEXTURE_MIDDLE_BLOC);
+                        child.material = basMat;
                     }
                 });
             }
 
             if (child.name === Object3DId.LOBBY_FLOAR) {
+                const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_FLOAR) });
+                // const basMat = new MeshBasicMaterial({ color: 0xff0000 });
+
                 child.traverse((child: Object3D) => {
                     if (child instanceof Mesh) {
-                        // child.material.map = ThreeAssetsManager.GetTexture(AssetId.TEXTURE_MIDDLE_BLOC);
+                        child.material = basMat;
+                    }
+                });
+            }
+
+            if (child.name === Object3DId.LOBBY_WALL) {
+                const basMat = new MeshBasicMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_WALL_BAKE) });
+                // const basMat = new MeshBasicMaterial({ color: 0xff0000 });
+
+                child.traverse((child: Object3D) => {
+                    if (child instanceof Mesh) {
+                        child.material = basMat;
                     }
                 });
             }

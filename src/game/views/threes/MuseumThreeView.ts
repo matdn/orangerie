@@ -1,4 +1,4 @@
-import { AmbientLight, AxesHelper, CameraHelper, DirectionalLight, DirectionalLightHelper, DirectionalLightShadow, Intersection, Mesh, MeshBasicMaterial, MeshLambertMaterial, MeshPhongMaterial, MeshPhysicalMaterial, Object3D, PlaneGeometry, PointLight, Vector2, Vector3 } from "three";
+import { AmbientLight, AxesHelper, CameraHelper, DirectionalLight, DirectionalLightHelper, DirectionalLightShadow, Intersection, Mesh, MeshBasicMaterial, MeshLambertMaterial, MeshPhongMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PointLight, Vector2, Vector3 } from "three";
 import { Object3DId } from "../../constants/games/Object3DId";
 import { ViewId } from "../../constants/views/ViewId";
 import { ViewPlacementId } from "../../constants/views/ViewPlacementId";
@@ -11,6 +11,8 @@ import { ThreeInteractive } from "../../core/_engine/threejs/interactives/ThreeI
 import { InteractionName } from "../../core/_engine/threejs/constants/InteractionName";
 import { WaveMaterial } from "../../materials/commons/WaveMaterial";
 import { BirdWingMaterial } from "../../materials/commons/BirdWingMaterial";
+import { AssetId } from "../../constants/games/AssetId";
+import { ThreeAssetsManager } from "@cooker/three";
 
 export default class MuseumThreeView extends WithoutTransitionThreeView {
     private _camera: ThreeCameraControllerBase;
@@ -67,8 +69,8 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
 
             if (child instanceof Mesh) {
                 if (child.name === Object3DId.MUSEUM_WALL) {
-                    child.material = new MeshPhysicalMaterial({ color: 0xeeeeee });
-
+                    const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_WALL_MUSEUM) });
+                    child.material = basMat;
                 }
                 if (child.name === Object3DId.MUSEUM_TOP) {
                     child.material = new MeshBasicMaterial({ color: 0xffffff });
@@ -80,9 +82,9 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                     child.castShadow = true;
                 }
                 if (child.name === Object3DId.MUSEUM_GROUND) {
-                    child.material = new MeshPhysicalMaterial({ color: 0xffffff, reflectivity: 1, metalness: 0.5 });
-                    // child.material = this._waveMaterial;
-                    child.receiveShadow = true;
+                    const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_GROUND) });
+                    child.material = basMat;
+
                 }
                 if (child.name === Object3DId.MUSEUM_BIRD_LEFT_WING) {
                     child.material = this._birdWingLeftMaterial;

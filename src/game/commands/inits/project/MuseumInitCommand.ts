@@ -7,12 +7,16 @@ import { ThreeCamerasProxy } from '../../../core/_engine/threejs/proxies/ThreeCa
 import InitCommandBase from "../../../core/commands/inits/initcommands/bases/InitCommandBase";
 import MuseumThreeView from '../../../views/threes/MuseumThreeView';
 import { AnalyseGLTFCommand } from '../AnalyseGLTFCommand';
+import { ThreePostProcessingsProxy } from '../../../core/_engine/threejs/proxies/ThreePostProcessingsProxy';
+import { AquarellePostProcessing } from '../../../postprocessings/AquarellePostProcessing';
 
 
 export class MuseumInitCommand extends InitCommandBase {
 
     public override async initProxies(): Promise<void> {
         ThreeCamerasProxy.AddCamera(new MuseumCameraController());
+        ThreePostProcessingsProxy.AddPostProcessing(new AquarellePostProcessing());
+
     }
 
     public override async initManagers(): Promise<void> {
@@ -36,7 +40,10 @@ export class MuseumInitCommand extends InitCommandBase {
         ThreeAssetsManager.AddRGBE(AssetId.HDR_LOBBY, this._getAssetPath('hdr/lobby.hdr'));
         ThreeAssetsManager.AddRGBE(AssetId.HDR_PARK, this._getAssetPath('hdr/park.hdr'));
 
-        // ThreeAssetsManager.AddTexture(AssetId.TEXTURE_MIDDLE_BLOC, this._getAssetPath('textures/commons/bake1.png'));
+        ThreeAssetsManager.AddTexture(AssetId.TEXTURE_GROUND, this._getAssetPath('textures/commons/ground.png'));
+        ThreeAssetsManager.AddTexture(AssetId.TEXTURE_AQUARELLE, this._getAssetPath('images/aquarelleText.webp'));
+        ThreeAssetsManager.AddTexture(AssetId.TEXTURE_WALL_MUSEUM, this._getAssetPath('textures/commons/museumBakeWall.png'));
+
     }
 
     public override async addViews(): Promise<void> {

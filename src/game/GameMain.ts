@@ -67,6 +67,7 @@ export default class GameMain {
         }
         // TheaterTransitionCommand.Show(TheaterId.MUSEUM);
         TheaterTransitionCommand.Show(TheaterId.LOBBY);
+        // TheaterTransitionCommand.Show(TheaterId.PARK);
     }
 
     public static get IsInit(): boolean { return GameMain._IsInit; }

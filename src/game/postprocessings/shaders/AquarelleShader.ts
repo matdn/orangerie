@@ -1,15 +1,14 @@
 import { Vector2 } from "three";
 
 const AquarelleShader = {
+	uniforms: {
+		'tDiffuse': { value: null },
+		'tAquarelle': { value: null },
+		'time': { value: 0 },
+		'ratio': { value: new Vector2(1, 1) },
+	},
 
-  uniforms: {
-    'tDiffuse': { value: null },
-    'tAquarelle': { value: null },
-    'time': { value: 0 },
-    'ratio': { value: new Vector2(1, 1)},
-  },
-
-  vertexShader: /* glsl */`
+	vertexShader: /* glsl */`
 		precision mediump  float;
 		varying vec2 vUv;
 		void main() {
@@ -18,7 +17,7 @@ const AquarelleShader = {
 			
 		}`,
 
-  fragmentShader: /* glsl */`
+	fragmentShader: /* glsl */`
 		precision mediump  float;
 		uniform sampler2D tDiffuse;
     	uniform sampler2D tAquarelle;
@@ -35,7 +34,7 @@ const AquarelleShader = {
 			vec2 uv = vUv;
 
 			vec4 aquarelle = texture2D(tAquarelle, uv*ratio*0.3 + time*0.005);
-			vec4 col = texture2D(tDiffuse, uv+((aquarelle.r-0.5)*0.0015));
+			vec4 col = texture2D(tDiffuse, uv+((aquarelle.r-0.5)*0.005));
 			col.r += aquarelle.r*0.02;
 			col.g += -aquarelle.g*0.02;
 			// col = floor(col*8.)/8.;

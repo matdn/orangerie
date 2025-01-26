@@ -91,6 +91,7 @@ export class MainThree {
       alpha: true,
       preserveDrawingBuffer: true,
     });
+
     this.Renderer.shadowMap.enabled = true;
     this.Renderer.shadowMap.type = PCFSoftShadowMap;
     this.Renderer.shadowMap.autoUpdate = true;

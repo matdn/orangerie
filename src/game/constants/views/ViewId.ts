@@ -4,6 +4,7 @@ export enum ViewId {
     THREE_MUSEUM = 'THREE_MUSEUM',
     THREE_MAIN = 'THREE_MAIN',
     THREE_LOBBY = 'THREE_LOBBY',
+    THREE_PARK = 'THREE_PARK',
 
 
     LOBBY_REACT = 'LOBBY_REACT',

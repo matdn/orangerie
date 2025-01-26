@@ -1,27 +1,28 @@
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { memo, useEffect } from "react";
+import hoverEffect from "hover-effect";
 import ReactViewBase, { TransitionProps } from "../../../core/_engine/reacts/views/bases/ReactViewBase";
-import { TheatersManager } from "pancake";
-import { TheaterId } from "../../../constants/theaters/TheaterId";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LobbyReactView = memo((props: TransitionProps) => {
+const LobbyReactView: React.FC<TransitionProps> = (props) => {
+    const hoverRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        // Initialize GSAP animations
         gsap.to(".title", {
             scrollTrigger: {
                 trigger: ".titlesContainer",
                 start: "top top",
                 end: "center center",
                 scrub: true,
-                // markers: true,
             },
             opacity: 0,
             duration: 1,
             ease: "none",
         });
+
         gsap.to({}, {
             scrollTrigger: {
                 trigger: ".titlesContainer",
@@ -34,6 +35,17 @@ const LobbyReactView = memo((props: TransitionProps) => {
                 },
             },
         });
+
+        // Initialize hover-effect animation
+        if (hoverRef.current) {
+            new hoverEffect({
+                parent: hoverRef.current,
+                intensity: 0.3,
+                image1: "/images/myImage1.jpg",
+                image2: "/images/myImage2.jpg",
+                displacementImage: "/images/myDistorsionImage.png",
+            });
+        }
     }, []);
 
     return (
@@ -41,8 +53,11 @@ const LobbyReactView = memo((props: TransitionProps) => {
             <div>
                 <h1 className="title"><span>Les Reveries de</span><br />l'Orangerie</h1>
             </div>
+            <div ref={hoverRef} className="hover-container" style={{ width: "100%", height: "400px" }}>
+                {/* The hover effect will be rendered here */}
+            </div>
         </ReactViewBase>
     );
-});
+};
 
 export default LobbyReactView;

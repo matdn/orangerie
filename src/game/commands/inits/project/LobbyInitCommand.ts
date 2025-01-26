@@ -14,6 +14,7 @@ import ReactHTMLView from '../../../core/_engine/htmls/views/ReactHTMLView';
 import { ViewPlacementId } from '../../../constants/views/ViewPlacementId';
 import LobbyReactView from '../../../views/doms/reacts/LobbyReactView';
 import { AquarelleShader } from '../../../postprocessings/shaders/AquarelleShader';
+import { AquarellePostProcessing } from '../../../postprocessings/AquarellePostProcessing';
 
 
 export class LobbyInitCommand extends InitCommandBase {
@@ -21,6 +22,7 @@ export class LobbyInitCommand extends InitCommandBase {
     public override async initProxies(): Promise<void> {
         ThreeCamerasProxy.AddCamera(new LobbyCameraController());
         ThreePostProcessingsProxy.AddPostProcessing(new BloomPostProcessing());
+        ThreePostProcessingsProxy.AddPostProcessing(new AquarellePostProcessing());
 
     }
 
@@ -48,6 +50,7 @@ export class LobbyInitCommand extends InitCommandBase {
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_MIDDLE_BLOC, this._getAssetPath('textures/commons/bake1.png'));
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_WALL_BAKE, this._getAssetPath('textures/commons/wallBake.png'));
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_FLOAR, this._getAssetPath('textures/commons/floar.png'));
+        ThreeAssetsManager.AddTexture(AssetId.TEXTURE_TITLE, this._getAssetPath('textures/commons/title.png'));
     }
 
     public override async addViews(): Promise<void> {

@@ -27,5 +27,7 @@ export class MuseumThreeTheater extends ThreeTheaterBase {
     }
     public override init(): void {
         super.init();
+        // this._threePostProcessingId = PostProcessingId.AQUARELLE;
+
     }
 }
