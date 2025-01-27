@@ -22,12 +22,15 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
     private _pointLight: PointLight;
     private _imagePlane: Mesh;
     private _titlePlane: Mesh;
-
+    private _clouds: Mesh;
+    private _secondClouds: Mesh;
+    private _time: number = 0;
 
     constructor() {
         super(ViewId.THREE_LOBBY, ViewPlacementId.THREE_MAIN);
         this._lobbyMesh = Object3DsProxy.GetObject3D(Object3DId.LOBBY);
         this.add(this._lobbyMesh);
+
         this._camera = ThreeCamerasProxy.CamerasMap.get('LOBBY');
         this.add(this._camera);
         this._imagePlane = new Mesh();
@@ -36,6 +39,8 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         const cameraHelper = new CameraHelper(this._camera.camera);
         this._titlePlane = new Mesh();
         const geometry = new PlaneGeometry(100, 100, 1, 1);
+        const cloudGeometry = new PlaneGeometry(100, 100, 1, 1);
+
         this._titlePlane.geometry = geometry;
         this._titlePlane.position.set(0, 2, 100);
         this._titlePlane.scale.set(0.35, 0.35, 0.35);
@@ -45,7 +50,25 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
             map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_TITLE),
             side: DoubleSide,
             transparent: true,
+            emissive: 0xffffff,
+            emissiveIntensity: 0.6,
         });
+        this._clouds = new Mesh();
+        this._clouds.geometry = cloudGeometry;
+        this._clouds.position.set(-20, 30, 10);
+        this._clouds.scale.set(0.75, 0.75, 0.75);
+        this._clouds.material = new MeshStandardMaterial({
+            map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_CLOUDS),
+            side: DoubleSide,
+            transparent: true,
+            opacity: 0.1,
+            emissive: 0xffffff,
+            emissiveIntensity: 0.9,
+        });
+        this._secondClouds = this._clouds.clone();
+        this._secondClouds.position.set(20, -35, 9);
+        // this.add(this._clouds);
+        // this.add(this._secondClouds);
         this.add(this._titlePlane);
         // MainThree.Scene.add(cameraHelper);
         window.addEventListener('updateCameraPosition', this._onUpdateCameraPosition.bind(this));
@@ -59,12 +82,14 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         const glassMaterial = new MeshPhysicalMaterial({
             color: 0xeeeeee,
             transparent: true,
-            opacity: 0.7,
-            metalness: 0.9,
+            opacity: 0.8,
+            metalness: 1,
             roughness: 1,
             clearcoat: 1,
-            reflectivity: 0.8,
+            reflectivity: 1,
             envMapIntensity: 1,
+            emissive: 0xffffff,
+            emissiveIntensity: 0.1,
         });
         const whiteMaterial = new MeshPhysicalMaterial({
             color: 0xffffff,
@@ -122,7 +147,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
             }
 
             if (child.name === Object3DId.LOBBY_WALL) {
-                const basMat = new MeshBasicMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_WALL_BAKE) });
+                const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_WALL_BAKE) });
                 // const basMat = new MeshBasicMaterial({ color: 0xff0000 });
 
                 child.traverse((child: Object3D) => {
@@ -155,9 +180,18 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
     public override update(dt: number): void {
         super.update(dt);
 
+        this._time += dt;
+
+        const oscillationSpeed = 0.005; // Vitesse de l'oscillation
+        const oscillationAmplitude = 12; // Amplitude de l'oscillation
+
+        // Calcul fluide de la position en Y
+        this._clouds.position.x = Math.sin(this._time * 0.1 * oscillationSpeed) * oscillationAmplitude;
+        this._secondClouds.position.x = -Math.sin(this._time * 0.1 * oscillationSpeed) * oscillationAmplitude;
+
+        // Calcul des rotations basées sur la position de la souris
         const rotationX = this._mouse.y * this._cameraRotationFactor;
         const rotationY = this._mouse.x * this._cameraRotationFactor;
-
         this._camera.rotation.x += (rotationX - this._camera.rotation.x) * 0.1;
         this._camera.rotation.y += (Math.PI / 2) + (rotationY - this._camera.rotation.y) * 0.1;
 

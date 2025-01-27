@@ -51,6 +51,7 @@ export class LobbyInitCommand extends InitCommandBase {
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_WALL_BAKE, this._getAssetPath('textures/commons/wallBake.png'));
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_FLOAR, this._getAssetPath('textures/commons/floar.png'));
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_TITLE, this._getAssetPath('textures/commons/title.png'));
+        ThreeAssetsManager.AddTexture(AssetId.TEXTURE_CLOUDS, this._getAssetPath('images/cloud.webp'));
     }
 
     public override async addViews(): Promise<void> {
