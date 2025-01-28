@@ -1,13 +1,12 @@
-import { Fog, Mesh, MeshStandardMaterial, PlaneGeometry } from "three";
+import { Fog } from "three";
 import { LobbyInitCommand } from "../commands/inits/project/LobbyInitCommand";
 import { AssetId } from "../constants/games/AssetId";
 import { CameraId } from "../constants/games/CameraId";
+import { PostProcessingId } from "../constants/games/PostProcessingId";
 import { TheaterId } from "../constants/theaters/TheaterId";
 import { TheaterPlacementId } from "../constants/theaters/TheaterPlacementId";
 import { ViewId } from "../constants/views/ViewId";
 import ThreeTheaterBase from "../core/theaters/ThreeTheaterBase";
-import { MainThree } from "../core/_engine/threejs/MainThree";
-import { PostProcessingId } from "../constants/games/PostProcessingId";
 
 export class LobbyThreeTheater extends ThreeTheaterBase {
 

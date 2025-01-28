@@ -56,7 +56,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this._clouds = new Mesh();
         this._clouds.geometry = cloudGeometry;
         this._clouds.position.set(-20, 30, 10);
-        this._clouds.scale.set(0.75, 0.75, 0.75);
+        this._clouds.scale.set(1.2, 1.2, 1.2);
         this._clouds.material = new MeshStandardMaterial({
             map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_CLOUDS),
             side: DoubleSide,
@@ -85,11 +85,11 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
             opacity: 0.8,
             metalness: 1,
             roughness: 1,
-            clearcoat: 1,
-            reflectivity: 1,
+            clearcoat: 0,
+            reflectivity: 0,
             envMapIntensity: 1,
-            emissive: 0xffffff,
-            emissiveIntensity: 0.1,
+            // emissive: 0xffffff,
+            // emissiveIntensity: 0.1,
         });
         const whiteMaterial = new MeshPhysicalMaterial({
             color: 0xffffff,

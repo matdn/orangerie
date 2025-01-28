@@ -2,6 +2,26 @@
 @import './view/preloads.scss';
 @import './view/components/buttons.scss';
 
+@font-face {
+    font-family: 'Instrument';
+    src: url('../../../public/assets/game/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Instrument';
+    src: url('../../../public/assets/game/fonts/InstrumentSerif-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'NHaasGrotesk';
+    src: url('../../../public/assets/game/fonts/NHaasGrotesk_Bold.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
 
 canvas {
     position: fixed;
@@ -36,5 +56,33 @@ canvas {
                 font-size: 64px;
             }
         }
+    }
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    h2 {
+        font-family: 'NHaasGrotesk';
+        font-size: 6rem;
+        font-weight: 900;
+        text-transform: uppercase;
+    }
+
+    h3 {
+        font-family: 'Instrument';
+        font-size: 3.5rem;
+        text-transform: uppercase;
+    }
+
+    h4 {
+        font-family: 'Instrument';
+        font-size: 2rem;
+        font-style: italic;
     }
 }

@@ -16,19 +16,16 @@ import { ThreeAssetsManager } from "@cooker/three";
 
 export default class MuseumThreeView extends WithoutTransitionThreeView {
     private _camera: ThreeCameraControllerBase;
-    private _intersection = new Vector2();
-    private _interaction: ThreeInteractive;
+    // private _intersection = new Vector2();
+    // private _interaction: ThreeInteractive;
     private _museumMesh: Object3D;
     // private _wallMesh: Mesh;
     private _cameraRotationFactor: number = 0.09;
     private _mouse: Vector2 = new Vector2(0, 0);
-    private _waveMaterial: WaveMaterial = new WaveMaterial();
     private _birdWingRightMaterial: BirdWingMaterial = new BirdWingMaterial(1);
     private _birdWingLeftMaterial: BirdWingMaterial = new BirdWingMaterial(-1);
     constructor() {
         super(ViewId.THREE_MUSEUM, ViewPlacementId.THREE_MAIN);
-
-        // this._wallMesh = Object3DsProxy.GetObject3D<Mesh>(Object3DId.MUSEUM_WALL);
 
         this._museumMesh = Object3DsProxy.GetObject3D(Object3DId.MUSEUM);
         this.add(this._museumMesh);
@@ -40,26 +37,8 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
         light.position.set(0, 5, 5);
         this.add(light);
 
-        // this._interaction = new ThreeInteractive(this._museumMesh);
-        // this._addCallbacks();
-
-
-
         const directionalLight = new DirectionalLight(0x00ff00, Math.PI);
         directionalLight.position.set(12, -2, 0);
-
-        // this.add(new DirectionalLightHelper(directionalLight));
-        // this.add(directionalLight);
-        // directionalLight.castShadow = true;
-        // directionalLight.shadow.camera.near = 10;
-        // directionalLight.shadow.camera.far = 40;
-        // directionalLight.shadow.camera.left = 100;
-        // directionalLight.shadow.camera.right = 100;
-        // directionalLight.shadow.camera.top = 100;
-        // directionalLight.shadow.camera.bottom = 100;
-
-        // directionalLight.shadow.mapSize.width = 2024;
-        // directionalLight.shadow.mapSize.height = 2024;
 
         const pointLight = new PointLight(0xffffff, 400, 160);
         pointLight.position.set(0, -200, 0);
@@ -69,7 +48,8 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
 
             if (child instanceof Mesh) {
                 if (child.name === Object3DId.MUSEUM_WALL) {
-                    const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_WALL_MUSEUM) });
+                    // const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_WALL_MUSEUM) });
+                    const basMat = new MeshStandardMaterial({ color: 0xffffff });
                     child.material = basMat;
                 }
                 if (child.name === Object3DId.MUSEUM_TOP) {
@@ -78,8 +58,11 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                 }
                 if (child.name === Object3DId.MUSEUM_TREE) {
                     child.material = new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.1 });
-                    // directionalLight.target = child;
-                    child.castShadow = true;
+                    child.position.x = 0.5;
+                }
+                if (child.name === Object3DId.MUSEUM_ORANGES) {
+                    // child.material = new MeshPhysicalMaterial({ color: 0xFFFFFF, metalness: 1, roughness: 0.1 });
+                    child.position.x = 0.5;
                 }
                 if (child.name === Object3DId.MUSEUM_GROUND) {
                     const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_GROUND) });
@@ -95,31 +78,7 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
             }
 
         });
-        // this._initMouseListener();
-
     }
-
-    // private _initMouseListener(): void {
-    //     window.addEventListener("mousemove", (event) => {
-    //         this._mouse.y = (event.clientX / window.innerWidth) * 2 - 1;
-    //         this._mouse.x = -(event.clientY / window.innerHeight) * 2 + 1;
-    //     });
-    // }
-
-    // private _addCallbacks(): void {
-    //     this._interaction.onInteraction.add(this._onInteraction);
-    //     // console.log(this._interaction());
-    // }
-
-    // private _removeCallbacks(): void {
-    //     this._interaction.onInteraction.remove(this._onInteraction);
-    // }
-
-    // private _onInteraction = (name: InteractionName, intersection: Intersection | null): void => {
-    //     if ((name === InteractionName.MOUSE_ENTER || name === InteractionName.MOUSE_MOVE) && intersection?.uv) {
-    //         this._waveMaterial.updateCursor(new Vector2(intersection.uv.x, intersection.uv.y));
-    //     }
-    // };
 
 
 
@@ -134,8 +93,8 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
         // this._waveMaterial.onBeforeRender(null as any);
 
         const rotationX = this._mouse.x * this._cameraRotationFactor;
-        const rotationY = this._mouse.y * this._cameraRotationFactor;
-        this._camera.rotation.y += (Math.PI / 2) + (rotationY - this._camera.rotation.y) * 1;
+        // const rotationY = this._mouse.y * this._cameraRotationFactor;
+        // this._camera.rotation.y += (Math.PI / 2) + (rotationY - this._camera.rotation.y) * 1;
         this._camera.start();
 
         const center = new Vector3(6, 2, 0);

@@ -8,6 +8,7 @@ export enum AssetId {
     GLTF_PARK = 'GLTF_PARK',
 
     HDR_LOBBY = 'HDR_LOBBY',
+    HDR_MUSEUM = 'HDR_MUSEUM',
     HDR_PARK = 'HDR_PARK',
     HDR_AUTOMN = 'HDR_AUTOMN',
     HDR_WINTER = 'HDR_WINTER',

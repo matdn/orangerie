@@ -8,8 +8,8 @@ export class MuseumCameraController extends FollowCameraControllerBase {
     constructor() {
         super(CameraId.MUSEUM);
         // this.rotateY(Math.PI);
-        this.position.set(-8, 0, 0);
-        this.lookAt(0, 0, 0);
+        this.position.set(-10, -1, 0);
+        this.lookAt(0, 1, 0);
     }
 
     public override start(): void {
