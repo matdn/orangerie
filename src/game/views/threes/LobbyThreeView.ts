@@ -1,4 +1,4 @@
-import { AmbientLight, CameraHelper, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PMREMGenerator, PointLight, SpotLight, SpotLightHelper, TextureLoader, Vector2 } from "three";
+import { AmbientLight, BackSide, CameraHelper, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PMREMGenerator, PointLight, SpotLight, SpotLightHelper, TextureLoader, Vector2 } from "three";
 import { Object3DId } from "../../constants/games/Object3DId";
 import { ViewId } from "../../constants/views/ViewId";
 import { ViewPlacementId } from "../../constants/views/ViewPlacementId";
@@ -46,17 +46,17 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this._titlePlane.scale.set(0.35, 0.35, 0.35);
         this._titlePlane.rotation.z = Math.PI;
         this._titlePlane.rotation.y = Math.PI;
-        this._titlePlane.material = new MeshStandardMaterial({
-            map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_TITLE),
-            side: DoubleSide,
-            transparent: true,
-            emissive: 0xffffff,
-            emissiveIntensity: 0.6,
-        });
+        // this._titlePlane.material = new MeshStandardMaterial({
+        //     map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_TITLE),
+        //     side: DoubleSide,
+        //     transparent: true,
+        //     emissive: 0xffffff,
+        //     emissiveIntensity: 0.6,
+        // });
         this._clouds = new Mesh();
         this._clouds.geometry = cloudGeometry;
         this._clouds.position.set(-20, 30, 10);
-        this._clouds.scale.set(1.2, 1.2, 1.2);
+        this._clouds.scale.set(2.2, 2.2, 2.2);
         this._clouds.material = new MeshStandardMaterial({
             map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_CLOUDS),
             side: DoubleSide,
@@ -67,8 +67,8 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         });
         this._secondClouds = this._clouds.clone();
         this._secondClouds.position.set(20, -35, 9);
-        // this.add(this._clouds);
-        // this.add(this._secondClouds);
+        this.add(this._clouds);
+        this.add(this._secondClouds);
         this.add(this._titlePlane);
         // MainThree.Scene.add(cameraHelper);
         window.addEventListener('updateCameraPosition', this._onUpdateCameraPosition.bind(this));
@@ -80,16 +80,17 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         // this.add(spotLight);
 
         const glassMaterial = new MeshPhysicalMaterial({
-            color: 0xeeeeee,
+            metalness: .9,
+            roughness: .5,
+            envMapIntensity: 0.9,
+            clearcoat: 1,
             transparent: true,
-            opacity: 0.8,
-            metalness: 1,
-            roughness: 1,
-            clearcoat: 0,
-            reflectivity: 0,
-            envMapIntensity: 1,
-            // emissive: 0xffffff,
-            // emissiveIntensity: 0.1,
+            // transmission: .95,
+            opacity: .5,
+            reflectivity: 0.2,
+            // refractionRatio: 0.985,
+            ior: 0.9,
+            // side: BackSide,
         });
         const whiteMaterial = new MeshPhysicalMaterial({
             color: 0xffffff,
@@ -182,7 +183,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
 
         this._time += dt;
 
-        const oscillationSpeed = 0.005; // Vitesse de l'oscillation
+        const oscillationSpeed = 0.003; // Vitesse de l'oscillation
         const oscillationAmplitude = 12; // Amplitude de l'oscillation
 
         // Calcul fluide de la position en Y

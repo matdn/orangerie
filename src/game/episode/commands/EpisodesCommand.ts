@@ -1,5 +1,5 @@
 import { GameId } from '../../constants/games/GameId.ts';
-import { EpisodeManager } from '../managers/EpisodeManager.ts';
+// import { EpisodeManager } from '../managers/EpisodeManager.ts';
 import { EpisodesProxy } from '../proxies/EpisodesProxy.ts';
 
 export class EpisodesCommand {
@@ -11,7 +11,7 @@ export class EpisodesCommand {
    */
   public static InitEpisodes(): void {
     if (this.Debug) console.log('EpisodesCommand.InitEpisodes');
-    EpisodeManager.Init();
+    // EpisodeManager.Init();
   }
 
   /**
@@ -26,7 +26,7 @@ export class EpisodesCommand {
       return;
     }
 
-    await EpisodeManager.OpenEpisode(episode);
+    // await EpisodeManager.OpenEpisode(episode);
   }
 
   /**
@@ -36,7 +36,7 @@ export class EpisodesCommand {
    */
   public static async FinishEpisode(): Promise<void> {
     if (this.Debug) console.log('EpisodesCommand.FinishEpisode');
-    await EpisodeManager.FinishEpisode();
+    // await EpisodeManager.FinishEpisode();
   }
 
   /**
@@ -46,16 +46,16 @@ export class EpisodesCommand {
    */
   public static async LeaveEpisode(): Promise<void> {
     if (this.Debug) console.log('EpisodesCommand.LeaveEpisode');
-    await EpisodeManager.LeaveEpisode();
+    // await EpisodeManager.LeaveEpisode();
   }
 
 
   public static async SendScore(gameId: GameId | string, elementId: GameId | string, score?: number, answers?: number[]): Promise<void> {
-    if(this.Debug)console.log('EpisodesCommand.SendScore', gameId, elementId, score, answers);
-    await EpisodeManager.SendScore(gameId, elementId, score, answers);
+    if (this.Debug) console.log('EpisodesCommand.SendScore', gameId, elementId, score, answers);
+    // await EpisodeManager.SendScore(gameId, elementId, score, answers);
   }
 
   public static async FinishGame(): Promise<void> {
-    await EpisodeManager.FinishEpisode(true);
+    // await EpisodeManager.FinishEpisode(true);
   }
 }

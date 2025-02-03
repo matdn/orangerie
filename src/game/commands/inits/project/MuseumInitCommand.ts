@@ -46,6 +46,7 @@ export class MuseumInitCommand extends InitCommandBase {
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_GROUND, this._getAssetPath('textures/commons/ground.png'));
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_AQUARELLE, this._getAssetPath('images/aquarelleText.webp'));
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_WALL_MUSEUM, this._getAssetPath('textures/commons/museumBakeWall.png'));
+        ThreeAssetsManager.AddTexture(AssetId.TEXTURE_LEFT_WALL, this._getAssetPath('textures/commons/leftWall.png'));
 
     }
 

@@ -75,6 +75,12 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                 if (child.name === Object3DId.MUSEUM_BIRD_RIGHT_WING) {
                     child.material = this._birdWingRightMaterial;
                 }
+                if (child.name === Object3DId.MUSEUM_LEFT_PAINT) {
+                    child.material = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_LEFT_WALL) });
+                }
+                if (child.name === Object3DId.MUSEUM_RIGHT_PAINT) {
+                    child.material = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_LEFT_WALL) });
+                }
             }
 
         });

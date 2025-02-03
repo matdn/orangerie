@@ -1,11 +1,11 @@
 import { Vector3 } from "@dimforge/rapier3d-compat";
 import { Ticker } from "cookware";
 import { IUniform, Material, MeshStandardMaterial, WebGLProgramParametersWithUniforms, WebGLRenderer } from "three";
-import { WindManager } from "../../managers/WindManager";
+// import { WindManager } from "../../managers/WindManager";
 
 export class WindShaderMaterial extends MeshStandardMaterial {
 
-    private _uniforms: { [uniform: string]: IUniform };
+    private _uniforms: { [uniform: string]: IUniform; };
 
     private readonly _strengh: number = 1;
 
@@ -60,9 +60,9 @@ export class WindShaderMaterial extends MeshStandardMaterial {
 
     onBeforeRender(renderer: WebGLRenderer): void {
         if (this._uniforms) {
-            this._uniforms.wind.value.x = WindManager.Wind.x;
-            this._uniforms.wind.value.y = WindManager.Wind.y;
-            this._uniforms.wind.value.z = WindManager.Wind.z;
+            // this._uniforms.wind.value.x = WindManager.Wind.x;
+            // this._uniforms.wind.value.y = WindManager.Wind.y;
+            // this._uniforms.wind.value.z = WindManager.Wind.z;
             this._uniforms.time.value = Ticker.ElapsedTime * 0.001;
         }
     }

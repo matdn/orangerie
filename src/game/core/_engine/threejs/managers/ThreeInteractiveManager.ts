@@ -69,7 +69,7 @@ export class ThreeInteractiveManager {
         this._Raycast(InteractionName.MOUSE_DOWN);
         window.addEventListener(DomEvent.MOUSE_UP, this._OnMouseUp);
         window.addEventListener(DomEvent.MOUSE_LEAVE, this._OnMouseUp);
-    }
+    };
 
     private static _OnMouseUp = (e: Event): void => {
         this._isMouseDown = false;
@@ -77,19 +77,19 @@ export class ThreeInteractiveManager {
         this._Raycast(InteractionName.MOUSE_UP);
         window.removeEventListener(DomEvent.MOUSE_UP, this._OnMouseUp);
         window.removeEventListener(DomEvent.MOUSE_LEAVE, this._OnMouseUp);
-    }
+    };
 
     private static _OnMouseMove = (e: Event): void => {
         this._UpdatePointerPosition(e);
         this._Raycast(InteractionName.MOUSE_MOVE);
-    }
+    };
 
     private static _Update = (): void => {
         const delta = Ticker.CurrentTime - this._LasTimeUpdate;
         if (delta < ThreeInteractiveManager._TimeBetweenUpdate) return;
         ThreeInteractiveManager._LasTimeUpdate = Ticker.CurrentTime;
         this._RefreshUnderMouseObjects();
-    }
+    };
 
     private static _RefreshUnderMouseObjects() {
         this._Raycast();
@@ -141,17 +141,17 @@ export class ThreeInteractiveManager {
         for (let o of this._InteractivesArray) {
             if (o.isActivate) {
                 for (const mesh of o.targets) {
-                    if (this._IsInScene(mesh) || o.interactWhenNotInScene) {
-                        if (mesh.visible || o.interactWhenNotVisible) {
-                            if (DeviceUtils.IsMobile) {
-                                if (this._isMouseDown) {
-                                    this._InteractivesActiveArray.push(mesh);
-                                }
-                            } else {
-                                this._InteractivesActiveArray.push(mesh);
-                            }
-                        }
-                    }
+                    // if (this._IsInScene(mesh) || o.interactWhenNotInScene) {
+                    //     if (mesh.visible || o.interactWhenNotVisible) {
+                    //         if (DeviceUtils.IsMobile) {
+                    //             if (this._isMouseDown) {
+                    //                 this._InteractivesActiveArray.push(mesh);
+                    //             }
+                    //         } else {
+                    //             this._InteractivesActiveArray.push(mesh);
+                    //         }
+                    //     }
+                    // }
                 }
             }
         }
@@ -200,7 +200,7 @@ export class ThreeInteractiveManager {
 
     private static _Resize = (): void => {
         this._DomElementRect = this._DomElement.getBoundingClientRect();
-    }
+    };
 
     private static _AddCallbacks(): void {
         this._RemoveCallbacks();
@@ -243,7 +243,7 @@ export class ThreeInteractiveManager {
     //#endregion
 }
 
-export const GetMousePosition = (e: Event): { x: number, y: number } => {
+export const GetMousePosition = (e: Event): { x: number, y: number; } => {
     let x = 0;
     let y = 0;
     if (e instanceof MouseEvent) {
@@ -256,4 +256,4 @@ export const GetMousePosition = (e: Event): { x: number, y: number } => {
         }
     }
     return { x: x, y: y };
-}
+};

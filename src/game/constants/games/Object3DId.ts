@@ -19,5 +19,7 @@ export enum Object3DId {
     MUSEUM_BIRD_LEFT_WING = AssetId.GLTF_MUSEUM + 'wingLeft',
     MUSEUM_BIRD_RIGHT_WING = AssetId.GLTF_MUSEUM + 'wingRight',
     MUSEUM_ORANGES = AssetId.GLTF_MUSEUM + 'oranges',
+    MUSEUM_LEFT_PAINT = AssetId.GLTF_MUSEUM + 'LeftWall',
+    MUSEUM_RIGHT_PAINT = AssetId.GLTF_MUSEUM + 'RightWall',
     PARK = AssetId.GLTF_PARK + 'Park',
 }

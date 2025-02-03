@@ -149,7 +149,7 @@ export class BlurPass extends Pass {
         const camera = followCamera.camera;
         let center = 0;
         let distance = 2;
-        if (followCamera) center = followCamera.position.distanceTo(followCamera.lookAtPosition);
+        // if (followCamera) center = followCamera.position.distanceTo(followCamera.lookAtPosition);
         // center *= distance;
         // center = ThreeMouseManager.RelativeMouseY * 100;
         // distance = ThreeMouseManager.RelativeMouseY * 10;
