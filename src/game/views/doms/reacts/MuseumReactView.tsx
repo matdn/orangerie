@@ -11,7 +11,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
     return (
         <ReactViewBase {...props} className="titlesContainer">
             <div className="titleContainer">
-                <h4>Chapitre 01</h4>
+                <h4>Chapitre 02</h4>
                 <h2 className="title">L'Orangerie</h2>
                 <h3>à l’origine il y’a la serre</h3>
 
