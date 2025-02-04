@@ -50,9 +50,9 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
 
     return (
         <ReactViewBase {...props} className="titlesContainer">
-            <div>
+            {/* <div>
                 <h1 className="title"><span>Les Reveries de</span><br />l'Orangerie</h1>
-            </div>
+            </div> */}
             <div ref={hoverRef} className="hover-container" style={{ width: "100%", height: "400px" }}>
                 {/* The hover effect will be rendered here */}
             </div>
