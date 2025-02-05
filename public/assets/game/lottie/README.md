@@ -1,1 +1,0 @@
-add game lottie files
