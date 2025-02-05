@@ -11,8 +11,6 @@ import InitCommand from './core/commands/inits/InitCommand.ts';
 import { TheaterTransitionCommand } from './core/commands/TheaterTransitionCommand.ts';
 import { DebugManager } from "./core/debugs/DebugManager";
 import { ScormService } from './episode/services/ScormService.ts';
-import { VoiceOverInitCommand } from './voice-over/VoiceOverInitCommand';
-import { VoiceOverService } from './voice-over/VoiceOverService';
 
 export default class GameMain {
     private static _Initiated = false;
@@ -25,10 +23,8 @@ export default class GameMain {
         GameMain._Initiated = true;
         // await TranslationKeyManager.Init();
 
-        await VoiceOverService.Init();
 
         InitCommand.Execute([
-            new VoiceOverInitCommand(),
             new CommonProjectInitCommand(),
 
         ]).then(() => {

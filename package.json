@@ -42,6 +42,7 @@
     "@gsap/react": "^2.1.2",
     "@headlessui/react": "^2.1.3",
     "@heroicons/react": "^2.1.5",
+    "@number-flow/react": "^0.5.5",
     "@react-three/drei": "^9.111.3",
     "@react-three/fiber": "^8.17.6",
     "@storyblok/react": "^3.0.13",

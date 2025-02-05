@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ReactViewBase, {
@@ -6,29 +6,41 @@ import ReactViewBase, {
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const timelineAnimation = () => {
     const tl = gsap.timeline();
     tl.from('.header-icon', {
       duration: 1,
-      delay: 2,
+      delay: 1,
       x: '-100%',
       ease: 'power1.out',
     });
     tl.from(
       '.main-text',
       {
-        duration: 1,
+        duration: 1.5,
         stagger: 0.1,
         opacity: 0.2,
         yPercent: '100',
-        ease: 'power1.out',
+        ease: 'power4.out',
       },
       '<'
     );
     tl.from(
-      '.footer-text',
+      '.button-container',
       {
         duration: 1,
+        opacity: 0,
+        yPercent: '20',
+        ease: 'power1.out',
+      },
+      '>.5'
+    );
+    tl.from(
+      '.footer-text',
+      {
+        duration: 0.5,
         opacity: 0.2,
         yPercent: '100',
         ease: 'power1.out',
@@ -38,7 +50,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
     tl.from(
       '.footer-icon',
       {
-        duration: 1,
+        duration: 0.5,
         scale: 0,
         ease: 'elastic.out(1, 0.5)',
       },
@@ -46,7 +58,26 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
     );
   };
 
-  useGSAP(timelineAnimation);
+  useGSAP(() => {
+    timelineAnimation();
+  }, []);
+
+  useGSAP(() => {
+    console.log('isHovered', isHovered);
+    if (isHovered) {
+      gsap.to('.button-content', {
+        x: 30,
+        duration: 0.6,
+        ease: 'power2.out',
+      });
+    } else {
+      gsap.to('.button-content', {
+        x: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+      });
+    }
+  }, [isHovered]);
 
   return (
     <ReactViewBase {...props} className='z-50 w-full flex flex-col'>
@@ -76,23 +107,46 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       <div className='h-full w-full flex flex-col items-center justify-center'>
         <div className='overflow-hidden'>
           <h1 className='main-text font-instrument text-9xl text-white'>
-            Les rêveries
+            Les Rêveries
           </h1>
         </div>
         <div className='overflow-hidden'>
           <h1 className='main-text font-instrument text-[10rem] leading-[1.2] text-white'>
-            L'orangerie
+            L'Orangerie
           </h1>
         </div>
-        <div className='overflow-hidden'></div>
+          <button
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className='button-container relative overflow-hidden px-8 py-2 rounded-full border border-white backdrop-blur-[2px] bg-white/5 mt-5'
+          >
+            <div className='button-content flex items-center gap-3'>
+              <svg
+                className='w-5 h-5 text-white'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+              >
+                <path
+                  d='M5 12h14m-7-7 7 7-7 7'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+              <span className='text-white/90 text-sm font-light tracking-wide'>
+                Explore
+              </span>
+            </div>
+          </button>
       </div>
       <div className='w-full p-8 px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
-          <p className='footer-text text-white/50 uppercase text-[0.5rem] leading-none'>
+          <p className='footer-text text-white/50 uppercase text-[0.8rem] leading-none'>
             Unofficial museum website
           </p>
         </div>
-        <div className='overflow-hidden cursor-pointer' >
+        <div className='overflow-hidden cursor-pointer'>
           <svg
             className='footer-icon text-white'
             xmlns='http://www.w3.org/2000/svg'
