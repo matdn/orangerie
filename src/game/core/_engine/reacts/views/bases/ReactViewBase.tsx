@@ -53,7 +53,7 @@ export default function ReactViewBase({viewId, children, className = '', handleC
     }, []);
 
     return (
-        <div {...props} id={viewId} className={`view ${className} ${targetClass}`} ref={target} key={viewId}>
+        <div {...props} id={viewId} className={`view h-dvh ${className} ${targetClass}`} ref={target} key={viewId}>
             {children}
         </div>
     )

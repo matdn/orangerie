@@ -2,10 +2,7 @@ import { TheatersManager, TheatersProxy } from 'pancake';
 import { useCallback, useEffect, useState } from 'react';
 import { DomEvent, KeyboardConstant } from 'spices';
 import { KeyboardManager } from '../../../managers/KeyboardManager';
-import I18nHTMLText from './components/texts/I18nHTMLText.tsx';
 import OpacityAnimatedReactView from './OpacityAnimatedReactView';
-import VerticalSwapButton from './buttons/VerticalSwapButton';
-import ButtonBase from './buttons/bases/ButtonBase';
 import { TheaterTransitionCommand } from '../../../commands/TheaterTransitionCommand';
 
 export const QuickLinksReactViewId = 'quickLinks';
@@ -57,7 +54,7 @@ export default function QuickLinksReactView() {
             if (!QuickLinksExcludedID.includes(theaterId)) {
                 buttons.push(
                     <li key={theaterId}>
-                        <VerticalSwapButton className='buttonLink' onClick={() => showTheater(theaterId)}>{theaterId}</VerticalSwapButton>
+                        
                     </li>
                 );
             }
@@ -67,10 +64,6 @@ export default function QuickLinksReactView() {
 
     return (
         <OpacityAnimatedReactView className={`quickLinks ${QuickLinksReactViewOptions.className}`} viewId={QuickLinksReactViewId}>
-            <ButtonBase onClick={handleClickOpenButton} className={`openButton ${QuickLinksReactViewOptions.className}`}>
-                <I18nHTMLText textId="LINKS" />
-            </ButtonBase>
-
             <ul className={`links ${isOpen ? 'open' : ''}`} >
                 {buttons}
             </ul>

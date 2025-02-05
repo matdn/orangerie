@@ -3,86 +3,101 @@
 @import './view/components/buttons.scss';
 
 @font-face {
-    font-family: 'Instrument';
-    src: url('../../../public/assets/game/fonts/InstrumentSerif-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Instrument';
+  src: url('../../../public/assets/game/fonts/InstrumentSerif-Regular.ttf')
+    format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Instrument';
-    src: url('../../../public/assets/game/fonts/InstrumentSerif-Italic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: italic;
+  font-family: 'Instrument Italic';
+  src: url('../../../public/assets/game/fonts/InstrumentSerif-Italic.ttf')
+    format('truetype');
+  font-weight: normal;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'NHaasGrotesk';
-    src: url('../../../public/assets/game/fonts/NHaasGrotesk_Bold.ttf') format('truetype');
-    font-weight: 900;
-    font-style: italic;
+  font-family: 'NHaasGrotesk';
+  src: url('../../../public/assets/game/fonts/NHaasGrotesk_Bold.ttf')
+    format('truetype');
+  font-weight: 900;
+  font-style: italic;
 }
 
 canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.font-instrument {
+  font-family: 'Instrument', sans-serif;
+}
+
+.font-instrument-italic {
+  font-family: 'Instrument Italic', sans-serif;
+}
+
+.font-nhaasgrotesk {
+  font-family: 'NHaasGrotesk', sans-serif;
 }
 
 .titlesContainer {
-    z-index: 100;
-    height: 200dvh !important;
-    overflow: scroll !important;
+  z-index: 100;
+  height: 200dvh !important;
+  overflow: scroll !important;
+  width: 100%;
+
+  div {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
 
-    div {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
+    h1 {
+      font-family: Orsay;
+      font-size: 124px;
+      color: #ffffff;
+      text-align: center;
 
-        h1 {
-            font-family: Orsay;
-            font-size: 124px;
-            color: #ffffff;
-            text-align: center;
-
-            span {
-                font-size: 64px;
-            }
-        }
+      span {
+        font-size: 64px;
+      }
     }
+  }
 }
 
 .titleContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
-    h2 {
-        font-family: 'NHaasGrotesk';
-        font-size: 6rem;
-        font-weight: 900;
-        text-transform: uppercase;
-    }
+  h2 {
+    font-family: 'NHaasGrotesk';
+    font-size: 6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
 
-    h3 {
-        font-family: 'Instrument';
-        font-size: 3.5rem;
-        text-transform: uppercase;
-    }
+  h3 {
+    font-family: 'Instrument';
+    font-size: 3.5rem;
+    text-transform: uppercase;
+  }
 
-    h4 {
-        font-family: 'Instrument';
-        font-size: 2rem;
-        font-style: italic;
-    }
+  h4 {
+    font-family: 'Instrument';
+    font-size: 2rem;
+    font-style: italic;
+  }
 }

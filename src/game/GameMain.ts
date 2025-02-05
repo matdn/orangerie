@@ -45,7 +45,7 @@ export default class GameMain {
         ScormService.SetScormStatus('incomplete');
         ViewsManager.RemoveAll();
         if (DebugManager.IsDev) {
-            CustomStats.Init();
+            // CustomStats.Init();
             QuickLinksReactViewOptions.className = "bottom left";
             ViewsManager.ShowById(QuickLinksReactViewId);
         }
