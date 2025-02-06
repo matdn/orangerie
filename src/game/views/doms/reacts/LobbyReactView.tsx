@@ -133,7 +133,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </h1>
         </div>
         <div className='overflow-hidden'>
-          <h1 className='main-text font-norman text-[10rem] leading-[1.2] text-white'>
+          <h1 className='main-text font-norman pb-8 text-[10rem] leading-[1.2] text-white'>
             L'Orangerie
           </h1>
         </div>

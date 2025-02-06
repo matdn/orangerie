@@ -86,7 +86,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
             clearcoat: 1,
             transparent: true,
             // transmission: .95,
-            opacity: .5,
+            opacity: .8,
             reflectivity: 0.2,
             // refractionRatio: 0.985,
             ior: 0.9,
