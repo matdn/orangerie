@@ -55,8 +55,8 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         // });
         this._clouds = new Mesh();
         this._clouds.geometry = cloudGeometry;
-        this._clouds.position.set(-20, 30, 10);
-        this._clouds.scale.set(2.2, 2.2, 2.2);
+        // this._clouds.position.set(-20, 30, 10);
+        // this._clouds.scale.set(2.2, 2.2, 2.2);
         this._clouds.material = new MeshStandardMaterial({
             map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_CLOUDS),
             side: DoubleSide,
@@ -67,8 +67,8 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         });
         this._secondClouds = this._clouds.clone();
         this._secondClouds.position.set(20, -35, 9);
-        this.add(this._clouds);
-        this.add(this._secondClouds);
+        // this.add(this._clouds);
+        // this.add(this._secondClouds);
         this.add(this._titlePlane);
         // MainThree.Scene.add(cameraHelper);
         window.addEventListener('updateCameraPosition', this._onUpdateCameraPosition.bind(this));
