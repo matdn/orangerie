@@ -1,9 +1,9 @@
-import { TheatersManager, TheatersProxy } from 'pancake';
+import { TheatersProxy } from 'pancake';
 import { useCallback, useEffect, useState } from 'react';
 import { DomEvent, KeyboardConstant } from 'spices';
+import { TheaterTransitionCommand } from '../../../commands/TheaterTransitionCommand';
 import { KeyboardManager } from '../../../managers/KeyboardManager';
 import OpacityAnimatedReactView from './OpacityAnimatedReactView';
-import { TheaterTransitionCommand } from '../../../commands/TheaterTransitionCommand';
 
 export const QuickLinksReactViewId = 'quickLinks';
 
@@ -63,7 +63,7 @@ export default function QuickLinksReactView() {
     }, []);
 
     return (
-        <OpacityAnimatedReactView className={`quickLinks ${QuickLinksReactViewOptions.className}`} viewId={QuickLinksReactViewId}>
+        <OpacityAnimatedReactView className={` ${QuickLinksReactViewOptions.className}`} viewId={QuickLinksReactViewId}>
             <ul className={`links ${isOpen ? 'open' : ''}`} >
                 {buttons}
             </ul>

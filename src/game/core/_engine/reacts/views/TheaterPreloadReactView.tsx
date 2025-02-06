@@ -21,13 +21,15 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
 
   return (
     <OpacityAnimatedReactView {...props}>
-      <div className='bg-black h-full w-full flex items-end justify-between p-4'>
+      <div className='bg-black h-full w-full flex items-end'>
+        <div className='flex items-center justify-between p-4 w-full'>
         <h1 className='text-white font-instrument text-[20vh] leading-tight'>
           Loading
         </h1>
         <span className='text-white font-instrument text-[20vh] leading-tight'>
           <NumberFlow willChange={true} value={percent} />%
         </span>
+        </div>
       </div>
     </OpacityAnimatedReactView>
   );

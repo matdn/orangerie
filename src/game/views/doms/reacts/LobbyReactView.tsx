@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { CustomEase } from 'gsap/CustomEase';
 import ReactViewBase, {
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 
+gsap.registerPlugin(CustomEase);
+
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const customSlowEase = CustomEase.create(
+    "slowEnd",
+    "M0,0 C0.11,0.494 0.192,0.726 0.318,0.852 0.45,0.984 0.504,1 1,1"
+  )
+
   const timelineAnimation = () => {
     const tl = gsap.timeline();
-    tl.from('.header-icon', {
-      duration: 1,
-      delay: 1,
-      x: '-100%',
-      ease: 'power1.out',
-    });
     tl.from(
       '.main-text',
       {
+        delay: 1,
         duration: 1.5,
         stagger: 0.1,
         opacity: 0.2,
         yPercent: '100',
-        ease: 'power4.out',
+        ease: customSlowEase
       },
       '<'
     );
@@ -38,6 +41,15 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       '>.5'
     );
     tl.from(
+      '.header-icon',
+      {
+        duration: 1,
+        x: '-100%',
+        ease: 'power1.out',
+      },
+      '>0.2'
+    );
+    tl.from(
       '.footer-text',
       {
         duration: 0.5,
@@ -45,7 +57,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         yPercent: '100',
         ease: 'power1.out',
       },
-      '>0.2'
+      '<'
     );
     tl.from(
       '.footer-icon',
@@ -63,16 +75,15 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   }, []);
 
   useGSAP(() => {
-    console.log('isHovered', isHovered);
     if (isHovered) {
       gsap.to('.button-content', {
-        x: 30,
+        x: 0,
         duration: 0.6,
         ease: 'power2.out',
       });
     } else {
       gsap.to('.button-content', {
-        x: 0,
+        x: -90,
         duration: 0.6,
         ease: 'power2.out',
       });
@@ -80,8 +91,8 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   }, [isHovered]);
 
   return (
-    <ReactViewBase {...props} className='z-50 w-full flex flex-col'>
-      <div className='w-full p-8'>
+    <ReactViewBase {...props} className='z-50 w-full flex flex-col ombrage'>
+      <div className='w-full p-8 px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
           <svg
             className='header-icon'
@@ -103,6 +114,16 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
             />
           </svg>
         </div>
+        <button
+          className='px-8 py-2 rounded-full bg-white'
+          onClick={() => timelineAnimation()}
+        >
+          <div className='flex items-center gap-8'>
+            <span className='text-black text-sm font-light tracking-wide'>
+              Restart
+            </span>
+          </div>
+        </button>
       </div>
       <div className='h-full w-full flex flex-col items-center justify-center'>
         <div className='overflow-hidden'>
@@ -115,30 +136,29 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
             L'Orangerie
           </h1>
         </div>
-          <button
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className='button-container relative overflow-hidden px-8 py-2 rounded-full border border-white backdrop-blur-[2px] bg-white/5 mt-5'
-          >
-            <div className='button-content flex items-center gap-3'>
-              <svg
-                className='w-5 h-5 text-white'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-              >
-                <path
-                  d='M5 12h14m-7-7 7 7-7 7'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-              </svg>
-              <span className='text-white/90 text-sm font-light tracking-wide'>
-                Explore
-              </span>
-            </div>
-          </button>
+        <button
+          className='button-container relative overflow-hidden px-8 py-2 rounded-full border border-white backdrop-blur-[2px] bg-white/5 mt-5'
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <div className='button-content flex items-center gap-8'>
+            <span className='text-white/90 text-sm font-light tracking-wide'>
+              Explore
+            </span>
+            <svg
+              width='20'
+              height='9'
+              viewBox='0 0 20 9'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M-1.5299e-07 4.5L19 4.5M19 4.5L13 0.499999M19 4.5L13 8'
+                stroke='white'
+              />
+            </svg>
+          </div>
+        </button>
       </div>
       <div className='w-full p-8 px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
