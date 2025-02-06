@@ -26,7 +26,7 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
     private _birdWingLeftMaterial: BirdWingMaterial = new BirdWingMaterial(-1);
     constructor() {
         super(ViewId.THREE_MUSEUM, ViewPlacementId.THREE_MAIN);
-
+        console.log("museum");
         this._museumMesh = Object3DsProxy.GetObject3D(Object3DId.MUSEUM);
         this.add(this._museumMesh);
 

@@ -14,7 +14,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const customSlowEase = CustomEase.create(
     "slowEnd",
     "M0,0 C0.11,0.494 0.192,0.726 0.318,0.852 0.45,0.984 0.504,1 1,1"
-  )
+  );
 
   const timelineAnimation = () => {
     const tl = gsap.timeline();
@@ -92,6 +92,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
 
   return (
     <ReactViewBase {...props} className='z-50 w-full flex flex-col ombrage'>
+      <div className='borderScreen'></div>
       <div className='w-full p-8 px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
           <svg
@@ -127,12 +128,12 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       </div>
       <div className='h-full w-full flex flex-col items-center justify-center'>
         <div className='overflow-hidden'>
-          <h1 className='main-text font-instrument text-9xl text-white'>
+          <h1 className='main-text font-norman text-9xl text-white'>
             Les Rêveries
           </h1>
         </div>
         <div className='overflow-hidden'>
-          <h1 className='main-text font-instrument text-[10rem] leading-[1.2] text-white'>
+          <h1 className='main-text font-norman text-[10rem] leading-[1.2] text-white'>
             L'Orangerie
           </h1>
         </div>
@@ -188,6 +189,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </svg>
         </div>
       </div>
+
     </ReactViewBase>
   );
 };

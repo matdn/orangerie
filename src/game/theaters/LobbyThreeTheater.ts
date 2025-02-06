@@ -7,6 +7,7 @@ import { TheaterId } from "../constants/theaters/TheaterId";
 import { TheaterPlacementId } from "../constants/theaters/TheaterPlacementId";
 import { ViewId } from "../constants/views/ViewId";
 import ThreeTheaterBase from "../core/theaters/ThreeTheaterBase";
+import { MainThree } from "../core/_engine/threejs/MainThree";
 
 export class LobbyThreeTheater extends ThreeTheaterBase {
 
@@ -20,7 +21,7 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
         this._cameraId = CameraId.LOBBY;
         this._viewsList.add(ViewId.THREE_LOBBY);
         this._viewsList.add(ViewId.LOBBY_REACT);
-        this._fog = new Fog(0xffffff, 0, 200);
+        this._fog = new Fog(0xffffff, 50, 100);
         // this._fog = new Fog(0x8da7be, 0, 250);
         // this._fog = new Fog(0xcde6f5, 0, 250);
 

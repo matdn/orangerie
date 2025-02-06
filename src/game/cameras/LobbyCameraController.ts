@@ -6,8 +6,7 @@ export class LobbyCameraController extends FollowCameraControllerBase {
 
     constructor() {
         super(CameraId.LOBBY);
-        this.rotateY(Math.PI);
-        this.position.set(0, 0, 150);
+        // this.position.set(0, 0, 250);
     }
 
     public override start(): void {

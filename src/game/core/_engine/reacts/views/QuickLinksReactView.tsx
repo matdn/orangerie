@@ -1,4 +1,4 @@
-import { TheatersProxy } from 'pancake';
+import { TheatersManager, TheatersProxy } from 'pancake';
 import { useCallback, useEffect, useState } from 'react';
 import { DomEvent, KeyboardConstant } from 'spices';
 import { TheaterTransitionCommand } from '../../../commands/TheaterTransitionCommand';
@@ -9,7 +9,7 @@ export const QuickLinksReactViewId = 'quickLinks';
 
 export const QuickLinksReactViewOptions = {
     className: 'bottom center',
-}
+};
 
 export const QuickLinksExcludedID = [];
 
@@ -26,7 +26,7 @@ export default function QuickLinksReactView() {
     const showTheater = (theaterId: string) => {
         setIsOpen(false);
         TheaterTransitionCommand.Show(theaterId);
-        // TheatersManager.ShowById(theaterId);
+        TheatersManager.ShowById(theaterId);
     };
 
     useEffect(() => {
@@ -40,12 +40,12 @@ export default function QuickLinksReactView() {
             if (e.target !== document.querySelector('.openButton')) {
                 setIsOpen(false);
             }
-        }
+        };
 
         window.addEventListener(DomEvent.CLICK, onClickWindow);
         return () => {
             window.removeEventListener(DomEvent.CLICK, onClickWindow);
-        }
+        };
     }, []);
 
     useEffect(() => {
@@ -54,7 +54,7 @@ export default function QuickLinksReactView() {
             if (!QuickLinksExcludedID.includes(theaterId)) {
                 buttons.push(
                     <li key={theaterId}>
-                        
+
                     </li>
                 );
             }
@@ -68,5 +68,5 @@ export default function QuickLinksReactView() {
                 {buttons}
             </ul>
         </OpacityAnimatedReactView >
-    )
+    );
 }

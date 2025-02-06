@@ -55,8 +55,8 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         // });
         this._clouds = new Mesh();
         this._clouds.geometry = cloudGeometry;
-        // this._clouds.position.set(-20, 30, 10);
-        // this._clouds.scale.set(2.2, 2.2, 2.2);
+        this._clouds.position.set(-20, 30, 10);
+        this._clouds.scale.set(2.2, 2.2, 2.2);
         this._clouds.material = new MeshStandardMaterial({
             map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_CLOUDS),
             side: DoubleSide,
@@ -67,14 +67,14 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         });
         this._secondClouds = this._clouds.clone();
         this._secondClouds.position.set(20, -35, 9);
-        // this.add(this._clouds);
-        // this.add(this._secondClouds);
+        this.add(this._clouds);
+        this.add(this._secondClouds);
         this.add(this._titlePlane);
         // MainThree.Scene.add(cameraHelper);
         window.addEventListener('updateCameraPosition', this._onUpdateCameraPosition.bind(this));
         this._pointLight = new PointLight(0xffffff, 250, 100);
         this._pointLight.position.set(0, 10, 0);
-        this.add(this._pointLight);
+        // this.add(this._pointLight);
         // const spotLight = new SpotLight(0xffffff, 80, 500, Math.PI, 0.25, 1);
         // spotLight.position.set(2, 0, 0);
         // this.add(spotLight);
@@ -203,19 +203,19 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         fogScale;
 
         this._camera.start();
-        this._pointLight.position.x = this._mouse.x * 100;
-        this._pointLight.position.y = this._mouse.y * 100;
-        if (this._pointLight.position.y < 0) {
-            this._pointLight.position.y = 0;
-        }
-        if (this._mouse.y > 0) {
-            this._pointLight.position.z = this._mouse.y * 300;
-            // console.log(this._mouse.y);
-        }
-        if (this._mouse.y < 0) {
-            this._pointLight.position.z = -this._mouse.y * 300;
-            // console.log(this._mouse.y);
-        }
+        // this._pointLight.position.x = this._mouse.x * 100;
+        // this._pointLight.position.y = this._mouse.y * 100;
+        // if (this._pointLight.position.y < 0) {
+        //     this._pointLight.position.y = 0;
+        // }
+        // if (this._mouse.y > 0) {
+        //     this._pointLight.position.z = this._mouse.y * 300;
+        //     // console.log(this._mouse.y);
+        // }
+        // if (this._mouse.y < 0) {
+        //     this._pointLight.position.z = -this._mouse.y * 300;
+        //     // console.log(this._mouse.y);
+        // }
         // this._pointLight.power = (dt * 0.01) * 10000;
     }
 }

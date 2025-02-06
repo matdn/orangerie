@@ -43,7 +43,7 @@ export class CoreInitCommand extends InitCommandBase {
         ViewsProxy.AddView(new TheaterPreloadReactHTMLView(TheaterPreloadReactHTMLView.ViewId, TheaterPreloadReactHTMLView.PlacementId, TheaterPreloadReactView));
 
         if (DebugManager.IsDev) {
-            ViewsProxy.AddView(new ReactHTMLView(QuickLinksReactViewId, 999999, QuickLinksReactView));
+            ViewsProxy.AddView(new ReactHTMLView(QuickLinksReactViewId, 0, QuickLinksReactView));
         }
     }
 
