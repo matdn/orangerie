@@ -1,7 +1,6 @@
 import { CommonAssetsManager } from "@cooker/common";
 import { memo, useEffect, useRef } from "react";
 import { DomEvent } from "spices";
-import ButtonBase from "../../_engine/reacts/views/buttons/bases/ButtonBase";
 
 const SoundComponent = memo(({ soundId, sprite }: { soundId: string, sprite: string }) => {
 
@@ -121,11 +120,6 @@ const SoundComponent = memo(({ soundId, sprite }: { soundId: string, sprite: str
                     <span>end:</span>
                     <input type="number" ref={endRef} onChange={handleLoopChange} />
                 </div>
-            </div>
-
-            <div className="buttonsContainer">
-                <ButtonBase className="play" onClick={handleClickPlay}>play</ButtonBase>
-                <ButtonBase className="stop" onClick={handleClickStop}>stop</ButtonBase>
             </div>
         </div>
     )

@@ -24,3 +24,5 @@ boilerplate
 *.sw?
 */.DS_Store
 /scorm-archives
+
+.DS_Store
