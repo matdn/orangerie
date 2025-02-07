@@ -6,7 +6,6 @@ import MainThreeReactView from '../../../core/_engine/reacts/views/MainThreeReac
 import { MainThree } from '../../../core/_engine/threejs/MainThree';
 import InitCommandBase from "../../../core/commands/inits/initcommands/bases/InitCommandBase";
 import { MainTheater } from "../../../theaters/MainThreeTheater";
-import { TranslationKeyReactView } from '../../../views/doms/reacts/translation-key/TranslationKeyReactView';
 import { LobbyThreeTheater } from '../../../theaters/LobbyThreeTheater';
 import { ThreeAssetsManager } from '@cooker/three';
 import { AssetId } from '../../../constants/games/AssetId';
@@ -45,8 +44,6 @@ export class CommonProjectInitCommand extends InitCommandBase {
     }
 
     public override async addViews(): Promise<void> {
-
-        ViewsProxy.AddView(new ReactHTMLView(ViewId.TRANSLATION_KEY, ViewPlacementId.TRANSLATION_KEY, TranslationKeyReactView));
         ViewsProxy.AddView(new ReactHTMLView(MainThree.VIEW_ID, ViewPlacementId.REACT_THREE, MainThreeReactView));
     }
 

@@ -2,7 +2,7 @@
 import './commands/inits/initCore';
 //#endregion
 
-import { Action, CustomStats } from "cookware";
+import { Action } from "cookware";
 import { ViewsManager } from "pancake";
 import { CommonProjectInitCommand } from "./commands/inits/project/CommonProjectInitCommand";
 import { TheaterId } from './constants/theaters/TheaterId.ts';

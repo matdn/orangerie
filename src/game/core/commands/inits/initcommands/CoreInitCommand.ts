@@ -13,7 +13,6 @@ import { SoundsManager } from "../../../managers/SoundsManager";
 import { GamesProxy } from "../../../proxies/GamesProxy";
 import InitCommandBase from "./bases/InitCommandBase";
 import { FullscreenManager } from "../../../managers/FullscreenManager";
-import { AudioMixerManager } from "../../../../../../libs/cooker/src/managers/AudioMixerManager";
 import { PoolsProxy } from "../../../proxies/PoolsProxy";
 import { VirtualGamePadConfigsProxy } from "../../../proxies/VirtualGamePadConfigsProxy";
 import { VirtualGamePadConfigsManager } from "../../../managers/VirtualGamePadConfigsManager";
@@ -64,7 +63,5 @@ export class CoreInitCommand extends InitCommandBase {
         Ticker.Start();
         KeyboardManager.Start();
         VirtualGamePadConfigsManager.Start();
-
     }
-
 }

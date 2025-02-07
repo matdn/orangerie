@@ -10,9 +10,6 @@ import PreloadReactView from './views/doms/reacts/preloads/PreloadReactView';
 // Views
 import ReactHTMLView from './core/_engine/htmls/views/ReactHTMLView';
 
-// Style
-import './styles/game.scss';
-
 export default function GameReact() {
   const [isInit, setIsInit] = useState<boolean>(GameMain.IsInit);
   const [views, setViews] = useState<React.ReactNode[]>([]);
@@ -61,8 +58,7 @@ export default function GameReact() {
 
   return (
     <div id="GAME">
-      {!isInit && <PreloadReactView />}
-      {isInit && views}
+      {isInit ? views : <PreloadReactView />}
     </div>
   );
 }

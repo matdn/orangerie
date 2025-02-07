@@ -11,24 +11,29 @@ gsap.registerPlugin(CustomEase);
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const customSlowEase = CustomEase.create(
-    "slowEnd",
-    "M0,0 C0.11,0.494 0.192,0.726 0.318,0.852 0.45,0.984 0.504,1 1,1"
-  );
+  const customEase = CustomEase.create("custom", "M0,0 C0.126,0.382 0.467,0.842 0.651,0.957 0.739,1.012 0.913,1 1,1 ");
 
   const timelineAnimation = () => {
     const tl = gsap.timeline();
     tl.from(
-      '.main-text',
+      '.header-icon',
       {
-        delay: 1,
-        duration: 1.5,
-        stagger: 0.1,
-        opacity: 0.2,
-        yPercent: '100',
-        ease: customSlowEase
+        duration: 1,
+        yPercent: '20',
+        opacity: 0,
+        ease: 'power1.out',
       },
       '<'
+    );
+    tl.from(
+      '.main-text',
+      {
+        duration: 1.2,
+        opacity: 0,
+        yPercent: '50',
+        ease: customEase,
+      },
+      '>.2'
     );
     tl.from(
       '.button-container',
@@ -38,16 +43,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         yPercent: '20',
         ease: 'power1.out',
       },
-      '>.5'
-    );
-    tl.from(
-      '.header-icon',
-      {
-        duration: 1,
-        x: '-100%',
-        ease: 'power1.out',
-      },
-      '>0.2'
+      '>.1'
     );
     tl.from(
       '.footer-text',
@@ -57,7 +53,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         yPercent: '100',
         ease: 'power1.out',
       },
-      '<'
+      '>.2'
     );
     tl.from(
       '.footer-icon',
@@ -79,11 +75,11 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       gsap.to('.button-content', {
         x: 0,
         duration: 0.6,
-        ease: 'power2.out',
+        ease: customEase,
       });
     } else {
       gsap.to('.button-content', {
-        x: -90,
+        x: -110,
         duration: 0.6,
         ease: 'power2.out',
       });
@@ -91,7 +87,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   }, [isHovered]);
 
   return (
-    <ReactViewBase {...props} className='z-50 w-full flex flex-col ombrage'>
+    <ReactViewBase {...props} className='z-50 w-full flex flex-col'>
       <div className='borderScreen'></div>
       <div className='w-full p-8 px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
@@ -138,12 +134,12 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </h1>
         </div>
         <button
-          className='button-container relative overflow-hidden px-8 py-2 rounded-full border border-white backdrop-blur-[2px] bg-white/5 mt-5'
+          className='button-container relative overflow-hidden px-8 py-2 rounded-full border border-white backdrop-blur-md bg-white/5 mt-5'
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           <div className='button-content flex items-center gap-8'>
-            <span className='text-white/90 text-sm font-light tracking-wide'>
+            <span className='text-white/90 text-sm font-light tracking-wide uppercase'>
               Explore
             </span>
             <svg
