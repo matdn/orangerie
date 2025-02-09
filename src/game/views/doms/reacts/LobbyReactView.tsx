@@ -5,13 +5,14 @@ import { CustomEase } from 'gsap/CustomEase';
 import ReactViewBase, {
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
+import SoundIcon from '../../../../components/SoundIcon';
+import { TheaterTransitionCommand } from '../../../core/commands/TheaterTransitionCommand';
+import { TheaterId } from '../../../constants/theaters/TheaterId';
 
 gsap.registerPlugin(CustomEase);
 
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const [isHovered, setIsHovered] = useState(false);
-
-  const customEase = CustomEase.create("custom", "M0,0 C0.126,0.382 0.467,0.842 0.651,0.957 0.739,1.012 0.913,1 1,1 ");
 
   const timelineAnimation = () => {
     const tl = gsap.timeline();
@@ -19,7 +20,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       '.header-icon',
       {
         duration: 1,
-        yPercent: '20',
+        delay: 1,
         opacity: 0,
         ease: 'power1.out',
       },
@@ -31,9 +32,9 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         duration: 1.2,
         opacity: 0,
         yPercent: '50',
-        ease: customEase,
+        ease: 'power1.out',
       },
-      '>.2'
+      '<'
     );
     tl.from(
       '.button-container',
@@ -43,7 +44,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         yPercent: '20',
         ease: 'power1.out',
       },
-      '>.1'
+      '>0.05'
     );
     tl.from(
       '.footer-text',
@@ -75,7 +76,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       gsap.to('.button-content', {
         x: 0,
         duration: 0.6,
-        ease: customEase,
+        ease: 'power1.out',
       });
     } else {
       gsap.to('.button-content', {
@@ -85,6 +86,10 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       });
     }
   }, [isHovered]);
+
+  const showMuseumTheater = () => {
+    TheaterTransitionCommand.Show(TheaterId.MUSEUM);
+  };
 
   return (
     <ReactViewBase {...props} className='z-50 w-full flex flex-col'>
@@ -137,9 +142,10 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           className='button-container relative overflow-hidden px-8 py-2 rounded-full border border-white backdrop-blur-md bg-white/5 mt-5'
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onClick={showMuseumTheater}
         >
           <div className='button-content flex items-center gap-8'>
-            <span className='text-white/90 text-sm font-light tracking-wide uppercase'>
+            <span className='text-white/90 text-sm tracking-wide uppercase font-semibold'>
               Explore
             </span>
             <svg
@@ -164,28 +170,9 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </p>
         </div>
         <div className='overflow-hidden cursor-pointer'>
-          <svg
-            className='footer-icon text-white'
-            xmlns='http://www.w3.org/2000/svg'
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            strokeWidth='2'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          >
-            <path d='M2 10v3' />
-            <path d='M6 6v11' />
-            <path d='M10 3v18' />
-            <path d='M14 8v7' />
-            <path d='M18 5v13' />
-            <path d='M22 10v3' />
-          </svg>
+          <SoundIcon/>
         </div>
       </div>
-
     </ReactViewBase>
   );
 };
