@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite --host",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "build:preprod": "tsc && vite build --mode preprod",
     "build:production": "tsc && vite build --mode production",
@@ -13,7 +14,6 @@
     "build:scorm:production": "sh cmd/build-scorm-production.sh",
     "build:scorm:staging": "sh cmd/build-scorm-staging.sh",
     "build:scripts": "tsc --project scripts/tsconfig.json",
-    "dev": "vite --host",
     "dist:package": "node ./bin/create-package.cjs",
     "episodes:converse": "npm run build:scripts && node scripts/dist/episodes-converse.js",
     "i18n:add-json-file": "npm run build:scripts && node scripts/dist/i18n-add-json-file.js",
@@ -35,7 +35,8 @@
     "scorm-manifest:preprod": "npm run build:scripts && node scripts/dist/scorm-manifest.js preprod",
     "scorm-manifest:staging": "npm run build:scripts && node scripts/dist/scorm-manifest.js staging",
     "textid": "node ./vite.generateTextId.js start",
-    "schema": "node ./vite.generateSchema.js start"
+    "schema": "node ./vite.generateSchema.js start",
+    "prepare": "husky"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "^0.14.0",
@@ -46,12 +47,14 @@
     "@react-three/drei": "^9.111.3",
     "@react-three/fiber": "^8.17.6",
     "@storyblok/react": "^3.0.13",
+    "@studio-freight/react-lenis": "^0.0.47",
     "@types/yuka": "^0.7.4",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.30",
     "fs-extra": "^11.2.0",
     "hover-effect": "^1.2.1",
     "howler": "^2.2.4",
+    "lenis": "^1.1.20",
     "lottie-web": "^5.12.2",
     "pixi.js": "^7.4.2",
     "react": "^18.3.1",
@@ -87,6 +90,7 @@
     "ease": "file:libs/ease",
     "eslint": "^8.57.0",
     "glob": "^11.0.0",
+    "husky": "^9.1.7",
     "i18next": "^23.14.0",
     "pancake": "file:libs/pancake",
     "peppermill": "file:libs/peppermill",
