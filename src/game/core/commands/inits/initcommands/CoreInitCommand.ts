@@ -6,8 +6,6 @@ import { TheaterPreloadReactHTMLView } from "../../../_engine/htmls/views/Theate
 import QuickLinksReactView, { QuickLinksReactViewId } from "../../../_engine/reacts/views/QuickLinksReactView";
 import TheaterPreloadReactView from "../../../_engine/reacts/views/TheaterPreloadReactView";
 import { DebugManager } from "../../../debugs/DebugManager";
-import { SoundsTester } from "../../../debugs/soundstesters/SoundsTester";
-import SoundsTesterReactView from "../../../debugs/soundstesters/SoundsTesterReactView";
 import { KeyboardManager } from "../../../managers/KeyboardManager";
 import { SoundsManager } from "../../../managers/SoundsManager";
 import { GamesProxy } from "../../../proxies/GamesProxy";
@@ -38,7 +36,6 @@ export class CoreInitCommand extends InitCommandBase {
     }
 
     public override async addViews(): Promise<void> {
-        ViewsProxy.AddView(new ReactHTMLView(SoundsTester.VIEW_ID, 80000, SoundsTesterReactView));
         ViewsProxy.AddView(new TheaterPreloadReactHTMLView(TheaterPreloadReactHTMLView.ViewId, TheaterPreloadReactHTMLView.PlacementId, TheaterPreloadReactView));
 
         if (DebugManager.IsDev) {
