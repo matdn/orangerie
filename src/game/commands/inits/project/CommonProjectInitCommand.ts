@@ -11,7 +11,6 @@ import { LobbyThreeTheater } from '../../../theaters/LobbyThreeTheater';
 import { ThreeAssetsManager } from '@cooker/three';
 import { AssetId } from '../../../constants/games/AssetId';
 import { AnalyseGLTFCommand } from '../AnalyseGLTFCommand';
-import { DayCycleManager } from '../../../managers/DayCycleManager';
 import { MuseumThreeTheater } from '../../../theaters/MuseeThreeTheater';
 import { ParkThreeTheater } from '../../../theaters/ParkThreeTheater';
 
@@ -23,7 +22,6 @@ export class CommonProjectInitCommand extends InitCommandBase {
     }
 
     public override async initManagers(): Promise<void> {
-        DayCycleManager.Init();
     }
 
 

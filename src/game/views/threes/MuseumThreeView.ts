@@ -1,4 +1,6 @@
-import { AmbientLight, AxesHelper, CameraHelper, DirectionalLight, DirectionalLightHelper, DirectionalLightShadow, Intersection, Mesh, MeshBasicMaterial, MeshLambertMaterial, MeshPhongMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PointLight, Vector2, Vector3 } from "three";
+import { ThreeAssetsManager } from "@cooker/three";
+import { AmbientLight, DirectionalLight, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PointLight, Vector2, Vector3 } from "three";
+import { AssetId } from "../../constants/games/AssetId";
 import { Object3DId } from "../../constants/games/Object3DId";
 import { ViewId } from "../../constants/views/ViewId";
 import { ViewPlacementId } from "../../constants/views/ViewPlacementId";
@@ -6,13 +8,7 @@ import { ThreeCameraControllerBase } from "../../core/_engine/threejs/cameras/ba
 import { Object3DsProxy } from "../../core/_engine/threejs/proxies/Object3DsProxy";
 import { ThreeCamerasProxy } from "../../core/_engine/threejs/proxies/ThreeCamerasProxy";
 import { WithoutTransitionThreeView } from "../../core/_engine/threejs/views/WithoutTransitionThreeView";
-import { TheatersProxy } from "pancake";
-import { ThreeInteractive } from "../../core/_engine/threejs/interactives/ThreeInteractive";
-import { InteractionName } from "../../core/_engine/threejs/constants/InteractionName";
-import { WaveMaterial } from "../../materials/commons/WaveMaterial";
 import { BirdWingMaterial } from "../../materials/commons/BirdWingMaterial";
-import { AssetId } from "../../constants/games/AssetId";
-import { ThreeAssetsManager } from "@cooker/three";
 
 export default class MuseumThreeView extends WithoutTransitionThreeView {
     private _camera: ThreeCameraControllerBase;
@@ -26,7 +22,6 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
     private _birdWingLeftMaterial: BirdWingMaterial = new BirdWingMaterial(-1);
     constructor() {
         super(ViewId.THREE_MUSEUM, ViewPlacementId.THREE_MAIN);
-        console.log("museum");
         this._museumMesh = Object3DsProxy.GetObject3D(Object3DId.MUSEUM);
         this.add(this._museumMesh);
 

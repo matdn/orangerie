@@ -46,7 +46,6 @@ export default class GameMain {
             ViewsManager.ShowById(QuickLinksReactViewId);
         }
 
-        console.log("Game Start");
 
         GameMain._ShowFirstTheater();
     }

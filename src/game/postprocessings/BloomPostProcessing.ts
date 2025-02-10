@@ -1,7 +1,7 @@
 import { Camera, Scene, Vector2, WebGLRenderer } from "three";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
 import { ThreePostProcessingBase } from "../core/_engine/threejs/postprocessings/bases/ThreePostProcessingBase";
-import { DayCycleManager } from "../managers/DayCycleManager";
+// import { DayCycleManager } from "../managers/DayCycleManager";
 import { PostProcessingId } from "../constants/games/PostProcessingId";
 
 
@@ -26,8 +26,8 @@ export class BloomPostProcessing extends ThreePostProcessingBase {
 
     public override render(): void {
         super.render();
-        const p = Math.abs(Math.cos(DayCycleManager.Progression * Math.PI));
-        this._bloomPass.strength = 0.05 + p * 0.15;
+        // const p = Math.abs(Math.cos(DayCycleManager.Progression * Math.PI));
+        this._bloomPass.strength = 0.05 * 0.15;
     }
 
 

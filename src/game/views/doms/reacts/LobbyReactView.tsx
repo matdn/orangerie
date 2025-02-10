@@ -5,6 +5,10 @@ import { CustomEase } from 'gsap/CustomEase';
 import ReactViewBase, {
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
+import { TheatersManager, TheatersProxy, ViewsManager, ViewsProxy } from 'pancake';
+import { TheaterId } from '../../../constants/theaters/TheaterId';
+import { ViewId } from '../../../constants/views/ViewId';
+import { TheaterTransitionCommand } from '../../../core/commands/TheaterTransitionCommand';
 
 gsap.registerPlugin(CustomEase);
 
@@ -90,6 +94,11 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
     }
   }, [isHovered]);
 
+  const showMuseumTheater = () => {
+
+    TheaterTransitionCommand.Show(TheaterId.MUSEUM);
+  };
+
   return (
     <ReactViewBase {...props} className='z-50 w-full flex flex-col ombrage'>
       <div className='borderScreen'></div>
@@ -133,7 +142,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </h1>
         </div>
         <div className='overflow-hidden'>
-          <h1 className='main-text font-norman pb-8 text-[10rem] leading-[1.2] text-white'>
+          <h1 className='main-text font-norman text-[10rem] leading-[1.5] text-white'>
             L'Orangerie
           </h1>
         </div>
@@ -141,6 +150,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           className='button-container relative overflow-hidden px-8 py-2 rounded-full border border-white backdrop-blur-[2px] bg-white/5 mt-5'
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onClick={showMuseumTheater}
         >
           <div className='button-content flex items-center gap-8'>
             <span className='text-white/90 text-sm font-light tracking-wide'>

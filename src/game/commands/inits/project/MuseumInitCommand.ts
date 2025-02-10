@@ -17,6 +17,7 @@ import MuseumReactView from '../../../views/doms/reacts/MuseumReactView';
 export class MuseumInitCommand extends InitCommandBase {
 
     public override async initProxies(): Promise<void> {
+        console.log("MuseumInitCommand instancié !");
         ThreeCamerasProxy.AddCamera(new MuseumCameraController());
         ThreePostProcessingsProxy.AddPostProcessing(new AquarellePostProcessing());
 
@@ -40,7 +41,7 @@ export class MuseumInitCommand extends InitCommandBase {
         ThreeAssetsManager.AddModel(AssetId.GLTF_MUSEUM, this._getAssetPath('models/museum.glb'));
         // ThreeAssetsManager.AddRGBE(AssetId.HDR_WINTER, this._getAssetPath('hdr/kloppenheim_02_puresky_1k.hdr'));
         // ThreeAssetsManager.AddRGBE(AssetId.HDR_AUTOMN, this._getAssetPath('hdr/autumn_forest_01_1k.hdr'));
-        ThreeAssetsManager.AddRGBE(AssetId.HDR_MUSEUM, this._getAssetPath('hdr/lobby1.hdr'));
+        ThreeAssetsManager.AddRGBE(AssetId.HDR_MUSEUM, this._getAssetPath('hdr/lobby.hdr'));
         ThreeAssetsManager.AddRGBE(AssetId.HDR_PARK, this._getAssetPath('hdr/park.hdr'));
 
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_GROUND, this._getAssetPath('textures/commons/ground.png'));
@@ -51,6 +52,7 @@ export class MuseumInitCommand extends InitCommandBase {
     }
 
     public override async addViews(): Promise<void> {
+        console.log("museum views added");
         ViewsProxy.AddViewConstructor(ViewId.THREE_MUSEUM, MuseumThreeView);
         ViewsProxy.AddView(new ReactHTMLView(ViewId.MUSEUM_REACT, ViewPlacementId.NONE, MuseumReactView, 0));
 
