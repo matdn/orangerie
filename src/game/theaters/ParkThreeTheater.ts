@@ -21,13 +21,14 @@ export class ParkThreeTheater extends ThreeTheaterBase {
         this._viewsList.add(ViewId.THREE_PARK);
 
         this._environment = {
-            background: 0x000000,
+            // background: AssetId.HDR_LOBBY,
+            background: 0xffffff,
             environmentMapId: AssetId.HDR_LOBBY,
         };
 
     }
     public override init(): void {
         super.init();
-        this._threePostProcessingId = PostProcessingId.AQUARELLE;
+        // this._threePostProcessingId = PostProcessingId.AQUARELLE;
     }
 }

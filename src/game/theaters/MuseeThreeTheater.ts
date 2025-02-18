@@ -12,7 +12,7 @@ export class MuseumThreeTheater extends ThreeTheaterBase {
     constructor() {
         super(TheaterId.MUSEUM, TheaterPlacementId.MAIN);
 
-        this._initCommandsList.push(new MuseumInitCommand());
+        // this._initCommandsList.push(new MuseumInitCommand());
 
         this._cameraId = CameraId.MUSEUM;
         this._viewsList.add(ViewId.THREE_MUSEUM);

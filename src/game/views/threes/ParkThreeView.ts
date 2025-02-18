@@ -12,6 +12,7 @@ export default class ParkThreeView extends WithoutTransitionThreeView {
         super(ViewId.THREE_PARK, ViewPlacementId.THREE_MAIN);
         this._parkMesh = Object3DsProxy.GetObject3D(Object3DId.PARK);
         this.add(this._parkMesh);
+        console.log(this._parkMesh);
     }
 
 

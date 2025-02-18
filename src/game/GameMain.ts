@@ -11,6 +11,9 @@ import InitCommand from './core/commands/inits/InitCommand.ts';
 import { TheaterTransitionCommand } from './core/commands/TheaterTransitionCommand.ts';
 import { DebugManager } from "./core/debugs/DebugManager";
 import { ScormService } from './episode/services/ScormService.ts';
+import { LobbyInitCommand } from './commands/inits/project/LobbyInitCommand.ts';
+import { MuseumThreeTheater } from './theaters/MuseeThreeTheater.ts';
+import { MuseumInitCommand } from './commands/inits/project/MuseumInitCommand.ts';
 
 export default class GameMain {
     private static _Initiated = false;
@@ -26,6 +29,9 @@ export default class GameMain {
 
         InitCommand.Execute([
             new CommonProjectInitCommand(),
+            new LobbyInitCommand(),
+            new MuseumInitCommand(),
+
 
         ]).then(() => {
             GameMain._IsInit = true;

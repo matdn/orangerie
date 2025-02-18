@@ -1,4 +1,4 @@
-import { AmbientLight, BackSide, CameraHelper, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PMREMGenerator, PointLight, SpotLight, SpotLightHelper, TextureLoader, Vector2 } from "three";
+import { AdditiveBlending, AmbientLight, BackSide, CameraHelper, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PMREMGenerator, PointLight, SpotLight, SpotLightHelper, TextureLoader, Vector2 } from "three";
 import { Object3DId } from "../../constants/games/Object3DId";
 import { ViewId } from "../../constants/views/ViewId";
 import { ViewPlacementId } from "../../constants/views/ViewPlacementId";
@@ -61,14 +61,15 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
             map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_CLOUDS),
             side: DoubleSide,
             transparent: true,
-            opacity: 0.1,
+            // blending: AdditiveBlending,
+            opacity: 0.2,
             emissive: 0xffffff,
             emissiveIntensity: 0.9,
         });
         this._secondClouds = this._clouds.clone();
-        this._secondClouds.position.set(20, -35, 9);
+        // this._secondClouds.position.set(20, -35, 9);
         this.add(this._clouds);
-        this.add(this._secondClouds);
+        // this.add(this._secondClouds);
         this.add(this._titlePlane);
         // MainThree.Scene.add(cameraHelper);
         window.addEventListener('updateCameraPosition', this._onUpdateCameraPosition.bind(this));
@@ -180,7 +181,6 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
 
     public override update(dt: number): void {
         super.update(dt);
-
         this._time += dt;
 
         const oscillationSpeed = 0.003; // Vitesse de l'oscillation

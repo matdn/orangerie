@@ -48,7 +48,6 @@ export class AquarellePostProcessing extends ThreePostProcessingBase {
     public override render(): void {
         super.render();
         this._aquarellePass.uniforms['time'].value += 0.01;
-        console.log("hello");// Mise à jour du temps pour l'animation
     }
 
     public override resize(width: number, height: number): void {

@@ -17,13 +17,12 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
     constructor() {
         super(TheaterId.LOBBY, TheaterPlacementId.MAIN);
 
-        this._initCommandsList.push(new LobbyInitCommand());
+        // this._initCommandsList.push(new LobbyInitCommand());
         this._cameraId = CameraId.LOBBY;
         this._viewsList.add(ViewId.THREE_LOBBY);
         this._viewsList.add(ViewId.LOBBY_REACT);
         this._fog = new Fog(0xffffff, 50, 100);
-        // this._fog = new Fog(0x8da7be, 0, 250);
-        // this._fog = new Fog(0xcde6f5, 0, 250);
+
 
         this._environment = {
             background: AssetId.HDR_PARK,

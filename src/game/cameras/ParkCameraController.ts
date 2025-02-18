@@ -7,7 +7,7 @@ export class ParkCameraController extends FollowCameraControllerBase {
     constructor() {
         super(CameraId.PARK);
         // this.rotateY(Math.PI);
-        this.position.set(0, 2, -20);
+        this.position.set(0, 5, -15);
     }
 
     public override start(): void {

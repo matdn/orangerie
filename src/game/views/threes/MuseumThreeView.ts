@@ -12,10 +12,7 @@ import { BirdWingMaterial } from "../../materials/commons/BirdWingMaterial";
 
 export default class MuseumThreeView extends WithoutTransitionThreeView {
     private _camera: ThreeCameraControllerBase;
-    // private _intersection = new Vector2();
-    // private _interaction: ThreeInteractive;
     private _museumMesh: Object3D;
-    // private _wallMesh: Mesh;
     private _cameraRotationFactor: number = 0.09;
     private _mouse: Vector2 = new Vector2(0, 0);
     private _birdWingRightMaterial: BirdWingMaterial = new BirdWingMaterial(1);
@@ -44,7 +41,7 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
             if (child instanceof Mesh) {
                 if (child.name === Object3DId.MUSEUM_WALL) {
                     // const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_WALL_MUSEUM) });
-                    const basMat = new MeshStandardMaterial({ color: 0xffffff });
+                    const basMat = new MeshStandardMaterial({ color: 0xffffff, metalness: 0.1, roughness: 0.9 });
                     child.material = basMat;
                 }
                 if (child.name === Object3DId.MUSEUM_TOP) {
@@ -56,7 +53,7 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                     child.position.x = 0.5;
                 }
                 if (child.name === Object3DId.MUSEUM_ORANGES) {
-                    // child.material = new MeshPhysicalMaterial({ color: 0xFFFFFF, metalness: 1, roughness: 0.1 });
+                    child.material = new MeshPhysicalMaterial({ color: 0xFF9500, opacity: 0.9, transparent: true });
                     child.position.x = 0.5;
                 }
                 if (child.name === Object3DId.MUSEUM_GROUND) {
@@ -73,7 +70,7 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                 if (child.name === Object3DId.MUSEUM_LEFT_PAINT) {
                     child.material = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_LEFT_WALL) });
                 }
-                if (child.name === Object3DId.MUSEUM_RIGHT_PAINT) {
+                if (child.name === Object3DId.MUSEUM_MIDDLE_PAINT) {
                     child.material = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_LEFT_WALL) });
                 }
             }
@@ -87,7 +84,6 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
         super.update(dt);
         const birdWingLeftMaterial = this._birdWingLeftMaterial;
         const birdWingRightMaterial = this._birdWingRightMaterial;
-
         birdWingLeftMaterial.updateTime(dt);
         birdWingRightMaterial.updateTime(dt);
 
