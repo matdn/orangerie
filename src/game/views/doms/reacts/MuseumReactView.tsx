@@ -1,11 +1,8 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React from 'react';
 import ReactViewBase, {
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 
-gsap.registerPlugin(ScrollTrigger);
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
   return (

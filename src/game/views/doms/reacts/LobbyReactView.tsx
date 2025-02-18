@@ -5,32 +5,34 @@ import { CustomEase } from 'gsap/CustomEase';
 import ReactViewBase, {
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
-import { TheatersManager, TheatersProxy, ViewsManager, ViewsProxy } from 'pancake';
-import { TheaterId } from '../../../constants/theaters/TheaterId';
-import { ViewId } from '../../../constants/views/ViewId';
+import SoundIcon from '../../../../components/SoundIcon';
 import { TheaterTransitionCommand } from '../../../core/commands/TheaterTransitionCommand';
+import { TheaterId } from '../../../constants/theaters/TheaterId';
 
 gsap.registerPlugin(CustomEase);
 
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const customSlowEase = CustomEase.create(
-    "slowEnd",
-    "M0,0 C0.11,0.494 0.192,0.726 0.318,0.852 0.45,0.984 0.504,1 1,1"
-  );
-
   const timelineAnimation = () => {
     const tl = gsap.timeline();
     tl.from(
+      '.header-icon',
+      {
+        duration: 1,
+        delay: 1,
+        opacity: 0,
+        ease: 'power1.out',
+      },
+      '<'
+    );
+    tl.from(
       '.main-text',
       {
-        delay: 1,
-        duration: 1.5,
-        stagger: 0.1,
-        opacity: 0.2,
-        yPercent: '100',
-        ease: customSlowEase
+        duration: 1.2,
+        opacity: 0,
+        yPercent: '50',
+        ease: 'power1.out',
       },
       '<'
     );
@@ -42,16 +44,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         yPercent: '20',
         ease: 'power1.out',
       },
-      '>.5'
-    );
-    tl.from(
-      '.header-icon',
-      {
-        duration: 1,
-        x: '-100%',
-        ease: 'power1.out',
-      },
-      '>0.2'
+      '>0.05'
     );
     tl.from(
       '.footer-text',
@@ -61,7 +54,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         yPercent: '100',
         ease: 'power1.out',
       },
-      '<'
+      '>.2'
     );
     tl.from(
       '.footer-icon',
@@ -83,11 +76,11 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       gsap.to('.button-content', {
         x: 0,
         duration: 0.6,
-        ease: 'power2.out',
+        ease: 'power1.out',
       });
     } else {
       gsap.to('.button-content', {
-        x: -90,
+        x: -110,
         duration: 0.6,
         ease: 'power2.out',
       });
@@ -95,12 +88,11 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   }, [isHovered]);
 
   const showMuseumTheater = () => {
-
     TheaterTransitionCommand.Show(TheaterId.MUSEUM);
   };
 
   return (
-    <ReactViewBase {...props} className='z-50 w-full flex flex-col ombrage'>
+    <ReactViewBase {...props} className='z-50 w-full flex flex-col'>
       <div className='borderScreen'></div>
       <div className='w-full p-8 px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
@@ -147,13 +139,13 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </h1>
         </div>
         <button
-          className='button-container relative overflow-hidden px-8 py-2 rounded-full border border-white backdrop-blur-[2px] bg-white/5 mt-5'
+          className='button-container relative overflow-hidden px-8 py-2 rounded-full border border-white backdrop-blur-md bg-white/5 mt-5'
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={showMuseumTheater}
         >
           <div className='button-content flex items-center gap-8'>
-            <span className='text-white/90 text-sm font-light tracking-wide'>
+            <span className='text-white/90 text-sm tracking-wide uppercase font-semibold'>
               Explore
             </span>
             <svg
@@ -178,28 +170,9 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </p>
         </div>
         <div className='overflow-hidden cursor-pointer'>
-          <svg
-            className='footer-icon text-white'
-            xmlns='http://www.w3.org/2000/svg'
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            strokeWidth='2'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          >
-            <path d='M2 10v3' />
-            <path d='M6 6v11' />
-            <path d='M10 3v18' />
-            <path d='M14 8v7' />
-            <path d='M18 5v13' />
-            <path d='M22 10v3' />
-          </svg>
+          <SoundIcon/>
         </div>
       </div>
-
     </ReactViewBase>
   );
 };
