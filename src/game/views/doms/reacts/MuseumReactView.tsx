@@ -1,17 +1,24 @@
 import React, { useEffect } from 'react';
-import ReactViewBase, { TransitionProps } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
+import ReactViewBase, {
+  TransitionProps,
+} from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollMax =
+        document.documentElement.scrollHeight - window.innerHeight;
 
       // Normalisation du scroll entre 0 et 1
       const scrollProgress = scrollY / scrollMax;
 
       // Dispatch d'un événement personnalisé avec la valeur de scroll
-      window.dispatchEvent(new CustomEvent('museumScroll', { detail: { progress: scrollProgress } }));
+      window.dispatchEvent(
+        new CustomEvent('museumScroll', {
+          detail: { progress: scrollProgress },
+        })
+      );
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -20,8 +27,9 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
     };
   }, []);
 
+  
   return (
-    <ReactViewBase {...props} className='w-screen h-fit z-50'>
+    <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>
       <div className='borderScreenMuseum'></div>
 
       <div className='w-full overflow-y-scroll'>
@@ -32,7 +40,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               L'Orangerie
             </h2>
             <h3 className='font-instrument text-3xl uppercase'>
-              à l’origine il y’a la serre
+              à l’origine il y a la serre
             </h3>
           </div>
           <a href='#construction' className='bg-white px-1 py-4 rounded-full'>
@@ -167,7 +175,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
         <div className='h-dvh w-screen flex flex-col justify-center items-center gap-8'>
           <h3 className='font-instrument text-3xl max-w-xl text-center'>
-            Avec sa capacité à transformer la réalité en une vision vibrante et
+            Avec sa capacité à transformer la réalité en une vision vibrante et
             poétique, Claude Monet incarne non seulement l’essence de
             l’impressionnisme, mais aussi un lien profond entre la nature et
             l’art.
@@ -203,7 +211,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               Les Nymphéas
             </h2>
             <h3 className='font-instrument text-3xl uppercase'>
-              l’ultime chef-d'œuvre
+              l’ultime chef-dœuvre
             </h3>
           </div>
           <a href='#' className='bg-white px-1 py-4 rounded-full'>
@@ -225,8 +233,8 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           </a>
         </div>
       </div>
-      </ReactViewBase>
-  ); 
-}; 
+    </ReactViewBase>
+  );
+};
 
 export default MuseumReactView;
