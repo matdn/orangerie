@@ -10,6 +10,9 @@
   font-weight: normal;
   font-style: normal;
 }
+.font-instrument {
+  font-family: 'Instrument', sans-serif;
+}
 
 @font-face {
   font-family: 'Instrument Italic';
@@ -18,47 +21,42 @@
   font-weight: normal;
   font-style: italic;
 }
-
-@font-face {
-    font-family: 'NHaasGrotesk';
-    src: url('../../../assets/game/fonts/NHaasGrotesk_Bold.ttf') format('truetype');
-    font-weight: 900;
-    // font-style: italic;
-}
-
-@font-face {
-    font-family: 'Norman';
-    src: url('../../../assets/game/fonts/Norman Regular.ttf') format('truetype');
-    font-weight: 900;
-}
-
-@font-face {
-    font-family: 'Norman';
-    src: url('../../../assets/game/fonts/Norman Regular.ttf') format('truetype');
-    font-weight: 900;
-    font-style: italic;
-  font-family: 'NHaasGrotesk';
-  src: url('../../../assets/game/fonts/NHaasGrotesk_Bold.ttf')
-    format('truetype');
-  font-weight: 900;
-  font-style: italic;
-}
-
-.font-instrument {
-  font-family: 'Instrument', sans-serif;
-}
-
 .font-instrument-italic {
   font-family: 'Instrument Italic', sans-serif;
 }
 
+@font-face {
+  font-family: 'NHaasGroteskBold';
+  src: url('../../../assets/game/fonts/NHaasGrotesk_Bold.ttf')
+    format('truetype');
+}
+.font-nhaasgrotesk-bold {
+  font-family: 'NHaasGroteskBold', sans-serif;
+}
 .font-nhaasgrotesk {
-  font-family: 'NHaasGrotesk', sans-serif;
+  font-family: 'NHaasGroteskBold', sans-serif;
 }
 
+
+@font-face {
+  font-family: 'Norman';
+  src: url('../../../assets/game/fonts/Norman Regular.ttf') format('truetype');
+  font-weight: 900;
+}
 .font-norman {
   font-family: 'Norman', sans-serif;
 }
+
+@font-face {
+  font-family: 'Norman-Italic';
+  src: url('../../../assets/game/fonts/Norman Regular.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+.font-norman-italic {
+  font-family: 'Norman-Italic', sans-serif;
+}
+
 
 canvas {
   position: fixed;

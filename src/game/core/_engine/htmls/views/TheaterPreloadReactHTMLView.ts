@@ -43,7 +43,6 @@ export class TheaterPreloadReactHTMLView extends ReactHTMLView {
     private _update = (dt: number) => {
         this._percent = LoadingCommand.GetLoadingPercentage();
         const theater = TheatersProxy.GetTheater<SuperTheaterBase>(this._nextTheaterId);
-        console.log(this._percent);
         if (theater.isLoaded) this._percent = 100;
 
         if (theater.isLoaded && !this._isLoaded && this._viewState == ViewState.LIVE) {
