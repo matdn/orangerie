@@ -17,6 +17,8 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
     private _mouse: Vector2 = new Vector2(0, 0);
     private _birdWingRightMaterial: BirdWingMaterial = new BirdWingMaterial(1);
     private _birdWingLeftMaterial: BirdWingMaterial = new BirdWingMaterial(-1);
+    private _scrollProgress: number = 0;
+
     constructor() {
         super(ViewId.THREE_MUSEUM, ViewPlacementId.THREE_MAIN);
         this._museumMesh = Object3DsProxy.GetObject3D(Object3DId.MUSEUM);
@@ -74,7 +76,13 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                     child.material = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_LEFT_WALL) });
                 }
             }
+            this.setupScrollListener();
+        });
+    }
 
+    private setupScrollListener() {
+        window.addEventListener('museumScroll', (event: any) => {
+            this._scrollProgress = event.detail.progress;
         });
     }
 
@@ -82,50 +90,23 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
 
     public override update(dt: number): void {
         super.update(dt);
-        const birdWingLeftMaterial = this._birdWingLeftMaterial;
-        const birdWingRightMaterial = this._birdWingRightMaterial;
-        birdWingLeftMaterial.updateTime(dt);
-        birdWingRightMaterial.updateTime(dt);
-
-        // this._waveMaterial.onBeforeRender(null as any);
 
         const rotationX = this._mouse.x * this._cameraRotationFactor;
-        // const rotationY = this._mouse.y * this._cameraRotationFactor;
-        // this._camera.rotation.y += (Math.PI / 2) + (rotationY - this._camera.rotation.y) * 1;
+
         this._camera.start();
+        const center = new Vector3(0, 0, 0);  // Centre du cercle
+        const radius = 10;                     // Rayon du cercle
+        const angle = this._scrollProgress * Math.PI * 2; // Convertir le scroll en angle (0 → 2π)
 
-        const center = new Vector3(6, 2, 0);
-        const radius = 2;
-        const speed = -0.0005;
+        // Calculer la position de la caméra sur le cercle
+        const x = center.x + radius * Math.cos(angle);
+        const z = center.z + radius * Math.sin(angle);
 
-        this._museumMesh.traverse((child) => {
+        // Définir la position de la caméra
+        this._camera.position.set(x, 0, z);
 
-            if (child.name === Object3DId.MUSEUM_BIRD) {
+        // Faire en sorte que la caméra regarde toujours vers le centre
+        this._camera.lookAt(center);
 
-                // child.material = birdMaterial;
-                if (!child.userData.angle) {
-                    child.userData.angle = 0;
-                }
-
-                child.userData.angle += speed * dt;
-                if (child.userData.angle > Math.PI * 2) {
-                    child.userData.angle -= Math.PI * 2;
-                }
-
-                const x = center.x + radius * Math.cos(child.userData.angle);
-                const z = center.z + radius * Math.sin(child.userData.angle);
-
-                child.position.set(x, center.y, z);
-
-                const direction = new Vector3(
-                    -Math.sin(child.userData.angle),
-                    0,
-                    Math.cos(child.userData.angle)
-                );
-                child.lookAt(center.clone().add(direction));
-            }
-        });
     }
-
-
 }

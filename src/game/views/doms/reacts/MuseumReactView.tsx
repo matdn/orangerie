@@ -1,9 +1,25 @@
-import React from 'react';
-import ReactViewBase, {
-  TransitionProps,
-} from '../../../core/_engine/reacts/views/bases/ReactViewBase';
+import React, { useEffect } from 'react';
+import ReactViewBase, { TransitionProps } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+
+      // Normalisation du scroll entre 0 et 1
+      const scrollProgress = scrollY / scrollMax;
+
+      // Dispatch d'un événement personnalisé avec la valeur de scroll
+      window.dispatchEvent(new CustomEvent('museumScroll', { detail: { progress: scrollProgress } }));
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50'>
       <div className='borderScreenMuseum'></div>
@@ -151,7 +167,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
         <div className='h-dvh w-screen flex flex-col justify-center items-center gap-8'>
           <h3 className='font-instrument text-3xl max-w-xl text-center'>
-            Avec sa capacité à transformer la réalité  en une vision vibrante et
+            Avec sa capacité à transformer la réalité en une vision vibrante et
             poétique, Claude Monet incarne non seulement l’essence de
             l’impressionnisme, mais aussi un lien profond entre la nature et
             l’art.
@@ -209,8 +225,8 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           </a>
         </div>
       </div>
-    </ReactViewBase>
-  );
-};
+      </ReactViewBase>
+  ); 
+}; 
 
 export default MuseumReactView;

@@ -9,7 +9,6 @@ import { ThreeCamerasProxy } from "../../core/_engine/threejs/proxies/ThreeCamer
 import { WithoutTransitionThreeView } from "../../core/_engine/threejs/views/WithoutTransitionThreeView";
 import { LobbyThreeTheater } from "../../theaters/LobbyThreeTheater";
 import { TheatersProxy } from "pancake";
-import { Assets } from "pixi.js";
 import { AssetId } from "../../constants/games/AssetId";
 import { ThreeAssetsManager } from "@cooker/three";
 
@@ -30,13 +29,10 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         super(ViewId.THREE_LOBBY, ViewPlacementId.THREE_MAIN);
         this._lobbyMesh = Object3DsProxy.GetObject3D(Object3DId.LOBBY);
         this.add(this._lobbyMesh);
-
         this._camera = ThreeCamerasProxy.CamerasMap.get('LOBBY');
         this.add(this._camera);
         this._imagePlane = new Mesh();
-        this._camera.position.y = -10;
-        this._camera.rotation.z = (Math.PI / 2) * 8;
-        const cameraHelper = new CameraHelper(this._camera.camera);
+
         this._titlePlane = new Mesh();
         const geometry = new PlaneGeometry(100, 100, 1, 1);
         const cloudGeometry = new PlaneGeometry(100, 100, 1, 1);
@@ -46,13 +42,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this._titlePlane.scale.set(0.35, 0.35, 0.35);
         this._titlePlane.rotation.z = Math.PI;
         this._titlePlane.rotation.y = Math.PI;
-        // this._titlePlane.material = new MeshStandardMaterial({
-        //     map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_TITLE),
-        //     side: DoubleSide,
-        //     transparent: true,
-        //     emissive: 0xffffff,
-        //     emissiveIntensity: 0.6,
-        // });
+
         this._clouds = new Mesh();
         this._clouds.geometry = cloudGeometry;
         this._clouds.position.set(-20, 30, 10);
@@ -61,17 +51,13 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
             map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_CLOUDS),
             side: DoubleSide,
             transparent: true,
-            // blending: AdditiveBlending,
             opacity: 0.2,
             emissive: 0xffffff,
             emissiveIntensity: 0.9,
         });
         this._secondClouds = this._clouds.clone();
-        // this._secondClouds.position.set(20, -35, 9);
-        this.add(this._clouds);
-        // this.add(this._secondClouds);
-        this.add(this._titlePlane);
-        // MainThree.Scene.add(cameraHelper);
+        // this.add(this._clouds);
+        // this.add(this._titlePlane);
         window.addEventListener('updateCameraPosition', this._onUpdateCameraPosition.bind(this));
         this._pointLight = new PointLight(0xffffff, 250, 100);
         this._pointLight.position.set(0, 10, 0);
@@ -81,7 +67,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         // this.add(spotLight);
 
         const glassMaterial = new MeshPhysicalMaterial({
-            metalness: .9,
+            metalness: .7,
             roughness: .5,
             envMapIntensity: 0.9,
             clearcoat: 1,
@@ -189,33 +175,11 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         // Calcul fluide de la position en Y
         this._clouds.position.x = Math.sin(this._time * 0.1 * oscillationSpeed) * oscillationAmplitude;
         this._secondClouds.position.x = -Math.sin(this._time * 0.1 * oscillationSpeed) * oscillationAmplitude;
-
         // Calcul des rotations basées sur la position de la souris
         const rotationX = this._mouse.y * this._cameraRotationFactor;
         const rotationY = this._mouse.x * this._cameraRotationFactor;
         this._camera.rotation.x += (rotationX - this._camera.rotation.x) * 0.1;
-        this._camera.rotation.y += (Math.PI / 2) + (rotationY - this._camera.rotation.y) * 0.1;
-
-        const cameraTargetZ = -200 * this._scrollProgress;
-        this._camera.position.z += 15 + (cameraTargetZ - this._camera.position.z) * 0.1;
-        let theater = TheatersProxy.GetTheater<LobbyThreeTheater>('LOBBY');
-        let fogScale = theater.setFogScale(this._scrollProgress * 1.5);
-        fogScale;
-
-        this._camera.start();
-        // this._pointLight.position.x = this._mouse.x * 100;
-        // this._pointLight.position.y = this._mouse.y * 100;
-        // if (this._pointLight.position.y < 0) {
-        //     this._pointLight.position.y = 0;
-        // }
-        // if (this._mouse.y > 0) {
-        //     this._pointLight.position.z = this._mouse.y * 300;
-        //     // console.log(this._mouse.y);
-        // }
-        // if (this._mouse.y < 0) {
-        //     this._pointLight.position.z = -this._mouse.y * 300;
-        //     // console.log(this._mouse.y);
-        // }
-        // this._pointLight.power = (dt * 0.01) * 10000;
+        this._camera.rotation.y += (rotationY - this._camera.rotation.y) * 0.1;
+        this._camera.position.z = 150 + this._scrollProgress * 100;
     }
 }

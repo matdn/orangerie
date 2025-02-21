@@ -8,7 +8,6 @@ export default class InitCommand {
 
   private static _InitCommandsList: Array<InitCommandBase> = [];
 
-  private static _PixiAssetsManager: any;
   private static _ThreeAssetsManager: any;
 
   private static _IsInitCore: boolean = false;
@@ -18,18 +17,12 @@ export default class InitCommand {
   public static async Execute(initCommands: Array<InitCommandBase>) {
     console.log('InitCommand');
     this._InitCommandsList = [];
-    if (Core.UsePixi) this._PixiAssetsManager = (await import('@cooker/pixi')).PixiAssetsManager;
     if (Core.UseThree) this._ThreeAssetsManager = (await import('@cooker/three')).ThreeAssetsManager;
 
     if (!this._IsInitCore) {
       this._IsInitCore = true;
       this._InitCommandsList.push(new CoreInitCommand());
 
-      if (Core.UsePixi) {
-
-        const pixiModule = await import('../../_engine/pixis/commands/inits/initcommands/PixiInitCommand');
-        this._InitCommandsList.push(new pixiModule.PixiInitCommand());
-      }
       if (Core.UseThree) {
         AugmentedObject3D.Init();
         const threeModule = await import('../../_engine/threejs/commands/inits/initcommands/ThreeInitCommand');
@@ -60,7 +53,6 @@ export default class InitCommand {
   //
   private static async _LoadAssets(): Promise<void> {
     await this._InitCommon();
-    if (Core.UsePixi) await this._InitPixi();
     if (Core.UseThree) await this._InitThree();
     await this._Load();
   }
@@ -70,17 +62,12 @@ export default class InitCommand {
     // for (let o of this._InitCommandsList) await o.initCommon();
   }
 
-  private static async _InitPixi(): Promise<void> {
-    await Promise.all(this._InitCommandsList.map((command) => command.initPixi()));
-  }
-
   private static async _InitThree(): Promise<void> {
     await Promise.all(this._InitCommandsList.map((command) => command.initThree()));
   }
 
   public static async _Load(): Promise<void> {
     await CommonAssetsManager.Load();
-    if (Core.UsePixi) await this._PixiAssetsManager.Load();
     if (Core.UseThree) await this._ThreeAssetsManager.Load();
   }
 
@@ -121,7 +108,6 @@ export default class InitCommand {
   }
 
   //#region Getters
-  public static get PixiAssetsManager(): any { return this._PixiAssetsManager; };
   public static get ThreeAssetsManager(): any { return this._ThreeAssetsManager; };
   //#endregion
 }
