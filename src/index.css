@@ -38,5 +38,9 @@
     border-radius: 4px;
     background-color: rgba(225, 225, 225, .6);
   }
-}
 
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+}
