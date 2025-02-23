@@ -26,6 +26,15 @@
 }
 
 @font-face {
+  font-family: 'NHaasGrotesk';
+  src: url('../../../assets/game/fonts/NHaasGrotesk_Medium.ttf')
+    format('truetype');
+}
+.font-nhaasgrotesk {
+  font-family: 'NHaasGrotesk', sans-serif;
+}
+
+@font-face {
   font-family: 'NHaasGroteskBold';
   src: url('../../../assets/game/fonts/NHaasGrotesk_Bold.ttf')
     format('truetype');
@@ -33,9 +42,7 @@
 .font-nhaasgrotesk-bold {
   font-family: 'NHaasGroteskBold', sans-serif;
 }
-.font-nhaasgrotesk {
-  font-family: 'NHaasGroteskBold', sans-serif;
-}
+
 
 
 @font-face {
