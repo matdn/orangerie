@@ -61,7 +61,7 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
             duration: 0.4,
             stagger: 0.02,
           },
-          "-=0.3"
+          "-=0.2"
         );
       }
 
@@ -93,7 +93,7 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
             duration: 0.8,
             stagger: 0.2,
           },
-          "-=0.4"
+          "-=0.2"
         );
       }
     }, sectionRef);

@@ -93,7 +93,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               </h2>
             </div>
             <div className='overflow-hidden'>
-              <h4 className='anim-text font-instrument text-2xl uppercase'>
+              <h4 className='anim-text font-nhaasgrotesk-light text-2xl uppercase'>
                 (Construction)
               </h4>
             </div>
@@ -184,11 +184,11 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
           </div>
           <div className='overflow-hidden'>
-            <h4 className='font-instrument text-5xl uppercase'>Claude Monet</h4>
+            <h4 className='anim-text font-instrument text-5xl uppercase'>Claude Monet</h4>
           </div>
 
           <div className='overflow-hidden'>
-            <h3 className='font-nhaasgrotesk text-3xl max-w-xl text-center'>
+            <h3 className='anim-text font-nhaasgrotesk-light text-3xl max-w-xl text-center'>
               Le père de l'impressionniste
             </h3>
           </div>
@@ -204,23 +204,25 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               />
               <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
             </div>
-            <p className='anim-number bg-black rounded-full w-5 h-5 p-4 flex items-center justify-center aspect-square font-instrument text-white text-xl'>
+            <p className='anim-number -ml-4 mt-12 bg-black rounded-full w-5 h-5 p-4 flex items-center justify-center aspect-square font-instrument text-white text-xl'>
               2
             </p>
           </div>
 
-          <div>
-            <div className='overflow-hidden'>
-              <h2 className='font-nhaasgrotesk-bold uppercase text-5xl'>
-                1852
-              </h2>
+          <div className='flex flex-col justify-center items-left gap-4 mt-40'>
+            <div>
+              <div className='overflow-hidden'>
+                <h2 className='font-nhaasgrotesk-bold uppercase text-5xl'>
+                  1874
+                </h2>
+              </div>
+              <div className='overflow-hidden'>
+                <h4 className='font-nhaasgrotesk-light text-2xl uppercase'>
+                  Naissance de l'impressionnisme
+                </h4>
+              </div>
             </div>
-            <div className='overflow-hidden'>
-              <h4 className='font-instrument text-2xl uppercase'>
-                (Construction)
-              </h4>
-            </div>
-            <h3 className='ml-2 font-instrument text-3xl max-w-xl text-left'>
+            <h3 className='ml-8 font-instrument text-3xl max-w-xl text-left'>
               {longTextSectionFive.map((word, index) => (
                 <span key={index} className='inline-block overflow-hidden'>
                   <span className='anim-long-text inline-block'>

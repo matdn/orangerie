@@ -43,7 +43,14 @@
   font-family: 'NHaasGroteskBold', sans-serif;
 }
 
-
+@font-face {
+  font-family: 'NHaasGroteskLight';
+  src: url('../../../assets/game/fonts/NHaasGrotesk_Light.ttf')
+    format('truetype');
+}
+.font-nhaasgrotesk-light {
+  font-family: 'NHaasGroteskLight', sans-serif;
+}
 
 @font-face {
   font-family: 'Norman';
