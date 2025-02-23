@@ -16,9 +16,9 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
       const numberElements = contentRef.current.querySelectorAll('.anim-number');
       
       const scrollTriggerConfig = {
-        trigger: contentRef.current,
-        start: "top bottom-=100",
-        end: "bottom top",
+        trigger: sectionRef.current,
+        start: "20% 80%",
+        end: "center center",
         toggleActions: "play none none reverse",
         markers: true,
       };
@@ -86,14 +86,11 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
         mainTl.fromTo(
           images,
           {
-            opacity: 0,
-            scale: 0.8,
+            scaleY: 1,
           },
           {
-            opacity: 1,
-            scale: 1,
+            scaleY: 0,
             duration: 0.8,
-            ease: "back.out(1.7)",
             stagger: 0.2,
           },
           "-=0.4"
@@ -108,14 +105,14 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
   }, []);
 
   return (
-    <div ref={sectionRef} id={id}>
+    <section ref={sectionRef} id={id}>
       <div
         className={`h-dvh w-screen flex flex-col justify-center items-center gap-8 ${className}`}
         ref={contentRef}
       >
         {children}
       </div>
-    </div>
+    </section>
   );
 };
 

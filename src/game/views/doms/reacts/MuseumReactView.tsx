@@ -175,12 +175,13 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
         </SectionMuseum>
 
         <SectionMuseum id='impressionniste'>
-          <div className='overflow-hidden'>
+          <div className='overflow-hidden relative'>
             <img
               src='assets/images/autoportrait.webp'
               alt='Peinture Autoportrait'
-              className='anim-img max-w-sm h-auto'
+              className='max-w-sm h-auto'
             />
+            <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
           </div>
           <div className='overflow-hidden'>
             <h4 className='font-instrument text-5xl uppercase'>Claude Monet</h4>
@@ -195,12 +196,13 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
         <SectionMuseum className='!flex-row'>
           <div className='flex'>
-            <div className='overflow-hidden'>
+            <div className='overflow-hidden relative'>
               <img
                 src='assets/images/soleil-levant.webp'
                 alt='Peinture Autoportrait'
-                className='anim-img max-w-sm h-auto'
+                className='max-w-sm h-auto'
               />
+              <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
             </div>
             <p className='anim-number bg-black rounded-full w-5 h-5 p-4 flex items-center justify-center aspect-square font-instrument text-white text-xl'>
               2
@@ -243,31 +245,34 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             ))}
           </h3>
           <div className='flex justify-center items-center gap-4'>
-            <div className='overflow-hidden'>
+            <div className='overflow-hidden relative scale-75'>
               <img
                 src='assets/images/jardin.webp'
                 alt='Peinture Coclicot'
-                className='anim-img scale-75 w-52 h-72 object-cover'
+                className='w-52 h-72 object-cover'
               />
+              <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
             </div>
             <div className='relative'>
-              <div className='overflow-hidden'>
+              <div className='overflow-hidden relative'>
                 <img
                   src='assets/images/femme-ombrelle.webp'
                   alt='Peinture Coclicot'
-                  className='anim-img w-52  h-72 object-cover'
+                  className='w-52 h-72 object-cover'
                 />
+                <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
               </div>
               <p className='anim-number abs-center bg-white rounded-full px-4 py-2 whitespace-nowrap text-center'>
                 Voir la galerie
               </p>
             </div>
-            <div className='overflow-hidden'>
+            <div className='overflow-hidden relative scale-75'>
               <img
                 src='assets/images/coclicots.webp'
                 alt='Peinture Coclicot'
-                className='anim-img scale-75 w-52  h-72 object-cover'
+                className='w-52  h-72 object-cover'
               />
+              <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
             </div>
           </div>
         </SectionMuseum>
