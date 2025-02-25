@@ -1,20 +1,18 @@
-import { ViewsProxy } from 'pancake';
-import { ViewId } from '../../../constants/views/ViewId';
-import InitCommandBase from "../../../core/commands/inits/initcommands/bases/InitCommandBase";
-import MainThreeView from "../../../views/threes/MainThreeView";
 import { ThreeAssetsManager } from '@cooker/three';
+import { ViewsProxy } from 'pancake';
+import { LobbyCameraController } from '../../../cameras/LobbyCameraController';
 import { AssetId } from '../../../constants/games/AssetId';
+import { ViewId } from '../../../constants/views/ViewId';
+import { ViewPlacementId } from '../../../constants/views/ViewPlacementId';
+import ReactHTMLView from '../../../core/_engine/htmls/views/ReactHTMLView';
+import { ThreeCamerasProxy } from '../../../core/_engine/threejs/proxies/ThreeCamerasProxy';
+import { ThreePostProcessingsProxy } from '../../../core/_engine/threejs/proxies/ThreePostProcessingsProxy';
+import InitCommandBase from "../../../core/commands/inits/initcommands/bases/InitCommandBase";
+import { AquarellePostProcessing } from '../../../postprocessings/AquarellePostProcessing';
+import { BloomPostProcessing } from '../../../postprocessings/BloomPostProcessing';
+import LobbyReactView from '../../../views/doms/reacts/LobbyReactView';
 import LobbyThreeView from '../../../views/threes/LobbyThreeView';
 import { AnalyseGLTFCommand } from '../AnalyseGLTFCommand';
-import { ThreeCamerasProxy } from '../../../core/_engine/threejs/proxies/ThreeCamerasProxy';
-import { LobbyCameraController } from '../../../cameras/LobbyCameraController';
-import { ThreePostProcessingsProxy } from '../../../core/_engine/threejs/proxies/ThreePostProcessingsProxy';
-import { BloomPostProcessing } from '../../../postprocessings/BloomPostProcessing';
-import ReactHTMLView from '../../../core/_engine/htmls/views/ReactHTMLView';
-import { ViewPlacementId } from '../../../constants/views/ViewPlacementId';
-import LobbyReactView from '../../../views/doms/reacts/LobbyReactView';
-import { AquarelleShader } from '../../../postprocessings/shaders/AquarelleShader';
-import { AquarellePostProcessing } from '../../../postprocessings/AquarellePostProcessing';
 
 
 export class LobbyInitCommand extends InitCommandBase {

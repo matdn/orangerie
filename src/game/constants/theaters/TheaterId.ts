@@ -9,6 +9,7 @@ export enum TheaterId {
     MAIN = 'MAIN',
     LOBBY = 'LOBBY',
     MUSEUM = 'MUSEUM',
+    GALLERIE = 'GALLERIE',
     PARK = 'PARK',
     GALERY = 'GALERY',
 }

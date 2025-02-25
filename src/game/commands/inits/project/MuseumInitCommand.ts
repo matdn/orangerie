@@ -49,8 +49,6 @@ export class MuseumInitCommand extends InitCommandBase {
 
     public override async initThree(): Promise<void> {
         ThreeAssetsManager.AddModel(AssetId.GLTF_MUSEUM, this._getAssetPath('models/museum.glb'));
-        // ThreeAssetsManager.AddRGBE(AssetId.HDR_WINTER, this._getAssetPath('hdr/kloppenheim_02_puresky_1k.hdr'));
-        // ThreeAssetsManager.AddRGBE(AssetId.HDR_AUTOMN, this._getAssetPath('hdr/autumn_forest_01_1k.hdr'));
         ThreeAssetsManager.AddRGBE(AssetId.HDR_MUSEUM, this._getAssetPath('hdr/lobby.hdr'));
         ThreeAssetsManager.AddRGBE(AssetId.HDR_PARK, this._getAssetPath('hdr/park.hdr'));
 

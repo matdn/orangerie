@@ -14,6 +14,7 @@ import { ScormService } from './episode/services/ScormService.ts';
 import { LobbyInitCommand } from './commands/inits/project/LobbyInitCommand.ts';
 import { MuseumThreeTheater } from './theaters/MuseeThreeTheater.ts';
 import { MuseumInitCommand } from './commands/inits/project/MuseumInitCommand.ts';
+import { GallerieInitCommand } from './commands/inits/project/GallerieInitCommand.ts';
 
 export default class GameMain {
     private static _Initiated = false;
@@ -31,6 +32,7 @@ export default class GameMain {
             new CommonProjectInitCommand(),
             new LobbyInitCommand(),
             new MuseumInitCommand(),
+            new GallerieInitCommand()
 
 
         ]).then(() => {
@@ -66,8 +68,8 @@ export default class GameMain {
                 }
             }
         }
-        TheaterTransitionCommand.Show(TheaterId.LOBBY);
-        // TheaterTransitionCommand.Show(TheaterId.MUSEUM);
+        // TheaterTransitionCommand.Show(TheaterId.LOBBY);
+        TheaterTransitionCommand.Show(TheaterId.MUSEUM);
         // TheaterTransitionCommand.Show(TheaterId.PARK);
         // TheaterTransitionCommand.Show(TheaterId.GALERY);
         // TheaterTransitionCommand.Show(TheaterId.MAIN);
