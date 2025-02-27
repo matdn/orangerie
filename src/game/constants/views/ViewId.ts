@@ -9,4 +9,5 @@ export enum ViewId {
 
     MUSEUM_REACT = 'MUSEUM_REACT',
     LOBBY_REACT = 'LOBBY_REACT',
+    GALERY_REACT = 'GALERY_REACT',
 }

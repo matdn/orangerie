@@ -12,6 +12,7 @@ import { AssetId } from '../../../constants/games/AssetId';
 import { AnalyseGLTFCommand } from '../AnalyseGLTFCommand';
 import { MuseumThreeTheater } from '../../../theaters/MuseeThreeTheater';
 import { ParkThreeTheater } from '../../../theaters/ParkThreeTheater';
+import { GaleryTheater } from '../../../theaters/GaleryTheater';
 
 
 export class CommonProjectInitCommand extends InitCommandBase {
@@ -50,6 +51,7 @@ export class CommonProjectInitCommand extends InitCommandBase {
         TheatersProxy.AddTheater(new LobbyThreeTheater());
         TheatersProxy.AddTheater(new MuseumThreeTheater());
         TheatersProxy.AddTheater(new ParkThreeTheater());
+        TheatersProxy.AddTheater(new GaleryTheater());
     }
 
 
