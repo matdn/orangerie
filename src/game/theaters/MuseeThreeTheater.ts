@@ -17,6 +17,9 @@ export class MuseumThreeTheater extends ThreeTheaterBase {
         this._cameraId = CameraId.MUSEUM;
         this._viewsList.add(ViewId.THREE_MUSEUM);
         this._viewsList.add(ViewId.MUSEUM_REACT);
+        this._siblingViewsList.add(ViewId.GALERY_REACT);
+        this._siblingViewsList.add(ViewId.THREE_GALERY);
+
         this._environment = {
             background: 0xffffff,
             environmentMapId: AssetId.HDR_MUSEUM,

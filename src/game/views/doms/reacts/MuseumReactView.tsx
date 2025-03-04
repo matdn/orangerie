@@ -3,6 +3,12 @@ import ReactViewBase, {
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 import SectionMuseum from '../../../../components/SectionMuseum';
+import { TheaterTransitionCommand } from '../../../core/commands/TheaterTransitionCommand';
+import { TheatersManager, ViewsManager, ViewsProxy } from 'pancake';
+import { ViewId } from '../../../constants/views/ViewId';
+import MuseumThreeView from '../../threes/MuseumThreeView';
+import { TheaterId } from '../../../constants/theaters/TheaterId';
+import { ThreeCamerasProxy } from '../../../core/_engine/threejs/proxies/ThreeCamerasProxy';
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
   const longTextSectionTwo =
@@ -23,6 +29,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
     );
 
   useEffect(() => {
+
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       const scrollMax =
@@ -40,6 +47,16 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+
+  const galerieSection = () => {
+    ViewsManager.ShowById(ViewId.GALERY_REACT);
+    ViewsManager.ShowById(ViewId.THREE_GALERY);
+    ViewsManager.HideById(ViewId.MUSEUM_REACT);
+    const camera = ThreeCamerasProxy.GetCamera('MUSEUM');
+    camera.position.set(0, 0, -80);
+    camera.lookAt(0, 0, 0);
+  };
 
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>
@@ -264,9 +281,15 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                 />
                 <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
               </div>
-              <p className='anim-number abs-center bg-white rounded-full px-4 py-2 whitespace-nowrap text-center'>
-                Voir la galerie
-              </p>
+
+              <button
+                className='px-8 py-2 rounded-full bg-white'
+                onClick={() => galerieSection()}
+              >
+                <p className='anim-number abs-center bg-white rounded-full px-4 py-2 whitespace-nowrap text-center' >
+                  Voir la galerie
+                </p>
+              </button>
             </div>
             <div className='overflow-hidden relative scale-75'>
               <img

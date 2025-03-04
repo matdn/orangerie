@@ -39,7 +39,13 @@ export class CommonProjectInitCommand extends InitCommandBase {
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_SKY_CLOUDS, this._getAssetPath('textures/commons/Clouds.webp'));
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_WHITE, this._getAssetPath('textures/commons/white.webp'));
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_LUT_GLOBAL, this._getAssetPath('textures/luts/Global64Lut.webp'));
-
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_1, this._getAssetPath('images/img1.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_2, this._getAssetPath('images/img2.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_3, this._getAssetPath('images/img3.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_4, this._getAssetPath('images/img4.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_5, this._getAssetPath('images/img5.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_6, this._getAssetPath('images/img6.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_7, this._getAssetPath('images/img7.jpg'));
     }
 
     public override async addViews(): Promise<void> {

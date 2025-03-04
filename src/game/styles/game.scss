@@ -2,52 +2,53 @@
 @import './view/lobby.scss';
 @import './view/museum.scss';
 @import './view/components/buttons.scss';
+@import './view/galery.scss';
 
 @font-face {
   font-family: 'Instrument';
-  src: url('../../../assets/game/fonts/InstrumentSerif-Regular.ttf')
-    format('truetype');
+  src: url('../../../assets/game/fonts/InstrumentSerif-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+
 .font-instrument {
   font-family: 'Instrument', sans-serif;
 }
 
 @font-face {
   font-family: 'Instrument Italic';
-  src: url('../../../assets/game/fonts/InstrumentSerif-Italic.ttf')
-    format('truetype');
+  src: url('../../../assets/game/fonts/InstrumentSerif-Italic.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
 }
+
 .font-instrument-italic {
   font-family: 'Instrument Italic', sans-serif;
 }
 
 @font-face {
   font-family: 'NHaasGrotesk';
-  src: url('../../../assets/game/fonts/NHaasGrotesk_Medium.ttf')
-    format('truetype');
+  src: url('../../../assets/game/fonts/NHaasGrotesk_Medium.ttf') format('truetype');
 }
+
 .font-nhaasgrotesk {
   font-family: 'NHaasGrotesk', sans-serif;
 }
 
 @font-face {
   font-family: 'NHaasGroteskBold';
-  src: url('../../../assets/game/fonts/NHaasGrotesk_Bold.ttf')
-    format('truetype');
+  src: url('../../../assets/game/fonts/NHaasGrotesk_Bold.ttf') format('truetype');
 }
+
 .font-nhaasgrotesk-bold {
   font-family: 'NHaasGroteskBold', sans-serif;
 }
 
 @font-face {
   font-family: 'NHaasGroteskLight';
-  src: url('../../../assets/game/fonts/NHaasGrotesk_Light.ttf')
-    format('truetype');
+  src: url('../../../assets/game/fonts/NHaasGrotesk_Light.ttf') format('truetype');
 }
+
 .font-nhaasgrotesk-light {
   font-family: 'NHaasGroteskLight', sans-serif;
 }
@@ -57,6 +58,7 @@
   src: url('../../../assets/game/fonts/Norman Regular.ttf') format('truetype');
   font-weight: 900;
 }
+
 .font-norman {
   font-family: 'Norman', sans-serif;
 }
@@ -67,6 +69,7 @@
   font-weight: 900;
   font-style: italic;
 }
+
 .font-norman-italic {
   font-family: 'Norman-Italic', sans-serif;
 }

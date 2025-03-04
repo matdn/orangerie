@@ -12,13 +12,17 @@ import { AquarellePostProcessing } from '../../../postprocessings/AquarellePostP
 import ReactHTMLView from '../../../core/_engine/htmls/views/ReactHTMLView';
 import { ViewPlacementId } from '../../../constants/views/ViewPlacementId';
 import MuseumReactView from '../../../views/doms/reacts/MuseumReactView';
+import GaleryThreeView from '../../../views/threes/components/GaleryThreeView';
+import GaleryReactView from '../../../views/doms/reacts/GaleryReactView';
+import { GaleryCameraController } from '../../../cameras/GaleryCameraController';
 
 
 export class MuseumInitCommand extends InitCommandBase {
 
     public override async initProxies(): Promise<void> {
-        console.log("MuseumInitCommand instancié !");
         ThreeCamerasProxy.AddCamera(new MuseumCameraController());
+        ThreeCamerasProxy.AddCamera(new GaleryCameraController());
+
         ThreePostProcessingsProxy.AddPostProcessing(new AquarellePostProcessing());
 
     }
@@ -30,7 +34,13 @@ export class MuseumInitCommand extends InitCommandBase {
 
 
     public override async initCommon(): Promise<void> {
-
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_1, this._getAssetPath('images/img1.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_2, this._getAssetPath('images/img2.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_3, this._getAssetPath('images/img3.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_4, this._getAssetPath('images/img4.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_5, this._getAssetPath('images/img5.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_6, this._getAssetPath('images/img6.jpg'));
+        ThreeAssetsManager.AddTexture(AssetId.GALERY_7, this._getAssetPath('images/img7.jpg'));
     }
 
     public override async initPixi(): Promise<void> {
@@ -52,10 +62,10 @@ export class MuseumInitCommand extends InitCommandBase {
     }
 
     public override async addViews(): Promise<void> {
-        console.log("museum views added");
         ViewsProxy.AddViewConstructor(ViewId.THREE_MUSEUM, MuseumThreeView);
         ViewsProxy.AddView(new ReactHTMLView(ViewId.MUSEUM_REACT, ViewPlacementId.NONE, MuseumReactView, 0));
-
+        ViewsProxy.AddView(new ReactHTMLView(ViewId.GALERY_REACT, ViewPlacementId.REACT_GALERY, GaleryReactView, 0));
+        ViewsProxy.AddViewConstructor(ViewId.THREE_GALERY, GaleryThreeView);
         // ViewsProxy.AddView(new ReactHTMLView(ViewId.LOBBY_REACT, ViewPlacementId.NONE, LobbyReactView, 0));
     }
 
