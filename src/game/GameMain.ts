@@ -70,11 +70,8 @@ export default class GameMain {
         TheaterTransitionCommand.Show(TheaterId.MUSEUM);
         // TheaterTransitionCommand.Show(TheaterId.PARK);
         // TheaterTransitionCommand.Show(TheaterId.GALERY);
-<<<<<<< HEAD
         // TheaterTransitionCommand.Show(TheaterId.MAIN);
 
-=======
->>>>>>> 3957b05e (Supprimer la prise en charge de la galerie : retirer GallerieInitCommand et GallerieReactView, ajouter de nouvelles images et ajuster le style CSS)
     }
 
     public static get IsInit(): boolean { return GameMain._IsInit; }
