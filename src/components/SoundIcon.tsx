@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useRef, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -69,6 +70,20 @@ const SoundIcon: React.FC<SoundIconProps> = ({
           style={{ height: '2px' }}
         ></div>
       ))}
+=======
+const SoundIcon = ({}) => {
+
+
+
+  return (
+    <div className="flex items-center justify-center gap-0.5">
+      <div className="w-0.5 bg-white rounded-full h-1"></div>
+      <div className="w-0.5 bg-white rounded-full h-3"></div>
+      <div className="w-0.5 bg-white rounded-full h-5"></div>
+      <div className="w-0.5 bg-white rounded-full h-3"></div>
+      <div className="w-0.5 bg-white rounded-full h-4"></div>
+      <div className="w-0.5 bg-white rounded-full h-2"></div>
+>>>>>>> 3957b05e (Supprimer la prise en charge de la galerie : retirer GallerieInitCommand et GallerieReactView, ajouter de nouvelles images et ajuster le style CSS)
     </div>
   );
 };
