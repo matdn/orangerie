@@ -55,7 +55,6 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>
-      {/* <div className='page-transition bg-white w-full h-full absolute top-0 left-0'></div> */}
       <div className='borderScreenMuseum'></div>
       <div className='w-full overflow-y-scroll'>
         <SectionMuseum>
@@ -112,7 +111,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             </div>
           </div>
           <div className='glassmorphism'>
-            <h3 className='anim-long-text font-instrument text-3xl max-w-xl text-center'>
+            <h3 className='font-instrument text-3xl max-w-xl text-center'>
               {longTextSectionTwo.map((word, index) => (
                 <span key={index} className='inline-block overflow-hidden'>
                   <span className='anim-long-text inline-block'>
@@ -231,12 +230,12 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           <div className='flex flex-col justify-center items-left gap-4 mt-40'>
             <div>
               <div className='overflow-hidden'>
-                <h2 className='font-nhaasgrotesk-bold uppercase text-5xl'>
+                <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl'>
                   1874
                 </h2>
               </div>
               <div className='overflow-hidden'>
-                <h4 className='font-nhaasgrotesk-light text-2xl uppercase'>
+                <h4 className='anim-text font-nhaasgrotesk-light text-2xl uppercase'>
                   Naissance de l'impressionnisme
                 </h4>
               </div>
@@ -289,10 +288,10 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               </div>
 
               <button
-                className='px-8 py-2 rounded-full bg-white'
+                className='anim-number abs-center px-8 py-2 rounded-full bg-white'
                 onClick={() => galerieSection()}
               >
-                <p className='anim-number abs-center bg-white rounded-full px-4 py-2 whitespace-nowrap text-center'>
+                <p className='whitespace-nowrap text-center'>
                   Voir la galerie
                 </p>
               </button>
@@ -310,7 +309,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
         <SectionMuseum>
           <div className='overflow-hidden'>
-            <h4 className='font-instrument-italic text-3xl'>Chapitre 03</h4>
+            <h4 className='anim-text font-instrument-italic text-3xl'>Chapitre 03</h4>
           </div>
           <div className='flex flex-col justify-center items-center glassmorphism'>
             <div className='overflow-hidden'>
