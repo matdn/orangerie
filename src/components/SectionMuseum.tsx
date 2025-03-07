@@ -1,6 +1,6 @@
-import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useLayoutEffect, useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,6 +12,7 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
     const ctx = gsap.context(() => {
       const textElements = contentRef.current.querySelectorAll('.anim-text');
       const images = contentRef.current.querySelectorAll('.anim-img');
+      const glassmorphismElements = contentRef.current.querySelectorAll('.glassmorphism');
       const longTextElements = contentRef.current.querySelectorAll('.anim-long-text');
       const numberElements = contentRef.current.querySelectorAll('.anim-number');
       
@@ -26,6 +27,7 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
         scrollTrigger: scrollTriggerConfig,
         defaults: {
           ease: "power2.out",
+          markers: true,
         }
       });
 
@@ -35,16 +37,30 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
             element,
             {
               opacity: 0,
-              y: 100,
             },
             {
               opacity: 1,
-              y: 0,
               duration: 0.8,
             },
-            "<+=0.1"
           );
         });
+      }
+
+      if (glassmorphismElements.length > 0) {
+        mainTl.fromTo(
+          glassmorphismElements,
+          {
+            opacity: 0,
+            y: 20,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+            stagger: 0.02,
+          },
+          "-=0.2"
+        );
       }
 
       if (longTextElements.length > 0) {
@@ -89,8 +105,8 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
           },
           {
             scaleY: 0,
-            duration: 0.8,
-            stagger: 0.2,
+            duration: 0.6,
+            stagger: 0.02,
           },
           "-=0.2"
         );

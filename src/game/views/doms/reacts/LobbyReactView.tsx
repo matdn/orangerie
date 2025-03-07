@@ -82,7 +82,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   };
 
   return (
-    <ReactViewBase {...props} className='z-50 w-full flex flex-col'>
+    <ReactViewBase {...props} className='fixed inset-0 z-50 w-full flex flex-col'>
       <div className='borderScreen'></div>
       <div className='w-full p-8 px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>

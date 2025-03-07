@@ -59,7 +59,7 @@ export default function ReactViewBase({
     <div
       {...props}
       id={viewId}
-      className={`view h-dvh w-screen ${className} ${targetClass}`}
+      className={`h-dvh w-screen ${className} ${targetClass}`}
       ref={target}
       key={viewId}
     >

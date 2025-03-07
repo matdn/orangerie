@@ -55,6 +55,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>
+      {/* <div className='page-transition bg-white w-full h-full absolute top-0 left-0'></div> */}
       <div className='borderScreenMuseum'></div>
       <div className='w-full overflow-y-scroll'>
         <SectionMuseum>
