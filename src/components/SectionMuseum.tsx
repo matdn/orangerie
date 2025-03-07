@@ -12,7 +12,7 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
   useGSAP(() => {
     const scrollTrigger = {
       trigger: sectionRef.current,
-      start: 'top 20%',
+      start: 'top 30%',
       markers: true,
       toggleActions: 'play none none reverse',
     }
@@ -34,11 +34,9 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
     gsap.fromTo(
       contentRef.current.querySelectorAll('.anim-long-text'),
       {
-        opacity: 0,
         y: 20,
       },
       {
-        opacity: 1,
         y: 0,
         duration: 0.4,
         stagger: 0.02,
@@ -60,12 +58,12 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
     gsap.fromTo(
       contentRef.current.querySelectorAll('.anim-number'),
       {
-        opacity: 0,
+        scale: 0,
       },
       {
-        opacity: 1,
+        scale: 1,
         duration: 0.4,
-        stagger: 0.4,
+        ease: 'back.out(1.7)',
         scrollTrigger
       }
     );
@@ -73,10 +71,14 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
     gsap.fromTo(
       contentRef.current.querySelectorAll('.anim-img'),
       {
-        scaleY: 1,
+        opacity: 0,
+        y: 20,
+        filter: "blur(10px)",
       },
       {
-        scaleY: 0,
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
         duration: 0.6,
         stagger: 0.02,
         scrollTrigger

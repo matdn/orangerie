@@ -77,7 +77,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           </div>
           <a
             href='#construction'
-            className='anim-text bg-white px-1 py-4 rounded-full'
+            className='anim-number bg-white px-1 py-4 rounded-full'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -170,7 +170,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           </div>
           <a
             href='#impressionniste'
-            className='anim-text bg-white px-1 py-4 rounded-full'
+            className='anim-number bg-white px-1 py-4 rounded-full'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -191,13 +191,12 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
         </SectionMuseum>
 
         <SectionMuseum id='impressionniste'>
-          <div className='overflow-hidden relative'>
+          <div className='overflow-hidden'>
             <img
               src='assets/images/autoportrait.webp'
               alt='Peinture Autoportrait'
-              className='max-w-sm h-auto'
+              className='anim-img max-w-sm h-auto'
             />
-            <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
           </div>
           <div className='overflow-hidden'>
             <h4 className='anim-text font-instrument text-5xl uppercase'>
@@ -214,15 +213,14 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
         <SectionMuseum className='!flex-row'>
           <div className='flex'>
-            <div className='overflow-hidden relative'>
+            <div className='overflow-hidden'>
               <img
                 src='assets/images/soleil-levant.webp'
                 alt='Peinture Autoportrait'
-                className='max-w-sm h-auto'
+                className='anim-img max-w-sm h-auto'
               />
-              <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
             </div>
-            <p className='anim-number -ml-4 mt-12 bg-black rounded-full w-5 h-5 p-4 flex items-center justify-center aspect-square font-instrument text-white text-xl'>
+            <p className='anim-number -ml-4 mt-12 z-10 bg-black rounded-full w-5 h-5 p-4 flex items-center justify-center aspect-square font-instrument text-white text-xl'>
               2
             </p>
           </div>
@@ -269,22 +267,20 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             </h3>
           </div>
           <div className='flex justify-center items-center gap-4'>
-            <div className='overflow-hidden relative scale-75'>
+            <div className='overflow-hidden scale-75'>
               <img
                 src='assets/images/jardin.webp'
                 alt='Peinture Coclicot'
-                className='w-52 h-72 object-cover'
+                className='anim-img w-52 h-72 object-cover'
               />
-              <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
             </div>
             <div className='relative'>
-              <div className='overflow-hidden relative'>
+              <div className='overflow-hidden'>
                 <img
                   src='assets/images/femme-ombrelle.webp'
                   alt='Peinture Coclicot'
-                  className='w-52 h-72 object-cover'
+                  className='anim-img w-52 h-72 object-cover'
                 />
-                <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
               </div>
 
               <button
@@ -296,13 +292,12 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                 </p>
               </button>
             </div>
-            <div className='overflow-hidden relative scale-75'>
+            <div className='overflow-hidden scale-75'>
               <img
                 src='assets/images/coclicots.webp'
                 alt='Peinture Coclicot'
-                className='w-52  h-72 object-cover'
+                className='anim-img w-52  h-72 object-cover'
               />
-              <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
             </div>
           </div>
         </SectionMuseum>
@@ -323,7 +318,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               </h3>
             </div>
           </div>
-          <a href='#' className='anim-text bg-white px-1 py-4 rounded-full'>
+          <a href='#' className='anim-number bg-white px-1 py-4 rounded-full'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               width='24'
