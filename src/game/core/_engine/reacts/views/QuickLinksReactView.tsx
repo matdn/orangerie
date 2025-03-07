@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { DomEvent, KeyboardConstant } from 'spices';
 import { TheaterTransitionCommand } from '../../../commands/TheaterTransitionCommand';
 import { KeyboardManager } from '../../../managers/KeyboardManager';
-import OpacityAnimatedReactView from './OpacityAnimatedReactView';
 
 export const QuickLinksReactViewId = 'quickLinks';
 
@@ -63,10 +62,10 @@ export default function QuickLinksReactView() {
     }, []);
 
     return (
-        <OpacityAnimatedReactView className={` ${QuickLinksReactViewOptions.className}`} viewId={QuickLinksReactViewId}>
+        <div className={` ${QuickLinksReactViewOptions.className}`}>
             <ul className={`links ${isOpen ? 'open' : ''}`} >
                 {buttons}
             </ul>
-        </OpacityAnimatedReactView >
+        </div >
     );
 }

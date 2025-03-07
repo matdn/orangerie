@@ -1,13 +1,10 @@
+import { ViewsManager } from 'pancake';
 import React, { useEffect } from 'react';
+import SectionMuseum from '../../../../components/SectionMuseum';
+import { ViewId } from '../../../constants/views/ViewId';
 import ReactViewBase, {
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
-import SectionMuseum from '../../../../components/SectionMuseum';
-import { TheaterTransitionCommand } from '../../../core/commands/TheaterTransitionCommand';
-import { TheatersManager, ViewsManager, ViewsProxy } from 'pancake';
-import { ViewId } from '../../../constants/views/ViewId';
-import MuseumThreeView from '../../threes/MuseumThreeView';
-import { TheaterId } from '../../../constants/theaters/TheaterId';
 import { ThreeCamerasProxy } from '../../../core/_engine/threejs/proxies/ThreeCamerasProxy';
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
@@ -28,6 +25,15 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       ' '
     );
 
+  const galerieSection = () => {
+    ViewsManager.ShowById(ViewId.GALERY_REACT);
+    ViewsManager.ShowById(ViewId.THREE_GALERY);
+    ViewsManager.HideById(ViewId.MUSEUM_REACT);
+    const camera = ThreeCamerasProxy.GetCamera('MUSEUM');
+    camera.position.set(0, 0, -80);
+    camera.lookAt(0, 0, 0);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
@@ -46,15 +52,6 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  const galerieSection = () => {
-    ViewsManager.ShowById(ViewId.GALERY_REACT);
-    ViewsManager.ShowById(ViewId.THREE_GALERY);
-    ViewsManager.HideById(ViewId.MUSEUM_REACT);
-    const camera = ThreeCamerasProxy.GetCamera('MUSEUM');
-    camera.position.set(0, 0, -80);
-    camera.lookAt(0, 0, 0);
-  };
 
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>
@@ -114,16 +111,16 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             </div>
           </div>
           <div className='glassmorphism'>
-          <h3 className='anim-long-text font-instrument text-3xl max-w-xl text-center'>
-            {longTextSectionTwo.map((word, index) => (
-              <span key={index} className='inline-block overflow-hidden'>
-                <span className='anim-long-text inline-block'>
-                  {word}
-                  {index !== longTextSectionTwo.length - 1 && '\u00A0'}
+            <h3 className='anim-long-text font-instrument text-3xl max-w-xl text-center'>
+              {longTextSectionTwo.map((word, index) => (
+                <span key={index} className='inline-block overflow-hidden'>
+                  <span className='anim-long-text inline-block'>
+                    {word}
+                    {index !== longTextSectionTwo.length - 1 && '\u00A0'}
+                  </span>
                 </span>
-              </span>
-            ))}
-          </h3>
+              ))}
+            </h3>
           </div>
         </SectionMuseum>
 
@@ -260,16 +257,16 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
         <SectionMuseum>
           <div className='glassmorphism'>
-          <h3 className='font-instrument text-3xl max-w-xl text-center'>
-            {longTextSectionSix.map((word, index) => (
-              <span key={index} className='inline-block overflow-hidden'>
-                <span className='anim-long-text inline-block'>
-                  {word}
-                  {index !== longTextSectionSix.length - 1 && '\u00A0'}
+            <h3 className='font-instrument text-3xl max-w-xl text-center'>
+              {longTextSectionSix.map((word, index) => (
+                <span key={index} className='inline-block overflow-hidden'>
+                  <span className='anim-long-text inline-block'>
+                    {word}
+                    {index !== longTextSectionSix.length - 1 && '\u00A0'}
+                  </span>
                 </span>
-              </span>
-            ))}
-          </h3>
+              ))}
+            </h3>
           </div>
           <div className='flex justify-center items-center gap-4'>
             <div className='overflow-hidden relative scale-75'>
