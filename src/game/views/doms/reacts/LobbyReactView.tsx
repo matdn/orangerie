@@ -8,11 +8,17 @@ import ReactViewBase, {
 import SoundIcon from '../../../../components/SoundIcon';
 import { TheaterTransitionCommand } from '../../../core/commands/TheaterTransitionCommand';
 import { TheaterId } from '../../../constants/theaters/TheaterId';
+import { TheatersManager, TheatersProxy } from 'pancake';
 
 gsap.registerPlugin(CustomEase);
 
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [musicIsPlaying, setMusicIsPlaying] = useState(false);
+
+  const toggleMusic = () => {
+    setMusicIsPlaying((prev) => !prev);
+  };
 
   const timelineAnimation = () => {
     const tl = gsap.timeline();
@@ -29,12 +35,20 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
     tl.from(
       '.main-text',
       {
-        duration: 1.2,
+        duration: 1,
         opacity: 0,
         yPercent: '50',
-        ease: 'power1.out',
       },
       '<'
+    );
+    tl.from(
+      '.span-text',
+      {
+        duration: 1,
+        opacity: 0,
+        ease: 'power1.out',
+      },
+      '>0.02'
     );
     tl.from(
       '.button-container',
@@ -44,7 +58,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         yPercent: '20',
         ease: 'power1.out',
       },
-      '>0.05'
+      '>0.02'
     );
     tl.from(
       '.footer-text',
@@ -54,15 +68,6 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         yPercent: '100',
         ease: 'power1.out',
       },
-      '>.2'
-    );
-    tl.from(
-      '.footer-icon',
-      {
-        duration: 0.5,
-        scale: 0,
-        ease: 'elastic.out(1, 0.5)',
-      },
       '<'
     );
   };
@@ -71,23 +76,8 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
     timelineAnimation();
   }, []);
 
-  useGSAP(() => {
-    if (isHovered) {
-      gsap.to('.button-content', {
-        x: 0,
-        duration: 0.6,
-        ease: 'power1.out',
-      });
-    } else {
-      gsap.to('.button-content', {
-        x: -110,
-        duration: 0.6,
-        ease: 'power2.out',
-      });
-    }
-  }, [isHovered]);
-
   const showMuseumTheater = () => {
+    TheatersManager.HideById(TheaterId.LOBBY);
     TheaterTransitionCommand.Show(TheaterId.MUSEUM);
   };
 
@@ -133,10 +123,13 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
             Les Rêveries
           </h1>
         </div>
-        <div className='overflow-hidden'>
+        <div className='overflow-hidden relative'>
           <h1 className='main-text font-norman text-[10rem] leading-[1.5] text-white'>
             L'Orangerie
           </h1>
+          <span className='span-text font-norman absolute top-24 left-40 text-white text-5xl'>
+            de
+          </span>
         </div>
         <button
           className='button-container relative overflow-hidden px-8 py-2 rounded-full border border-white backdrop-blur-md bg-white/5 mt-5'
@@ -170,7 +163,11 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </p>
         </div>
         <div className='overflow-hidden cursor-pointer'>
-          <SoundIcon/>
+          <SoundIcon
+            isPlaying={musicIsPlaying}
+            className='h-6'
+            onClick={toggleMusic}
+          />
         </div>
       </div>
     </ReactViewBase>

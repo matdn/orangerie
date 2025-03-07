@@ -1,13 +1,10 @@
+import { ViewsManager } from 'pancake';
 import React, { useEffect } from 'react';
+import SectionMuseum from '../../../../components/SectionMuseum';
+import { ViewId } from '../../../constants/views/ViewId';
 import ReactViewBase, {
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
-import SectionMuseum from '../../../../components/SectionMuseum';
-import { TheaterTransitionCommand } from '../../../core/commands/TheaterTransitionCommand';
-import { TheatersManager, ViewsManager, ViewsProxy } from 'pancake';
-import { ViewId } from '../../../constants/views/ViewId';
-import MuseumThreeView from '../../threes/MuseumThreeView';
-import { TheaterId } from '../../../constants/theaters/TheaterId';
 import { ThreeCamerasProxy } from '../../../core/_engine/threejs/proxies/ThreeCamerasProxy';
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
@@ -28,8 +25,16 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       ' '
     );
 
-  useEffect(() => {
+  const galerieSection = () => {
+    ViewsManager.ShowById(ViewId.GALERY_REACT);
+    ViewsManager.ShowById(ViewId.THREE_GALERY);
+    ViewsManager.HideById(ViewId.MUSEUM_REACT);
+    const camera = ThreeCamerasProxy.GetCamera('MUSEUM');
+    camera.position.set(0, 0, -80);
+    camera.lookAt(0, 0, 0);
+  };
 
+  useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       const scrollMax =
@@ -48,16 +53,6 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
     };
   }, []);
 
-
-  const galerieSection = () => {
-    ViewsManager.ShowById(ViewId.GALERY_REACT);
-    ViewsManager.ShowById(ViewId.THREE_GALERY);
-    ViewsManager.HideById(ViewId.MUSEUM_REACT);
-    const camera = ThreeCamerasProxy.GetCamera('MUSEUM');
-    camera.position.set(0, 0, -80);
-    camera.lookAt(0, 0, 0);
-  };
-
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>
       <div className='borderScreenMuseum'></div>
@@ -68,7 +63,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               Chapitre 01
             </h4>
           </div>
-          <div className='flex flex-col justify-center items-center'>
+          <div className='flex flex-col justify-center items-center glassmorphism'>
             <div className='overflow-hidden'>
               <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-8xl'>
                 L'Orangerie
@@ -115,16 +110,18 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               </h4>
             </div>
           </div>
-          <h3 className='overflow-hidde anim-long-text font-instrument text-3xl max-w-xl text-centern'>
-            {longTextSectionTwo.map((word, index) => (
-              <span key={index} className='inline-block overflow-hidden'>
-                <span className='anim-long-text inline-block'>
-                  {word}
-                  {index !== longTextSectionTwo.length - 1 && '\u00A0'}
+          <div className='glassmorphism'>
+            <h3 className='anim-long-text font-instrument text-3xl max-w-xl text-center'>
+              {longTextSectionTwo.map((word, index) => (
+                <span key={index} className='inline-block overflow-hidden'>
+                  <span className='anim-long-text inline-block'>
+                    {word}
+                    {index !== longTextSectionTwo.length - 1 && '\u00A0'}
+                  </span>
                 </span>
-              </span>
-            ))}
-          </h3>
+              ))}
+            </h3>
+          </div>
         </SectionMuseum>
 
         <SectionMuseum className='!w-[50vw] pl-10'>
@@ -139,16 +136,18 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             </p>
           </div>
 
-          <h3 className='font-instrument text-3xl max-w-xl text-centern'>
-            {longTextSectionThree.map((word, index) => (
-              <span key={index} className='inline-block overflow-hidden'>
-                <span className='anim-long-text inline-block'>
-                  {word}
-                  {index !== longTextSectionThree.length - 1 && '\u00A0'}
+          <div className='glassmorphism'>
+            <h3 className='font-instrument text-3xl max-w-xl text-center'>
+              {longTextSectionThree.map((word, index) => (
+                <span key={index} className='inline-block overflow-hidden'>
+                  <span className='anim-long-text inline-block'>
+                    {word}
+                    {index !== longTextSectionThree.length - 1 && '\u00A0'}
+                  </span>
                 </span>
-              </span>
-            ))}
-          </h3>
+              ))}
+            </h3>
+          </div>
         </SectionMuseum>
 
         <SectionMuseum>
@@ -157,7 +156,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               Chapitre 02
             </h4>
           </div>
-          <div className='flex flex-col justify-center items-center'>
+          <div className='flex flex-col justify-center items-center glassmorphism'>
             <div className='overflow-hidden'>
               <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-8xl'>
                 Claude Monet
@@ -201,7 +200,9 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             <div className='anim-img origin-top absolute w-full h-full inset-0 bg-white'></div>
           </div>
           <div className='overflow-hidden'>
-            <h4 className='anim-text font-instrument text-5xl uppercase'>Claude Monet</h4>
+            <h4 className='anim-text font-instrument text-5xl uppercase'>
+              Claude Monet
+            </h4>
           </div>
 
           <div className='overflow-hidden'>
@@ -239,30 +240,34 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                 </h4>
               </div>
             </div>
-            <h3 className='ml-8 font-instrument text-3xl max-w-xl text-left'>
-              {longTextSectionFive.map((word, index) => (
+            <div className='glassmorphism ml-8'>
+              <h3 className='font-instrument text-3xl max-w-xl text-left'>
+                {longTextSectionFive.map((word, index) => (
+                  <span key={index} className='inline-block overflow-hidden'>
+                    <span className='anim-long-text inline-block'>
+                      {word}
+                      {index !== longTextSectionFive.length - 1 && '\u00A0'}
+                    </span>
+                  </span>
+                ))}
+              </h3>
+            </div>
+          </div>
+        </SectionMuseum>
+
+        <SectionMuseum>
+          <div className='glassmorphism'>
+            <h3 className='font-instrument text-3xl max-w-xl text-center'>
+              {longTextSectionSix.map((word, index) => (
                 <span key={index} className='inline-block overflow-hidden'>
                   <span className='anim-long-text inline-block'>
                     {word}
-                    {index !== longTextSectionFive.length - 1 && '\u00A0'}
+                    {index !== longTextSectionSix.length - 1 && '\u00A0'}
                   </span>
                 </span>
               ))}
             </h3>
           </div>
-        </SectionMuseum>
-
-        <SectionMuseum>
-          <h3 className='font-instrument text-3xl max-w-xl text-center'>
-            {longTextSectionSix.map((word, index) => (
-              <span key={index} className='inline-block overflow-hidden'>
-                <span className='anim-long-text inline-block'>
-                  {word}
-                  {index !== longTextSectionSix.length - 1 && '\u00A0'}
-                </span>
-              </span>
-            ))}
-          </h3>
           <div className='flex justify-center items-center gap-4'>
             <div className='overflow-hidden relative scale-75'>
               <img
@@ -286,7 +291,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                 className='px-8 py-2 rounded-full bg-white'
                 onClick={() => galerieSection()}
               >
-                <p className='anim-number abs-center bg-white rounded-full px-4 py-2 whitespace-nowrap text-center' >
+                <p className='anim-number abs-center bg-white rounded-full px-4 py-2 whitespace-nowrap text-center'>
                   Voir la galerie
                 </p>
               </button>
@@ -306,7 +311,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           <div className='overflow-hidden'>
             <h4 className='font-instrument-italic text-3xl'>Chapitre 03</h4>
           </div>
-          <div className='flex flex-col justify-center items-center'>
+          <div className='flex flex-col justify-center items-center glassmorphism'>
             <div className='overflow-hidden'>
               <h2 className='font-nhaasgrotesk-bold uppercase text-8xl'>
                 Les Nymphéas

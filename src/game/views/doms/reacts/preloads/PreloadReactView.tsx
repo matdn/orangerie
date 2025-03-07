@@ -2,7 +2,7 @@
 const PreloadReactView = () => {
 
     return (
-        <div className="h-dvh w-screen bg-black">
+        <div className="h-dvh w-screen bg-white">
 
         </div>
     )

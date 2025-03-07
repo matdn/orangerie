@@ -20,7 +20,6 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
         start: "20% 80%",
         end: "center center",
         toggleActions: "play none none reverse",
-        markers: true,
       };
 
       const mainTl = gsap.timeline({
