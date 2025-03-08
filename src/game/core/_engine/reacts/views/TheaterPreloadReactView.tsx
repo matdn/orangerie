@@ -8,13 +8,10 @@ import ReactViewBase, { TransitionProps } from './bases/ReactViewBase';
 const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
   const [displayPercent, setDisplayPercent] = useState<number>(0);
   const [targetPercent, setTargetPercent] = useState<number>(0);
-  const allowTransitionRef = useRef<boolean>(false);
   const circleRef = useRef<SVGCircleElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const pageTransitionRef = useRef<HTMLDivElement>(null);
-  const tl = useRef<gsap.core.Timeline | null>(null);
+  const allowTransitionRef = useRef<boolean>(false);
+  const animatingRef = useRef<boolean>(false);
 
-  // Animation d'entrée et initialisation
   useEffect(() => {
     // Masquer la page initialement
     gsap.set('.page-transition', {
@@ -60,40 +57,9 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
         strokeDasharray: circumference,
         strokeDashoffset: circumference,
       });
-
-      tl.current.to(circleRef.current, {
-        strokeDashoffset: 0,
-        duration: 2,
-        ease: 'power2.inOut',
-      });
     }
-
-    return () => {
-      if (tl.current) {
-        tl.current.kill();
-      }
-      enterTl.kill();
-    };
   }, []);
 
-  // Animation du cercle en fonction du pourcentage
-  useEffect(() => {
-    if (tl.current && circleRef.current) {
-      const radius = circleRef.current.r.baseVal.value;
-      const circumference = radius * 2 * Math.PI;
-      const offset = circumference - (displayPercent / 100) * circumference;
-
-      gsap.to(circleRef.current, {
-        strokeDashoffset: offset,
-        duration: 0.5,
-        ease: 'power1.out',
-      });
-
-      tl.current.progress(displayPercent / 100);
-    }
-  }, [displayPercent]);
-
-  // Liaison avec le système de vue
   useEffect(() => {
     const view = ViewsProxy.GetView<TheaterPreloadReactHTMLView>(props.viewId);
     const originalExecute = view.onFinishTransition.execute;
@@ -104,7 +70,7 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
       }
     };
 
-    const onChangePercent = (percent: number): void => {
+    const onChangePercent = (percent: number) => {
       const roundedPercent = Math.round(percent);
       setTargetPercent(roundedPercent);
     };
@@ -118,74 +84,63 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
     };
   }, [props.viewId]);
 
-  // Animation fluide du pourcentage et animation de sortie
   useEffect(() => {
-    let animationId: number;
+    if (animatingRef.current) return;
 
-    const animatePercent = () => {
-      if (displayPercent < targetPercent) {
-        setDisplayPercent((prev) => {
-          const diff = targetPercent - prev;
-          const increment = Math.max(1, Math.floor(diff / 10));
-          return Math.min(prev + increment, targetPercent);
+    const updateCircle = (percent: number) => {
+      if (circleRef.current) {
+        const radius = circleRef.current.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+        const offset = circumference - (percent / 100) * circumference;
+
+        gsap.to(circleRef.current, {
+          strokeDashoffset: offset,
+          duration: 0.3,
+          ease: 'power1.out',
         });
-        animationId = requestAnimationFrame(animatePercent);
-      } else if (
-        displayPercent === 100 &&
-        targetPercent === 100 &&
-        !allowTransitionRef.current
-      ) {
-        allowTransitionRef.current = true;
-
-        // Animation du conteneur qui disparaît d'abord
-        gsap.to(containerRef.current, {
-          duration: 0.5,
-          autoAlpha: 0,
-          y: -30,
-          scale: 0.9,
-          ease: 'power2.in'
-        });
-
-        // Puis animation de sortie de la page entière
-        const exitTl = gsap.timeline({
-          onComplete: () => {
-            const view = ViewsProxy.GetView<TheaterPreloadReactHTMLView>(
-              props.viewId
-            );
-            view.onFinishTransition.execute();
-          },
-        });
-
-        exitTl.to(
-          '.page-transition',
-          {
-            delay: 0.2,
-            duration: 0.8,
-            y: '-100%',
-            autoAlpha: 0,
-            ease: 'power3.inOut',
-          },
-          0.2
-        );
       }
     };
 
-    animationId = requestAnimationFrame(animatePercent);
+    if (displayPercent < targetPercent) {
+      const timeout = setTimeout(() => {
+        const newPercent = Math.min(displayPercent + 1, targetPercent);
+        setDisplayPercent(newPercent);
+        updateCircle(newPercent);
+      }, 20);
 
-    return () => {
-      cancelAnimationFrame(animationId);
-    };
-  }, [displayPercent, targetPercent, props.viewId]);
+      return () => clearTimeout(timeout);
+    }
+    else if (
+      displayPercent === 100 &&
+      targetPercent === 100 &&
+      !allowTransitionRef.current
+    ) {
+      animatingRef.current = true;
+      allowTransitionRef.current = true;
+
+      gsap.to('.transition-page', {
+        duration: 0.6,
+        autoAlpha: 0,
+        y: -50,
+        ease: 'power3.in',
+        onComplete: () => {
+          const view = ViewsProxy.GetView<TheaterPreloadReactHTMLView>(
+            props.viewId
+          );
+          if (view) {
+            view.onFinishTransition.execute();
+          }
+        },
+      });
+    }
+  }, [displayPercent, targetPercent]);
 
   return (
     <ReactViewBase
-      className='page-transition will-change-transform bg-white flex items-center justify-center'
+      className='transition-page fixed inset-0 bg-white h-full w-full flex items-center justify-center'
       {...props}
     >
-      <div
-        ref={containerRef}
-        className='relative flex flex-col items-center justify-center w-64 h-64'
-      >
+      <div className='relative flex flex-col items-center justify-center w-64 h-64'>
         <svg className='absolute w-full h-full' viewBox='0 0 100 100'>
           <circle
             cx='50'
@@ -216,7 +171,7 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
         </div>
 
         <div className='absolute bottom-0 transform translate-y-16'>
-          <h1 className='text-black font-instrument text-xl uppercase tracking-wider'>
+          <h1 className='text-black font-instrument text-3xl uppercase tracking-wider'>
             Loading
           </h1>
         </div>

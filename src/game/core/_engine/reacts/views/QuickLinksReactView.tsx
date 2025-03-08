@@ -7,65 +7,53 @@ import { KeyboardManager } from '../../../managers/KeyboardManager';
 export const QuickLinksReactViewId = 'quickLinks';
 
 export const QuickLinksReactViewOptions = {
-    className: 'bottom center',
+  className: 'bottom center',
 };
 
 export const QuickLinksExcludedID = [];
 
-
 export default function QuickLinksReactView() {
-    const [buttons, setButtons] = useState<any[]>([]);
-    const [isOpen, setIsOpen] = useState(false);
+  const [buttons, setButtons] = useState<any[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
 
-    const handleClickOpenButton = useCallback(() => {
-        setIsOpen(!isOpen);
-    }, [isOpen]);
+  const handleClickOpenButton = useCallback(() => {
+    setIsOpen(!isOpen);
+  }, [isOpen]);
 
+  const showTheater = (theaterId: string) => {
+    setIsOpen(false);
+    TheaterTransitionCommand.Show(theaterId);
+    TheatersManager.ShowById(theaterId);
+  };
 
-    const showTheater = (theaterId: string) => {
+  useEffect(() => {
+    KeyboardManager.OnKeyUp.add((e) => {
+      if (e.key === KeyboardConstant.Keys.Escape) {
         setIsOpen(false);
-        TheaterTransitionCommand.Show(theaterId);
-        TheatersManager.ShowById(theaterId);
+      }
+    });
+
+    const onClickWindow = (e: any) => {
+      if (e.target !== document.querySelector('.openButton')) {
+        setIsOpen(false);
+      }
     };
 
-    useEffect(() => {
-        KeyboardManager.OnKeyUp.add((e) => {
-            if (e.key === KeyboardConstant.Keys.Escape) {
-                setIsOpen(false);
-            }
-        });
+    window.addEventListener(DomEvent.CLICK, onClickWindow);
+    return () => {
+      window.removeEventListener(DomEvent.CLICK, onClickWindow);
+    };
+  }, []);
 
-        const onClickWindow = (e: any) => {
-            if (e.target !== document.querySelector('.openButton')) {
-                setIsOpen(false);
-            }
-        };
+  useEffect(() => {
+    let buttons: any[] = [];
+    for (const theaterId of TheatersProxy.TheatersMap.keys()) {
+      if (!QuickLinksExcludedID.includes(theaterId)) {
+        buttons.push(<li key={theaterId}></li>);
+      }
+    }
+    setButtons(buttons);
+  }, []);
 
-        window.addEventListener(DomEvent.CLICK, onClickWindow);
-        return () => {
-            window.removeEventListener(DomEvent.CLICK, onClickWindow);
-        };
-    }, []);
-
-    useEffect(() => {
-        let buttons: any[] = [];
-        for (const theaterId of TheatersProxy.TheatersMap.keys()) {
-            if (!QuickLinksExcludedID.includes(theaterId)) {
-                buttons.push(
-                    <li key={theaterId}>
-
-                    </li>
-                );
-            }
-        }
-        setButtons(buttons);
-    }, []);
-
-    return (
-        <div className={` ${QuickLinksReactViewOptions.className}`}>
-            <ul className={`links ${isOpen ? 'open' : ''}`} >
-                {buttons}
-            </ul>
-        </div >
-    );
+  return <></>;
 }

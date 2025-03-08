@@ -16,7 +16,7 @@ const MainThreeReactView = memo(({ className = '', ...props }: TransitionProps) 
     }, [])
 
     return (
-        <ReactViewBase {...props} className={`three ${className}`}>
+        <ReactViewBase {...props} className={`three fixed -z-10 ${className}`}>
             <div ref={refContainer} className="three-container">
             </div>
         </ReactViewBase>

@@ -58,7 +58,7 @@ export default function GameReact() {
 
   return (
     <div id="GAME">
-      {isInit ? views : <PreloadReactView />}
+      {isInit && views}
     </div>
   );
 }
