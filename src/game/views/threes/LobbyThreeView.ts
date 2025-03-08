@@ -1,5 +1,5 @@
 import { ThreeAssetsManager } from "@cooker/three";
-import { DoubleSide, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PointLight, Vector2 } from "three";
+import { CameraHelper, DoubleSide, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PointLight, Vector2 } from "three";
 import { AssetId } from "../../constants/games/AssetId";
 import { Object3DId } from "../../constants/games/Object3DId";
 import { ViewId } from "../../constants/views/ViewId";
@@ -8,6 +8,7 @@ import { ThreeCameraControllerBase } from "../../core/_engine/threejs/cameras/ba
 import { Object3DsProxy } from "../../core/_engine/threejs/proxies/Object3DsProxy";
 import { ThreeCamerasProxy } from "../../core/_engine/threejs/proxies/ThreeCamerasProxy";
 import { WithoutTransitionThreeView } from "../../core/_engine/threejs/views/WithoutTransitionThreeView";
+import gsap from "gsap";
 
 export default class LobbyThreeView extends WithoutTransitionThreeView {
     private _lobbyMesh: Object3D;
@@ -23,11 +24,24 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
     private _time: number = 0;
 
     constructor() {
+
         super(ViewId.THREE_LOBBY, ViewPlacementId.THREE_MAIN);
+
+
         this._lobbyMesh = Object3DsProxy.GetObject3D(Object3DId.LOBBY);
         this.add(this._lobbyMesh);
         this._camera = ThreeCamerasProxy.CamerasMap.get('LOBBY');
+        // this._camera.position.z = 150;
         this.add(this._camera);
+        // this.add(new CameraHelper(this._camera.camera));
+        this._camera.position.z = 140; // Position initiale un peu plus proche
+        gsap.to(this._camera.position, {
+            z: 150, // Position finale
+            duration: 2, // Durée en secondes
+            ease: "power4.out" // Effet d'accélération/décélération
+        });
+
+        this._initMouseListener();
         this._imagePlane = new Mesh();
 
         this._titlePlane = new Mesh();
@@ -58,14 +72,16 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this._pointLight.position.set(0, 10, 0);
 
         const glassMaterial = new MeshPhysicalMaterial({
-            metalness: .7,
-            roughness: .5,
-            envMapIntensity: 0.9,
+            color: 0xffffff,
+            metalness: 1,
+            roughness: .1,
+            envMapIntensity: 0.2,
             clearcoat: 1,
             transparent: true,
-            opacity: .8,
-            reflectivity: 0.2,
-            ior: 0.9,
+            opacity: 0.3,
+            thickness: 0.1,
+            reflectivity: 0.9,
+            ior: 0.1,
         });
         const whiteMaterial = new MeshPhysicalMaterial({
             color: 0xffffff,
@@ -150,15 +166,15 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         super.update(dt);
         this._time += dt;
 
-        const oscillationSpeed = 0.003; // Vitesse de l'oscillation
-        const oscillationAmplitude = 12; // Amplitude de l'oscillation
+        // const oscillationSpeed = 0.003; // Vitesse de l'oscillation
+        // const oscillationAmplitude = 12; // Amplitude de l'oscillation
 
-        this._clouds.position.x = Math.sin(this._time * 0.1 * oscillationSpeed) * oscillationAmplitude;
-        this._secondClouds.position.x = -Math.sin(this._time * 0.1 * oscillationSpeed) * oscillationAmplitude;
-        const rotationX = this._mouse.y * this._cameraRotationFactor;
-        const rotationY = this._mouse.x * this._cameraRotationFactor;
-        this._camera.rotation.x += (rotationX - this._camera.rotation.x) * 0.1;
-        this._camera.rotation.y += (rotationY - this._camera.rotation.y) * 0.1;
-        this._camera.position.z = 150 + this._scrollProgress * 100;
+        // this._clouds.position.x = Math.sin(this._time * 0.1 * oscillationSpeed) * oscillationAmplitude;
+        // this._secondClouds.position.x = -Math.sin(this._time * 0.1 * oscillationSpeed) * oscillationAmplitude;
+        // const rotationX = this._mouse.y * this._cameraRotationFactor;
+        // const rotationY = this._mouse.x * this._cameraRotationFactor;
+        // this._camera.rotation.x += (rotationX - this._camera.rotation.x) * 0.1;
+        // this._camera.rotation.y += (rotationY - this._camera.rotation.y) * 0.1;
+        // this._camera.position.z = 150 + this._scrollProgress * 100;
     }
 }

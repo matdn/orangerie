@@ -24,7 +24,6 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
         super(ViewId.THREE_MUSEUM, ViewPlacementId.THREE_MAIN);
         this._museumMesh = Object3DsProxy.GetObject3D(Object3DId.MUSEUM);
         this.add(this._museumMesh);
-
         const light = new AmbientLight(0xffffff, 0.5);
         light.position.set(0, 5, 5);
         this.add(light);

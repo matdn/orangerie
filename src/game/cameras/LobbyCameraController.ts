@@ -7,8 +7,8 @@ export class LobbyCameraController extends FollowCameraControllerBase {
     constructor() {
         super(CameraId.LOBBY);
         this.position.set(0, -10, 150);
-        this.camera.rotation.x = Math.PI;
-        // this.add(new CameraHelper(this.camera));
+        // this.camera.rotation.x = Math.PI;
+        // this.camera.rotation.y = Math.PI;
         this.lookAt(0, 0, 0);
     }
 

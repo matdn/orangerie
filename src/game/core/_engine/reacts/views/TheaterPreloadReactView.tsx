@@ -24,7 +24,7 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
 
     // Animation d'entrée de la page
     const enterTl = gsap.timeline();
-    
+
     enterTl.to('.page-transition', {
       duration: 1,
       autoAlpha: 1,

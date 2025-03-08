@@ -52,6 +52,7 @@ export class MainThree {
   private static _LastHeight: number = 0;
 
   public static Init() {
+    console.log('MainThree Init');
     this._CurrentPostProcessing = null;
     this._CreateScene();
     this._CreateObjects();
