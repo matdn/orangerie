@@ -25,7 +25,7 @@ const SoundIcon: React.FC<SoundIconProps> = ({
       const timeline = gsap.timeline();
 
       timeline.to(barsRef.current, {
-        height: () => gsap.utils.random(2, 20),
+        scaleY: () => gsap.utils.random(2, 20),
         duration: 0.2,
         repeat: -1,
         yoyo: true,
@@ -38,7 +38,7 @@ const SoundIcon: React.FC<SoundIconProps> = ({
 
       barsRef.current.forEach((bar, index) => {
         gsap.to(bar, {
-          height: () => gsap.utils.random(3, 18),
+          scaleY: () => gsap.utils.random(3, 18),
           duration: 0.3 + (index % 3) * 0.1,
           repeat: -1,
           yoyo: true,
@@ -48,7 +48,7 @@ const SoundIcon: React.FC<SoundIconProps> = ({
       });
     } else {
       gsap.to(barsRef.current, {
-        height: 2,
+        scaleY: 1,
         duration: 0.5,
         ease: 'power2.out',
       });
@@ -65,9 +65,8 @@ const SoundIcon: React.FC<SoundIconProps> = ({
         <div
           key={index}
           ref={(el) => (barsRef.current[index] = el)}
-          className='w-0.5 bg-white rounded-full'
-          style={{ height: '2px' }}
-        ></div>
+          className='w-0.5 h-0.5 bg-white'
+        />
       ))}
     </div>
   );
