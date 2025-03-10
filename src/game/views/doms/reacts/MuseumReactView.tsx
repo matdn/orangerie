@@ -1,3 +1,5 @@
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import { ViewsManager } from 'pancake';
 import React, { useEffect } from 'react';
 import SectionMuseum from '../../../../components/SectionMuseum';
@@ -20,19 +22,6 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
     "Monet développe très tôt une fascination pour la lumière, les reflets et les variations infinies de la nature. Ce sont ces éléments qu’il cherchera à capturer dans son art, en privilégiant une peinture en plein air et des coups de pinceau vibrants. Son tableau 'Impression, soleil levant' inspirera alors le mouvement artistique de l’impressionisme".split(
       ' '
     );
-  const longTextSectionSix =
-    'Avec sa capacité à transformer la réalité en une vision vibrante et poétique, Claude Monet incarne non seulement l’essence de l’impressionnisme, mais aussi un lien profond entre la nature et l’art.'.split(
-      ' '
-    );
-
-  const galerieSection = () => {
-    ViewsManager.ShowById(ViewId.GALERY_REACT);
-    ViewsManager.ShowById(ViewId.THREE_GALERY);
-    ViewsManager.HideById(ViewId.MUSEUM_REACT);
-    const camera = ThreeCamerasProxy.GetCamera('MUSEUM');
-    camera.position.set(0, 0, -80);
-    camera.lookAt(0, 0, 0);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,8 +42,18 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
     };
   }, []);
 
+  useGSAP(() => {
+    gsap.to('.page-transition', {
+      yPercent: -100,
+      duration: 1,
+      delay: 0.5,
+      ease: 'power2.inOut',
+    })
+  }, [])
+
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>
+      <div className='fixed inset-0 bg-white w-full h-dvh page-transition z-[100]'></div>
       <div className='borderScreenMuseum'></div>
       <div className='w-full overflow-y-scroll'>
         <SectionMuseum>
@@ -249,55 +248,6 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                   </span>
                 ))}
               </h3>
-            </div>
-          </div>
-        </SectionMuseum>
-
-        <SectionMuseum>
-          <div className='glassmorphism'>
-            <h3 className='font-instrument text-3xl max-w-xl text-center'>
-              {longTextSectionSix.map((word, index) => (
-                <span key={index} className='inline-block overflow-hidden'>
-                  <span className='anim-long-text inline-block'>
-                    {word}
-                    {index !== longTextSectionSix.length - 1 && '\u00A0'}
-                  </span>
-                </span>
-              ))}
-            </h3>
-          </div>
-          <div className='flex justify-center items-center gap-4'>
-            <div className='overflow-hidden scale-75'>
-              <img
-                src='assets/images/jardin.webp'
-                alt='Peinture Coclicot'
-                className='anim-img w-52 h-72 object-cover'
-              />
-            </div>
-            <div className='relative'>
-              <div className='overflow-hidden'>
-                <img
-                  src='assets/images/femme-ombrelle.webp'
-                  alt='Peinture Coclicot'
-                  className='anim-img w-52 h-72 object-cover'
-                />
-              </div>
-
-              <button
-                className='anim-number abs-center px-8 py-2 rounded-full bg-white'
-                onClick={() => galerieSection()}
-              >
-                <p className='whitespace-nowrap text-center'>
-                  Voir la galerie
-                </p>
-              </button>
-            </div>
-            <div className='overflow-hidden scale-75'>
-              <img
-                src='assets/images/coclicots.webp'
-                alt='Peinture Coclicot'
-                className='anim-img w-52  h-72 object-cover'
-              />
             </div>
           </div>
         </SectionMuseum>

@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
-import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import { CustomEase } from 'gsap/CustomEase';
+import { TheatersManager, TheatersProxy, ViewsProxy } from 'pancake';
+import React, { useState } from 'react';
+import SoundIcon from '../../../../components/SoundIcon';
+import { TheaterId } from '../../../constants/theaters/TheaterId';
+import { ViewId } from '../../../constants/views/ViewId';
 import ReactViewBase, {
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
-import SoundIcon from '../../../../components/SoundIcon';
-import { TheaterTransitionCommand } from '../../../core/commands/TheaterTransitionCommand';
-import { TheaterId } from '../../../constants/theaters/TheaterId';
-import { TheatersManager, TheatersProxy, ViewsProxy } from 'pancake';
-import { ViewId } from '../../../constants/views/ViewId';
-import LobbyThreeView from '../../threes/LobbyThreeView';
 import { LobbyThreeTheater } from '../../../theaters/LobbyThreeTheater';
+import LobbyThreeView from '../../threes/LobbyThreeView';
 
 gsap.registerPlugin(CustomEase);
 
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
-  const [isHovered, setIsHovered] = useState(false);
   const [musicIsPlaying, setMusicIsPlaying] = useState(false);
+  const [isClickable, setIsClickable] = useState(false);
 
   const toggleMusic = () => {
     setMusicIsPlaying((prev) => !prev);
   };
 
+  const tl = gsap.timeline();
+
   const timelineAnimation = () => {
-    const tl = gsap.timeline();
     tl.from(
       '.header-icon',
       {
@@ -58,7 +58,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       {
         duration: 1,
         opacity: 0,
-        yPercent: '20',
+        yPercent: '100',
         ease: 'power1.out',
       },
       '>0.02'
@@ -73,6 +73,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       },
       '<'
     );
+    setIsClickable(true);
   };
 
   useGSAP(() => {
@@ -80,35 +81,59 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   }, []);
 
   const showMuseumTheater = () => {
-    ViewsProxy.GetView<LobbyThreeView>(ViewId.THREE_LOBBY).animationStatus(true);
-    gsap.to('.main-text', {
-      duration: 1,
-      opacity: 0,
-      yPercent: '50',
-      ease: 'power1.out',
-    });
-    gsap.to('.span-text', {
+    if (!isClickable) return null;
+    ViewsProxy.GetView<LobbyThreeView>(ViewId.THREE_LOBBY).animationStatus(
+      true
+    );
+    tl.to('.header-icon', {
       duration: 1,
       opacity: 0,
       ease: 'power1.out',
     });
-    gsap.to('.borderScreen', {
-      duration: 1,
-      opacity: 0,
-      ease: 'power1.out',
-    });
+    tl.to(
+      '.main-text',
+      {
+        duration: 1,
+        opacity: 0,
+        y: '50',
+        ease: 'power1.out',
+      },
+      '<'
+    );
+    tl.to(
+      '.span-text',
+      {
+        duration: 1,
+        opacity: 0,
+        y: '50',
+        ease: 'power1.out',
+      },
+      '<'
+    );
+    tl.to(
+      '.borderScreen',
+      {
+        duration: 1,
+        opacity: 0,
+        ease: 'power1.out',
+      },
+      '<'
+    );
     setTimeout(() => {
-      const theater = TheatersProxy.GetTheater<LobbyThreeTheater>(TheaterId.LOBBY);
+      const theater = TheatersProxy.GetTheater<LobbyThreeTheater>(
+        TheaterId.LOBBY
+      );
       theater.setFogScale(350);
       TheatersManager.HideById(TheaterId.LOBBY);
       TheatersManager.ShowById(TheaterId.MUSEUM);
-
     }, 2000);
-
   };
 
   return (
-    <ReactViewBase {...props} className='fixed inset-0 z-50 w-full flex flex-col'>
+    <ReactViewBase
+      {...props}
+      className='fixed inset-0 z-50 w-full flex flex-col'
+    >
       <div className='borderScreen'></div>
       <div className='w-full p-8 px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
@@ -157,30 +182,30 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
             de
           </span>
         </div>
-        <button
-          className='button-container relative overflow-hidden px-8 py-2 rounded-full border border-white backdrop-blur-md bg-white/5 mt-5'
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onClick={showMuseumTheater}
-        >
-          <div className='button-content flex items-center gap-8'>
-            <span className='text-white/90 text-sm tracking-wide uppercase font-semibold'>
-              Explore
-            </span>
-            <svg
-              width='20'
-              height='9'
-              viewBox='0 0 20 9'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                d='M-1.5299e-07 4.5L19 4.5M19 4.5L13 0.499999M19 4.5L13 8'
-                stroke='white'
-              />
-            </svg>
-          </div>
-        </button>
+        <div className='overflow-hidden mt-5'>
+          <button
+            className={`button-container relative px-8 py-2 rounded-full border border-white backdrop-blur-md bg-white/5 ${isClickable ? 'cursor-pointer' : 'cursor-none'} `}
+            onClick={showMuseumTheater}
+          >
+            <div className='button-content flex items-center gap-8'>
+              <span className='text-white/90 text-sm tracking-wide uppercase font-semibold'>
+                Explore
+              </span>
+              <svg
+                width='20'
+                height='9'
+                viewBox='0 0 20 9'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M-1.5299e-07 4.5L19 4.5M19 4.5L13 0.499999M19 4.5L13 8'
+                  stroke='white'
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
       </div>
       <div className='w-full p-8 px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>

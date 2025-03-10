@@ -12,9 +12,6 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
   
   useGSAP(() => {
     if (!sectionRef.current || !contentRef.current) return;
-    console.log(sectionRef.current);
-    console.log(contentRef.current);
-
     const scrollTrigger = {
       trigger: sectionRef.current,
       start: 'top 30%',

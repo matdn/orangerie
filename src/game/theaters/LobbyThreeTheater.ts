@@ -40,7 +40,6 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
         this._fogScale = value;
 
         this._fog.far = Math.max(50, value);
-        console.log(this._fog.far);
     }
 
 }
