@@ -62,7 +62,7 @@ export class MuseumInitCommand extends InitCommandBase {
     public override async addViews(): Promise<void> {
         ViewsProxy.AddViewConstructor(ViewId.THREE_MUSEUM, MuseumThreeView);
         ViewsProxy.AddView(new ReactHTMLView(ViewId.MUSEUM_REACT, ViewPlacementId.NONE, MuseumReactView, 0));
-        ViewsProxy.AddView(new ReactHTMLView(ViewId.GALERY_REACT, ViewPlacementId.REACT_GALERY, GaleryReactView, 0));
+        // ViewsProxy.AddView(new ReactHTMLView(ViewId.GALERY_REACT, ViewPlacementId.REACT_GALERY, GaleryReactView, 0));
         ViewsProxy.AddViewConstructor(ViewId.THREE_GALERY, GaleryThreeView);
         // ViewsProxy.AddView(new ReactHTMLView(ViewId.LOBBY_REACT, ViewPlacementId.NONE, LobbyReactView, 0));
     }

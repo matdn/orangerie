@@ -33,14 +33,14 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
         super.init();
         this._threePostProcessingId = PostProcessingId.BLOOM;
         MainThree.Scene.fog = this._fog;
+
     }
 
     public setFogScale(value: number): void {
         this._fogScale = value;
 
         this._fog.far = Math.max(50, value);
-
-        console.log("Fog far:", this._fog.far);
+        console.log(this._fog.far);
     }
 
 }

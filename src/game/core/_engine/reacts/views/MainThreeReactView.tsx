@@ -12,15 +12,15 @@ const MainThreeReactView = memo(({ className = '', ...props }: TransitionProps) 
         MainThree.Start();
         return () => {
             MainThree.Stop();
-        }
-    }, [])
+        };
+    }, []);
 
     return (
-        <ReactViewBase {...props} className={`three fixed -z-10 ${className}`}>
+        <ReactViewBase {...props} className={`three fixed  ${className}`}>
             <div ref={refContainer} className="three-container">
             </div>
         </ReactViewBase>
-    )
+    );
 
 });
 export default MainThreeReactView;

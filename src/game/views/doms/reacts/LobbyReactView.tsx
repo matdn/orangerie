@@ -98,11 +98,12 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       ease: 'power1.out',
     });
     setTimeout(() => {
-      TheatersManager.HideById(TheaterId.LOBBY);
-      TheatersManager.ShowById(TheaterId.MUSEUM);
       const theater = TheatersProxy.GetTheater<LobbyThreeTheater>(TheaterId.LOBBY);
       theater.setFogScale(350);
-    }, 1200);
+      TheatersManager.HideById(TheaterId.LOBBY);
+      TheatersManager.ShowById(TheaterId.MUSEUM);
+
+    }, 2000);
 
   };
 
