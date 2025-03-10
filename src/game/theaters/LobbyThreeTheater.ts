@@ -21,7 +21,7 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
         this._cameraId = CameraId.LOBBY;
         this._viewsList.add(ViewId.THREE_LOBBY);
         this._viewsList.add(ViewId.LOBBY_REACT);
-        this._fog = new Fog(0xffffff, 250, 300);
+        this._fog = new Fog(0xffffff, 150, 350);
 
         this._environment = {
             background: AssetId.HDR_PARK,
@@ -32,13 +32,15 @@ export class LobbyThreeTheater extends ThreeTheaterBase {
     public override init(): void {
         super.init();
         this._threePostProcessingId = PostProcessingId.BLOOM;
+        MainThree.Scene.fog = this._fog;
     }
 
     public setFogScale(value: number): void {
         this._fogScale = value;
-        this._fog.far = 450 - this._fogScale * 300;
-        if (this._fog.far < 1) {
-            this._fog.far = 1;
-        }
+
+        this._fog.far = Math.max(50, value);
+
+        console.log("Fog far:", this._fog.far);
     }
+
 }

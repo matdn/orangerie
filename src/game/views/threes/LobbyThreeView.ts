@@ -9,6 +9,9 @@ import { Object3DsProxy } from "../../core/_engine/threejs/proxies/Object3DsProx
 import { ThreeCamerasProxy } from "../../core/_engine/threejs/proxies/ThreeCamerasProxy";
 import { WithoutTransitionThreeView } from "../../core/_engine/threejs/views/WithoutTransitionThreeView";
 import gsap from "gsap";
+import { TheatersProxy } from "pancake";
+import { TheaterId } from "../../constants/theaters/TheaterId";
+import { LobbyThreeTheater } from "../../theaters/LobbyThreeTheater";
 
 export default class LobbyThreeView extends WithoutTransitionThreeView {
     private _lobbyMesh: Object3D;
@@ -22,7 +25,8 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
     private _clouds: Mesh;
     private _secondClouds: Mesh;
     private _time: number = 0;
-
+    private _animationStatus: boolean = false;
+    private _fogScale: number = 150;
     constructor() {
 
         super(ViewId.THREE_LOBBY, ViewPlacementId.THREE_MAIN);
@@ -31,14 +35,12 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this._lobbyMesh = Object3DsProxy.GetObject3D(Object3DId.LOBBY);
         this.add(this._lobbyMesh);
         this._camera = ThreeCamerasProxy.CamerasMap.get('LOBBY');
-        // this._camera.position.z = 150;
         this.add(this._camera);
-        // this.add(new CameraHelper(this._camera.camera));
-        this._camera.position.z = 140; // Position initiale un peu plus proche
+        this._camera.position.z = 140;
         gsap.to(this._camera.position, {
-            z: 150, // Position finale
-            duration: 2, // Durée en secondes
-            ease: "power4.out" // Effet d'accélération/décélération
+            z: 150,
+            duration: 2,
+            ease: "power4.out"
         });
 
         this._initMouseListener();
@@ -163,18 +165,19 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
     }
 
     public override update(dt: number): void {
+        const theater = TheatersProxy.GetTheater<LobbyThreeTheater>(TheaterId.LOBBY);
         super.update(dt);
         this._time += dt;
 
-        // const oscillationSpeed = 0.003; // Vitesse de l'oscillation
-        // const oscillationAmplitude = 12; // Amplitude de l'oscillation
+        if (this._animationStatus === true) {
+            this._camera.position.z -= 1;
 
-        // this._clouds.position.x = Math.sin(this._time * 0.1 * oscillationSpeed) * oscillationAmplitude;
-        // this._secondClouds.position.x = -Math.sin(this._time * 0.1 * oscillationSpeed) * oscillationAmplitude;
-        // const rotationX = this._mouse.y * this._cameraRotationFactor;
-        // const rotationY = this._mouse.x * this._cameraRotationFactor;
-        // this._camera.rotation.x += (rotationX - this._camera.rotation.x) * 0.1;
-        // this._camera.rotation.y += (rotationY - this._camera.rotation.y) * 0.1;
-        // this._camera.position.z = 150 + this._scrollProgress * 100;
+            this._fogScale = Math.max(10, this._fogScale - 5.5);
+            theater.setFogScale(this._fogScale);
+        }
+    }
+
+    public animationStatus(value: boolean) {
+        this._animationStatus = value;
     }
 }

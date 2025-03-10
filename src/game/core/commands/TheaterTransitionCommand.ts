@@ -5,7 +5,7 @@ import { SuperTheaterBase } from "../theaters/SuperTheaterBase";
 export class TheaterTransitionCommand {
 
     private static _NextTheaterId: string;
-    private static _IntervalId: ReturnType<typeof setTimeout>
+    private static _IntervalId: ReturnType<typeof setTimeout>;
     private static _TransitionViewId: string;
 
     private static _IsFinishViewTransition: boolean = false;
@@ -35,17 +35,17 @@ export class TheaterTransitionCommand {
             theater.load();
             view.onStateChangeAction.delete(this._OnChangeStateTransitionView);
         }
-    }
+    };
 
     private static _OnFinishLoadNextTheater = (theater: SuperTheaterBase): void => {
         this._IsFinishLoadTheater = true;
         this._CheckForShowNextTheater();
-    }
+    };
 
     private static _OnFinishViewTransition = (): void => {
         this._IsFinishViewTransition = true;
         this._CheckForShowNextTheater();
-    }
+    };
 
     private static _CheckForShowNextTheater(): void {
         if (!this._IsFinishLoadTheater) return;
@@ -54,12 +54,13 @@ export class TheaterTransitionCommand {
         TheatersManager.ShowById(this._NextTheaterId);
         clearTimeout(this._IntervalId);
         this._IntervalId = setTimeout(this._HideTansitionView, 0);
-
+        // const nextViews = TheatersProxy(this._NextTheaterId).Views;
+        // console.log(TheatersProxy(this._NextTheaterId));
     }
 
     private static _HideTansitionView = (): void => {
         ViewsManager.HideById(this._TransitionViewId);
-    }
+    };
 
     //#region getter
     public static get TransitionViewId(): string { return this._TransitionViewId; }

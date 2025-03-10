@@ -8,7 +8,10 @@ import ReactViewBase, {
 import SoundIcon from '../../../../components/SoundIcon';
 import { TheaterTransitionCommand } from '../../../core/commands/TheaterTransitionCommand';
 import { TheaterId } from '../../../constants/theaters/TheaterId';
-import { TheatersManager, TheatersProxy } from 'pancake';
+import { TheatersManager, TheatersProxy, ViewsProxy } from 'pancake';
+import { ViewId } from '../../../constants/views/ViewId';
+import LobbyThreeView from '../../threes/LobbyThreeView';
+import { LobbyThreeTheater } from '../../../theaters/LobbyThreeTheater';
 
 gsap.registerPlugin(CustomEase);
 
@@ -77,8 +80,30 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   }, []);
 
   const showMuseumTheater = () => {
-    TheatersManager.HideById(TheaterId.LOBBY);
-    TheaterTransitionCommand.Show(TheaterId.MUSEUM);
+    ViewsProxy.GetView<LobbyThreeView>(ViewId.THREE_LOBBY).animationStatus(true);
+    gsap.to('.main-text', {
+      duration: 1,
+      opacity: 0,
+      yPercent: '50',
+      ease: 'power1.out',
+    });
+    gsap.to('.span-text', {
+      duration: 1,
+      opacity: 0,
+      ease: 'power1.out',
+    });
+    gsap.to('.borderScreen', {
+      duration: 1,
+      opacity: 0,
+      ease: 'power1.out',
+    });
+    setTimeout(() => {
+      TheatersManager.HideById(TheaterId.LOBBY);
+      TheatersManager.ShowById(TheaterId.MUSEUM);
+      const theater = TheatersProxy.GetTheater<LobbyThreeTheater>(TheaterId.LOBBY);
+      theater.setFogScale(350);
+    }, 1200);
+
   };
 
   return (

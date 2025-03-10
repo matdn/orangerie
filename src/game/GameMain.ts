@@ -3,7 +3,7 @@ import './commands/inits/initCore';
 //#endregion
 
 import { Action } from "cookware";
-import { ViewsManager } from "pancake";
+import { TheatersManager, ViewsManager } from "pancake";
 import { CommonProjectInitCommand } from "./commands/inits/project/CommonProjectInitCommand";
 import { TheaterId } from './constants/theaters/TheaterId.ts';
 import { QuickLinksReactViewId, QuickLinksReactViewOptions } from "./core/_engine/reacts/views/QuickLinksReactView";
@@ -66,8 +66,10 @@ export default class GameMain {
                 }
             }
         }
-        // TheaterTransitionCommand.Show(TheaterId.LOBBY);
-        TheaterTransitionCommand.Show(TheaterId.MUSEUM);
+        TheaterTransitionCommand.Show(TheaterId.LOBBY);
+        // TheatersManager.ShowById(TheaterId.LOBBY);
+
+        // TheaterTransitionCommand.Show(TheaterId.MUSEUM);
         // TheaterTransitionCommand.Show(TheaterId.PARK);
         // TheaterTransitionCommand.Show(TheaterId.GALERY);
         // TheaterTransitionCommand.Show(TheaterId.MAIN);

@@ -1,9 +1,10 @@
 import NumberFlow from '@number-flow/react';
 import { gsap } from 'gsap';
-import { ViewsProxy } from 'pancake';
+import { TheatersProxy, ViewsProxy } from 'pancake';
 import { memo, useEffect, useRef, useState } from 'react';
 import { TheaterPreloadReactHTMLView } from '../../htmls/views/TheaterPreloadReactHTMLView';
 import ReactViewBase, { TransitionProps } from './bases/ReactViewBase';
+import { ViewId } from '../../../../constants/views/ViewId';
 
 const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
   const [displayPercent, setDisplayPercent] = useState<number>(0);
@@ -12,53 +13,53 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
   const allowTransitionRef = useRef<boolean>(false);
   const animatingRef = useRef<boolean>(false);
 
-  useEffect(() => {
-    // Masquer la page initialement
-    gsap.set('.page-transition', {
-      autoAlpha: 0,
-      y: '100%'
-    });
+  // useEffect(() => {
+  //   // Masquer la page initialement
+  //   gsap.set('.page-transition', {
+  //     autoAlpha: 0,
+  //     y: '100%'
+  //   });
 
-    // Animation d'entrée de la page
-    const enterTl = gsap.timeline();
+  //   // Animation d'entrée de la page
+  //   const enterTl = gsap.timeline();
 
-    enterTl.to('.page-transition', {
-      duration: 1,
-      autoAlpha: 1,
-      y: '0%',
-      ease: 'power3.out'
-    });
+  //   enterTl.to('.page-transition', {
+  //     duration: 1,
+  //     autoAlpha: 1,
+  //     y: '0%',
+  //     ease: 'power3.out'
+  //   });
 
-    // Timeline pour l'animation du cercle
-    tl.current = gsap.timeline({ paused: true });
+  //   // Timeline pour l'animation du cercle
+  //   tl.current = gsap.timeline({ paused: true });
 
-    // Animation d'entrée du conteneur
-    gsap.set(containerRef.current, {
-      autoAlpha: 0,
-      y: 20,
-      scale: 0.95
-    });
+  //   // Animation d'entrée du conteneur
+  //   gsap.set(containerRef.current, {
+  //     autoAlpha: 0,
+  //     y: 20,
+  //     scale: 0.95
+  //   });
 
-    gsap.to(containerRef.current, {
-      duration: 0.8,
-      autoAlpha: 1,
-      y: 0,
-      scale: 1,
-      ease: 'power2.out',
-      delay: 0.4, // Délai pour que l'animation commence après l'entrée de la page
-    });
+  //   gsap.to(containerRef.current, {
+  //     duration: 0.8,
+  //     autoAlpha: 1,
+  //     y: 0,
+  //     scale: 1,
+  //     ease: 'power2.out',
+  //     delay: 0.4, // Délai pour que l'animation commence après l'entrée de la page
+  //   });
 
-    // Configuration du cercle de chargement
-    if (circleRef.current) {
-      const radius = circleRef.current.r.baseVal.value;
-      const circumference = radius * 2 * Math.PI;
+  //   // Configuration du cercle de chargement
+  //   if (circleRef.current) {
+  //     const radius = circleRef.current.r.baseVal.value;
+  //     const circumference = radius * 2 * Math.PI;
 
-      gsap.set(circleRef.current, {
-        strokeDasharray: circumference,
-        strokeDashoffset: circumference,
-      });
-    }
-  }, []);
+  //     gsap.set(circleRef.current, {
+  //       strokeDasharray: circumference,
+  //       strokeDashoffset: circumference,
+  //     });
+  //   }
+  // }, []);
 
   useEffect(() => {
     const view = ViewsProxy.GetView<TheaterPreloadReactHTMLView>(props.viewId);
