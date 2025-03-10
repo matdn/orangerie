@@ -37,7 +37,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this._camera.position.z = 140; // Position initiale un peu plus proche
         gsap.to(this._camera.position, {
             z: 150, // Position finale
-            duration: 2, // Durée en secondes
+            duration: 5, // Durée en secondes
             ease: "power4.out" // Effet d'accélération/décélération
         });
 

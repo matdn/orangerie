@@ -9,7 +9,12 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
   const sectionRef = useRef(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  
   useGSAP(() => {
+    if (!sectionRef.current || !contentRef.current) return;
+    console.log(sectionRef.current);
+    console.log(contentRef.current);
+
     const scrollTrigger = {
       trigger: sectionRef.current,
       start: 'top 30%',
@@ -34,9 +39,11 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
     gsap.fromTo(
       contentRef.current.querySelectorAll('.anim-long-text'),
       {
+        opacity: 0,
         y: 20,
       },
       {
+        opacity: 1,
         y: 0,
         duration: 0.4,
         stagger: 0.02,
