@@ -6,15 +6,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
 @import './game/styles/game.scss';
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  background-color: white;
 }
 
 :root {
@@ -37,16 +44,15 @@
 
   ::-webkit-scrollbar-track {
     border-radius: 4px;
-    background-color: rgba(32, 201, 255, .2);
+    background-color: rgba(32, 201, 255, 0.2);
   }
 
   ::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: rgba(225, 225, 225, .6);
+    background-color: rgba(225, 225, 225, 0.6);
   }
 
   ::-webkit-scrollbar {
     display: none;
   }
-
 }

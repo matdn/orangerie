@@ -38,9 +38,9 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this.add(this._camera);
         this._camera.position.z = 140;
         gsap.to(this._camera.position, {
-            z: 150,
-            duration: 2,
-            ease: "power4.out"
+            z: 150, // Position finale
+            duration: 5, // Durée en secondes
+            ease: "power4.out" // Effet d'accélération/décélération
         });
 
         this._initMouseListener();
