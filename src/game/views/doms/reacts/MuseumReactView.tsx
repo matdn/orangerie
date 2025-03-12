@@ -1,13 +1,11 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { ViewsManager } from 'pancake';
 import React, { useEffect } from 'react';
 import SectionMuseum from '../../../../components/SectionMuseum';
-import { ViewId } from '../../../constants/views/ViewId';
-import ReactViewBase, {
+import {
   TransitionProps,
+  ReactViewBase,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
-import { ThreeCamerasProxy } from '../../../core/_engine/threejs/proxies/ThreeCamerasProxy';
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
   const longTextSectionTwo =
@@ -48,12 +46,12 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       duration: 1,
       delay: 0.5,
       ease: 'power2.inOut',
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>
-      <div className='fixed inset-0 bg-white w-full h-dvh page-transition z-[100]'></div>
+      <div className='fixed inset-0 bg-white w-screen h-dvh page-transition z-[100]'></div>
       <div className='borderScreenMuseum'></div>
       <div className='w-full overflow-y-scroll'>
         <SectionMuseum>
@@ -254,7 +252,9 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
         <SectionMuseum>
           <div className='overflow-hidden'>
-            <h4 className='anim-text font-instrument-italic text-3xl'>Chapitre 03</h4>
+            <h4 className='anim-text font-instrument-italic text-3xl'>
+              Chapitre 03
+            </h4>
           </div>
           <div className='flex flex-col justify-center items-center glassmorphism'>
             <div className='overflow-hidden'>

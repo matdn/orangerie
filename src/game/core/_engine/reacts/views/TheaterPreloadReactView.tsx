@@ -1,13 +1,12 @@
+import { useGSAP } from '@gsap/react';
 import NumberFlow from '@number-flow/react';
 import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
 import { ViewsProxy } from 'pancake';
-import { memo, useEffect, useRef, useState, useCallback } from 'react';
+import { forwardRef, memo, useCallback, useEffect, useRef, useState } from 'react';
 import { TheaterPreloadReactHTMLView } from '../../htmls/views/TheaterPreloadReactHTMLView';
-import ReactViewBase, { TransitionProps } from './bases/ReactViewBase';
-import { ViewId } from '../../../../constants/views/ViewId';
+import { ReactViewBase, TransitionProps } from './bases/ReactViewBase';
 
-const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
+const TheaterPreloadReactView = memo(forwardRef(({ ...props }: TransitionProps, forwardedRef) => {
   const [displayPercent, setDisplayPercent] = useState<number>(0);
   const [targetPercent, setTargetPercent] = useState<number>(0);
   const allowTransitionRef = useRef<boolean>(false);
@@ -19,13 +18,15 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
   const handleLeave = useCallback(() => {
     if (wrapperRef.current) {
       gsap.to(wrapperRef.current, {
-        y: "-100vh",
+        y: '-100vh',
         duration: 1,
-        ease: "power2.inOut",
+        ease: 'power2.inOut',
         onComplete: () => {
-          const view = ViewsProxy.GetView<TheaterPreloadReactHTMLView>(props.viewId);
+          const view = ViewsProxy.GetView<TheaterPreloadReactHTMLView>(
+            props.viewId
+          );
           view.onFinishTransition.execute();
-        }
+        },
       });
     }
   }, [props.viewId]);
@@ -58,11 +59,11 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
     tl.current = gsap.timeline();
 
     if (wrapperRef.current) {
-      gsap.set(wrapperRef.current, { y: "100vh" });
+      gsap.set(wrapperRef.current, { y: '100vh' });
       tl.current.to(wrapperRef.current, {
         y: 0,
         duration: 1,
-        ease: "power2.out"
+        ease: 'power2.out',
       });
     }
 
@@ -78,9 +79,9 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
         autoAlpha: 1,
         y: 0,
         scale: 1,
-        ease: "power2.out",
+        ease: 'power2.out',
       },
-      "-=0.3"
+      '-=0.3'
     );
 
     if (circleRef.current) {
@@ -107,7 +108,7 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
       gsap.to(circleRef.current, {
         strokeDashoffset: offset,
         duration: 0.4,
-        ease: "power1.out",
+        ease: 'power1.out',
       });
     }
   }, [displayPercent]);
@@ -135,8 +136,8 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
           autoAlpha: 0,
           y: -20,
           scale: 0.95,
-          ease: "power2.in",
-          onComplete: handleLeave
+          ease: 'power2.in',
+          onComplete: handleLeave,
         });
       }
     };
@@ -148,57 +149,62 @@ const TheaterPreloadReactView = memo(({ ...props }: TransitionProps) => {
     };
   }, [displayPercent, targetPercent, handleLeave]);
 
+  const setWrapperRef = (el: HTMLDivElement) => {
+    wrapperRef.current = el;
+    if (typeof forwardedRef === 'function') {
+      forwardedRef(el);
+    } else if (forwardedRef) {
+      forwardedRef.current = el;
+    }
+  };
+
   return (
     <ReactViewBase
-      className="fixed inset-0 z-[100]"
+      className='fixed inset-0 z-[100] will-change-transform bg-white flex items-center justify-center'
+      ref={setWrapperRef}
       {...props}
     >
       <div
-        ref={wrapperRef}
-        className="page-transition will-change-transform bg-white flex items-center justify-center fixed inset-0 z-50"
+        ref={containerRef}
+        className='relative flex flex-col items-center justify-center w-64 h-64'
       >
-        <div
-          ref={containerRef}
-          className="relative flex flex-col items-center justify-center w-64 h-64"
-        >
-          <svg className="absolute w-full h-full" viewBox="0 0 100 100">
-            <circle
-              cx="50"
-              cy="50"
-              r="45"
-              fill="none"
-              stroke="#ffffff"
-              strokeWidth="1.5"
-            />
-            <circle
-              ref={circleRef}
-              cx="50"
-              cy="50"
-              r="45"
-              fill="none"
-              stroke="#333333"
-              strokeWidth="2"
-              strokeLinecap="round"
-              transform="rotate(-90 50 50)"
-            />
-          </svg>
+        <svg className='w-full h-full' viewBox='0 0 100 100'>
+          <circle
+            cx='50'
+            cy='50'
+            r='45'
+            fill='none'
+            stroke='#ffffff'
+            strokeWidth='1.5'
+          />
+          <circle
+            ref={circleRef}
+            cx='50'
+            cy='50'
+            r='45'
+            fill='none'
+            stroke='#333333'
+            strokeWidth='2'
+            strokeLinecap='round'
+            transform='rotate(-90 50 50)'
+          />
+        </svg>
 
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-black font-instrument text-5xl">
-              <NumberFlow willChange={true} value={displayPercent} />
-              <span className="ml-1">%</span>
-            </span>
-          </div>
+        <div className='absolute inset-0 flex items-center justify-center'>
+          <span className='text-black font-instrument text-5xl'>
+            <NumberFlow willChange={true} value={displayPercent} />
+            <span className='ml-1'>%</span>
+          </span>
+        </div>
 
-          <div className="absolute bottom-0 transform translate-y-16">
-            <h1 className="text-black font-instrument text-xl uppercase tracking-wider">
-              Loading
-            </h1>
-          </div>
+        <div className='absolute bottom-0 transform translate-y-16'>
+          <h1 className='text-black font-instrument text-2xl uppercase tracking-wider'>
+            Loading
+          </h1>
         </div>
       </div>
     </ReactViewBase>
   );
-});
+}));
 
 export default TheaterPreloadReactView;

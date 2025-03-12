@@ -1,7 +1,8 @@
 import { ViewState, ViewsProxy } from 'pancake';
-import React, { HTMLAttributes, useEffect, useRef, useState } from 'react';
+import React, { ForwardedRef, HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { SuperViewBase } from '../../../../views/bases/SuperViewBase';
 import ReactHTMLView from '../../../htmls/views/ReactHTMLView';
+import { forwardRef } from 'react';
 
 export interface TransitionProps extends HTMLAttributes<HTMLDivElement> {
   viewId: string;
@@ -10,13 +11,9 @@ export interface TransitionProps extends HTMLAttributes<HTMLDivElement> {
   handleChange?: (target: HTMLElement, value: number) => void;
 }
 
-export default function ReactViewBase({
-  viewId,
-  children,
-  className = '',
-  handleChange,
-  ...props
-}: TransitionProps) {
+export const ReactViewBase = forwardRef<HTMLDivElement, TransitionProps>(
+  ({ viewId, children, className = '', handleChange, ...props }, ref) => {
+
   const target = useRef<HTMLDivElement>(null);
   const [targetClass, setTargetClass] = useState<string>(
     ViewsProxy.GetView(viewId).viewState
@@ -55,15 +52,24 @@ export default function ReactViewBase({
     };
   }, []);
 
+  const setRefs = (element: HTMLDivElement | null) => {
+    target.current = element;
+    if (typeof ref === 'function') {
+      ref(element);
+    } else if (ref) {
+      ref.current = element;
+    }
+  };
+
   return (
     <div
       {...props}
       id={viewId}
       className={`h-dvh w-screen ${className} ${targetClass}`}
-      ref={target}
+      ref={setRefs}
       key={viewId}
     >
       {children}
     </div>
   );
-}
+})

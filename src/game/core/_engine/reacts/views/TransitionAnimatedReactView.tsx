@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import ReactViewBase, { TransitionProps } from './bases/ReactViewBase';
+import { ReactViewBase, TransitionProps } from './bases/ReactViewBase';
 
 export default function TransitionAnimatedReactView({
   ...props

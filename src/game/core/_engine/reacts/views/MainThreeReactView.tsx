@@ -1,6 +1,6 @@
 import React, { memo, useEffect } from "react";
 import { MainThree } from "../../threejs/MainThree";
-import ReactViewBase, { TransitionProps } from "./bases/ReactViewBase";
+import { ReactViewBase, TransitionProps } from "./bases/ReactViewBase";
 
 
 const MainThreeReactView = memo(({ className = '', ...props }: TransitionProps) => {

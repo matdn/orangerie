@@ -15,7 +15,6 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
     const scrollTrigger = {
       trigger: sectionRef.current,
       start: 'top 30%',
-      markers: true,
       toggleActions: 'play none none reverse',
     }
 
