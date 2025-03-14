@@ -1,21 +1,31 @@
 import { useGSAP } from '@gsap/react';
+import { useLenis } from '@studio-freight/react-lenis';
 import gsap from 'gsap';
+import { CornerRightUp } from 'lucide-react';
+import { TheatersManager } from 'pancake';
 import React, { useEffect } from 'react';
+import Button from '../../../../components/Button';
 import SectionMuseum from '../../../../components/SectionMuseum';
-import {
-  TransitionProps,
-  ReactViewBase,
-} from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 import { TextMuseum } from '../../../../components/TextMuseum';
+import { TheaterId } from '../../../constants/theaters/TheaterId';
+import {
+  ReactViewBase,
+  TransitionProps,
+} from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
+  const lenis = useLenis();
   const convertTextToArray = (text: string) => {
     return text.split(' ');
   };
 
-  const scrollToNextSection = () => {
-    // when call it scroll to 100vh below
-    window.scrollTo(0, window.scrollY + window.innerHeight);
+  const scrollToNextSection = (id: string) => {
+    lenis.scrollTo(id);
+  };
+
+  const backToLobby = () => {
+    TheatersManager.HideById(TheaterId.MUSEUM);
+    TheatersManager.ShowById(TheaterId.LOBBY);
   };
 
   useEffect(() => {
@@ -51,7 +61,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       <div className='fixed inset-0 bg-white w-screen h-dvh page-transition z-[100]'></div>
       <div className='borderScreenMuseum'></div>
       <div className='w-full overflow-y-scroll'>
-        <SectionMuseum>
+        <SectionMuseum id='orangerie'>
           <div className='overflow-hidden'>
             <h4 className='anim-text font-instrument-italic text-3xl'>
               Chapitre 01
@@ -71,7 +81,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           </div>
           <button
             className='anim-number bg-white px-1 py-4 rounded-full'
-            onClick={scrollToNextSection}
+            onClick={() => scrollToNextSection('#construction')}
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -166,9 +176,9 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               </h3>
             </div>
           </div>
-          <a
-            href='#impressionniste'
+          <button
             className='anim-number bg-white px-1 py-4 rounded-full'
+            onClick={() => scrollToNextSection('#impressionniste')}
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -185,7 +195,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               <path d='M8 18L12 22L16 18' />
               <path d='M12 2V22' />
             </svg>
-          </a>
+          </button>
         </SectionMuseum>
 
         <SectionMuseum id='impressionniste'>
@@ -273,7 +283,10 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               </h3>
             </div>
           </div>
-          <a href='#' className='anim-number bg-white px-1 py-4 rounded-full'>
+          <button
+            className='anim-number bg-white px-1 py-4 rounded-full'
+            onClick={() => scrollToNextSection('#nympheas')}
+          >
             <svg
               xmlns='http://www.w3.org/2000/svg'
               width='24'
@@ -289,10 +302,10 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               <path d='M8 18L12 22L16 18' />
               <path d='M12 2V22' />
             </svg>
-          </a>
+          </button>
         </SectionMuseum>
 
-        <SectionMuseum>
+        <SectionMuseum id='nympheas'>
           <div className='flex flex-col justify-center items-center gap-2'>
             <div className='overflow-hidden'>
               <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl'>
@@ -452,63 +465,44 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
         </SectionMuseum>
         <SectionMuseum className='relative'>
           <div className='absolute inset-0 -z-10 h-dvh w-screen flex justify-center items-center anim-blur'></div>
-
           <div className='h-dvh w-screen flex flex-col justify-center items-center gap-12'>
             <div className='overflow-hidden'>
               <h1 className='anim-text font-nhaasgrotesk-bold uppercase text-8xl'>
                 Fin de la visite
               </h1>
             </div>
-            <div className='flex items-center gap-4'>
-              <div className='overflow-hidden rounded-full'>
-                <button className='anim-number relative px-8 py-2 rounded-full border border-black backdrop-blur-md bg-black/5'>
-                  <div className='flex items-center gap-8'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      width='24'
-                      height='24'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='1'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    >
-                      <path d='M6 8L2 12L6 16' />
-                      <path d='M2 12H22' />
-                    </svg>
-                    <span className='text-black/90 text-sm tracking-wide uppercase font-semibold'>
-                      Retour à l'accueil
-                    </span>
-                  </div>
-                </button>
-              </div>
 
-              <p className='font-bold'>/</p>
+            <div className='overflow-hidden rounded-full'>
+              <Button
+                title='Refaire la visite'
+                onClick={() => scrollToNextSection('#orangerie')}
+                icon={<CornerRightUp strokeWidth={1.5} size={16} />}
+              />
+            </div>
 
-              <div className='overflow-hidden rounded-full'>
-                <button className='anim-number relative px-8 py-2 rounded-full border border-black backdrop-blur-md bg-black/5'>
-                  <div className='flex items-center gap-8'>
-                    <span className='text-black/90 text-sm tracking-wide uppercase font-semibold'>
-                      Refaire la visite
-                    </span>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      width='24'
-                      height='24'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='1'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    >
-                      <path d='M8 6L12 2L16 6' />
-                      <path d='M12 2V22' />
-                    </svg>
-                  </div>
-                </button>
-              </div>
+            <div className='absolute bottom-3 left-3'>
+              <button className='anim-number group' onClick={backToLobby}>
+                <div className='flex items-center gap-4'>
+                  <svg
+                    className='transform transition-transform duration-300 group-hover:translate-x-1'
+                    xmlns='http://www.w3.org/2000/svg'
+                    width='24'
+                    height='24'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    strokeWidth='1'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  >
+                    <path d='M6 8L2 12L6 16' />
+                    <path d='M2 12H22' />
+                  </svg>
+                  <span className='text-black/90 text-xs tracking-wide uppercase font-semibold transition-all duration-300 group-hover:-translate-x-1'>
+                    Retour à l'accueil
+                  </span>
+                </div>
+              </button>
             </div>
           </div>
         </SectionMuseum>
