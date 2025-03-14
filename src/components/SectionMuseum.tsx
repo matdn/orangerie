@@ -88,6 +88,20 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
       }
     );
 
+    gsap.fromTo(
+      contentRef.current.querySelectorAll('.anim-blur'),
+      {
+        backdropFilter: "blur(0px)",
+        opacity: 0,
+      },
+      {
+        backdropFilter: "blur(10px)",
+        opacity: 1,
+        duration: 0.6,
+        scrollTrigger
+      }
+    )
+
   }, []);
 
   return (
