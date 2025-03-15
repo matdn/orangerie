@@ -3,17 +3,16 @@ import './commands/inits/initCore';
 //#endregion
 
 import { Action } from "cookware";
-import { TheatersManager, ViewsManager } from "pancake";
+import { ViewsManager } from "pancake";
 import { CommonProjectInitCommand } from "./commands/inits/project/CommonProjectInitCommand";
+import { LobbyInitCommand } from './commands/inits/project/LobbyInitCommand.ts';
+import { MuseumInitCommand } from './commands/inits/project/MuseumInitCommand.ts';
 import { TheaterId } from './constants/theaters/TheaterId.ts';
 import { QuickLinksReactViewId, QuickLinksReactViewOptions } from "./core/_engine/reacts/views/QuickLinksReactView";
 import InitCommand from './core/commands/inits/InitCommand.ts';
 import { TheaterTransitionCommand } from './core/commands/TheaterTransitionCommand.ts';
 import { DebugManager } from "./core/debugs/DebugManager";
 import { ScormService } from './episode/services/ScormService.ts';
-import { LobbyInitCommand } from './commands/inits/project/LobbyInitCommand.ts';
-import { MuseumThreeTheater } from './theaters/MuseeThreeTheater.ts';
-import { MuseumInitCommand } from './commands/inits/project/MuseumInitCommand.ts';
 
 export default class GameMain {
     private static _Initiated = false;
@@ -66,9 +65,9 @@ export default class GameMain {
                 }
             }
         }
-        TheaterTransitionCommand.Show(TheaterId.LOBBY);
         // TheatersManager.ShowById(TheaterId.LOBBY);
-
+        
+        TheaterTransitionCommand.Show(TheaterId.LOBBY);
         // TheaterTransitionCommand.Show(TheaterId.MUSEUM);
         // TheaterTransitionCommand.Show(TheaterId.PARK);
         // TheaterTransitionCommand.Show(TheaterId.GALERY);

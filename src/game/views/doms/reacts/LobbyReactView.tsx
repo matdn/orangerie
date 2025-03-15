@@ -1,79 +1,109 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { CustomEase } from 'gsap/CustomEase';
 import { TheatersManager, TheatersProxy, ViewsProxy } from 'pancake';
-import React, { useState } from 'react';
-import SoundIcon from '../../../../components/SoundIcon';
+import React, { useRef, useState } from 'react';
+import { SoundIcon } from '../../../../components/SoundIcon';
 import { TheaterId } from '../../../constants/theaters/TheaterId';
 import { ViewId } from '../../../constants/views/ViewId';
-import ReactViewBase, {
+import {
+  ReactViewBase,
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 import { LobbyThreeTheater } from '../../../theaters/LobbyThreeTheater';
 import LobbyThreeView from '../../threes/LobbyThreeView';
 
-gsap.registerPlugin(CustomEase);
-
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const [musicIsPlaying, setMusicIsPlaying] = useState(false);
   const [isClickable, setIsClickable] = useState(false);
+  const borderScreen = useRef<HTMLDivElement>(null);
+  const headerIcon = useRef<SVGSVGElement>(null);
+  const mainTextUp = useRef<HTMLHeadingElement>(null);
+  const mainTextDown = useRef<HTMLDivElement>(null);
+  const buttonContainer = useRef<HTMLButtonElement>(null);
+  const footerText = useRef<HTMLParagraphElement>(null);
+  const soundIcon = useRef<HTMLDivElement>(null);
 
   const toggleMusic = () => {
     setMusicIsPlaying((prev) => !prev);
   };
 
-  const tl = gsap.timeline();
+  const tl = gsap.timeline({
+    onComplete: () => {
+      setIsClickable(true);
+    },
+  });
 
   const timelineAnimation = () => {
     tl.from(
-      '.header-icon',
+      borderScreen.current,
       {
         duration: 1,
-        delay: 1,
-        opacity: 0,
+        opacity: 0.4,
         ease: 'power1.out',
       },
       '<'
     );
     tl.from(
-      '.main-text',
+      headerIcon.current,
       {
         duration: 1,
+        opacity: 0,
+        ease: 'power1.out',
+      },
+      '>0.05'
+    );
+    tl.from(
+      mainTextUp.current,
+      {
+        delay: 0.5,
+        duration: 1.5,
         opacity: 0,
         yPercent: '50',
+        ease: 'power1.out',
       },
       '<'
     );
     tl.from(
-      '.span-text',
+      mainTextDown.current,
       {
-        duration: 1,
+        duration: 1.5,
         opacity: 0,
+        yPercent: '50',
         ease: 'power1.out',
       },
-      '>0.02'
+      '<'
     );
     tl.from(
-      '.button-container',
+      buttonContainer.current,
+      {
+        duration: 1.2,
+        opacity: 0,
+        filter: 'blur(10px)',
+        ease: 'expo.out',
+      },
+      '<0.5'
+    );
+    tl.from(
+      footerText.current,
       {
         duration: 1,
         opacity: 0,
         yPercent: '100',
         ease: 'power1.out',
       },
-      '>0.02'
+      '<0.2'
     );
     tl.from(
-      '.footer-text',
+      soundIcon.current,
       {
-        duration: 0.5,
-        opacity: 0.2,
-        yPercent: '100',
+        duration: 1,
+        opacity: 0,
+        scale: 0,
+        yPercent: 100,
         ease: 'power1.out',
       },
-      '<'
+      '<0.2'
     );
-    setIsClickable(true);
   };
 
   useGSAP(() => {
@@ -85,33 +115,65 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
     ViewsProxy.GetView<LobbyThreeView>(ViewId.THREE_LOBBY).animationStatus(
       true
     );
-    tl.to('.header-icon', {
+    tl.to(headerIcon.current, {
       duration: 1,
       opacity: 0,
+      yPercent: '-100',
       ease: 'power1.out',
     });
     tl.to(
-      '.main-text',
+      mainTextUp.current,
       {
         duration: 1,
         opacity: 0,
-        y: '50',
+        yPercent: '-100',
         ease: 'power1.out',
       },
       '<'
     );
     tl.to(
-      '.span-text',
+      mainTextDown.current,
       {
         duration: 1,
         opacity: 0,
-        y: '50',
+        yPercent: '100',
         ease: 'power1.out',
       },
       '<'
     );
     tl.to(
-      '.borderScreen',
+      buttonContainer.current,
+      {
+        duration: 1,
+        opacity: 0,
+        yPercent: '100',
+        filter: 'blur(10px)',
+        ease: 'expo.out',
+      },
+      '<'
+    );
+    tl.to(
+      footerText.current,
+      {
+        duration: 1,
+        opacity: 0,
+        yPercent: '100',
+        ease: 'power1.out',
+      },
+      '<'
+    );
+    tl.to(
+      soundIcon.current,
+      {
+        duration: 1,
+        opacity: 0,
+        scale: 0,
+        ease: 'power1.out',
+      },
+      '<'
+    );
+    tl.to(
+      borderScreen.current,
       {
         duration: 1,
         opacity: 0,
@@ -134,10 +196,11 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       {...props}
       className='fixed inset-0 z-50 w-full flex flex-col'
     >
-      <div className='borderScreen'></div>
+      <div ref={borderScreen} className='borderScreen'></div>
       <div className='w-full p-8 px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
           <svg
+            ref={headerIcon}
             className='header-icon'
             width='57'
             height='34'
@@ -157,12 +220,9 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
             />
           </svg>
         </div>
-        <button
-          className='px-8 py-2 rounded-full bg-white'
-          onClick={() => timelineAnimation()}
-        >
+        <button onClick={() => timelineAnimation()}>
           <div className='flex items-center gap-8'>
-            <span className='text-black text-sm font-light tracking-wide'>
+            <span className='text-white text-sm font-light tracking-wide'>
               Restart
             </span>
           </div>
@@ -170,21 +230,32 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       </div>
       <div className='h-full w-full flex flex-col items-center justify-center'>
         <div className='overflow-hidden'>
-          <h1 className='main-text font-norman text-9xl text-white'>
+          <h1
+            ref={mainTextUp}
+            className='main-text main-text-up font-norman text-9xl text-white will-change-transform'
+          >
             Les Rêveries
           </h1>
         </div>
         <div className='overflow-hidden relative'>
-          <h1 className='main-text font-norman text-[10rem] leading-[1.5] text-white'>
-            L'Orangerie
-          </h1>
-          <span className='span-text font-norman absolute top-24 left-40 text-white text-5xl'>
-            de
-          </span>
+          <div
+            ref={mainTextDown}
+            className='main-text main-text-down will-change-transform'
+          >
+            <h1 className='font-norman text-[10rem] leading-[1.5] text-white'>
+              L'Orangerie
+            </h1>
+            <span className='font-norman absolute top-24 left-40 text-white text-5xl'>
+              de
+            </span>
+          </div>
         </div>
-        <div className='overflow-hidden mt-5'>
+        <div className='overflow-hidden mt-5 rounded-full'>
           <button
-            className={`button-container relative px-8 py-2 rounded-full border border-white backdrop-blur-md bg-white/5 ${isClickable ? 'cursor-pointer' : 'cursor-none'} `}
+            ref={buttonContainer}
+            className={`button-container will-change-transform relative px-8 py-2 rounded-full border border-white backdrop-blur-md bg-white/5 ${
+              isClickable ? 'cursor-pointer' : 'cursor-none'
+            } `}
             onClick={showMuseumTheater}
           >
             <div className='button-content flex items-center gap-8'>
@@ -209,12 +280,16 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       </div>
       <div className='w-full p-8 px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
-          <p className='footer-text text-white/50 uppercase text-[0.8rem] leading-none'>
+          <p
+            ref={footerText}
+            className='footer-text will-change-transform text-white/50 uppercase text-[0.8rem] leading-none'
+          >
             Unofficial museum website
           </p>
         </div>
         <div className='overflow-hidden cursor-pointer'>
           <SoundIcon
+            ref={soundIcon}
             isPlaying={musicIsPlaying}
             className='h-6'
             onClick={toggleMusic}

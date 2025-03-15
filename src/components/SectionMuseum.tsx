@@ -15,7 +15,6 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
     const scrollTrigger = {
       trigger: sectionRef.current,
       start: 'top 30%',
-      markers: true,
       toggleActions: 'play none none reverse',
     }
 
@@ -88,6 +87,20 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
         scrollTrigger
       }
     );
+
+    gsap.fromTo(
+      contentRef.current.querySelectorAll('.anim-blur'),
+      {
+        backdropFilter: "blur(0px)",
+        opacity: 0,
+      },
+      {
+        backdropFilter: "blur(10px)",
+        opacity: 1,
+        duration: 0.6,
+        scrollTrigger
+      }
+    )
 
   }, []);
 

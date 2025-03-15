@@ -1,8 +1,9 @@
 import gsap from 'gsap';
 import { CustomEase } from 'gsap/CustomEase';
 import React from 'react';
-import ReactViewBase, {
+import {
   TransitionProps,
+  ReactViewBase
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 
 gsap.registerPlugin(CustomEase);
