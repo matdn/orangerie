@@ -15,7 +15,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       ' '
     );
   const longTextSectionThree =
-    "L'esprit de la serre semble perdurer ici bas. La lumière et l'eau protègent l'arbre en son seins.".split(
+    "L'esprit de la serre semble perdurer ici bas. La lumière et l'eau protègent l'arbre en son sein.".split(
       ' '
     );
   const longTextSectionFive =
@@ -48,8 +48,8 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       duration: 1,
       delay: 0.5,
       ease: 'power2.inOut',
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>

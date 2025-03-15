@@ -16,7 +16,7 @@ export class SoundsManager {
 
     private static _OnChangeTheater = (): void => {
         this.RefreshTheatersSound();
-    }
+    };
 
     public static RefreshTheatersSound(): void {
         const stopSounds = new Set<string>();
@@ -59,6 +59,7 @@ export class SoundsManager {
     }
 
     public static PlaySound(id: string, sprite?: SpriteType) {
+        console.log('PlaySound', id);
         if (!CommonAssetsManager.HasAsset(id)) return;
         const sound = CommonAssetsManager.GetSound(id) as Sound;
         sound.play(sprite);

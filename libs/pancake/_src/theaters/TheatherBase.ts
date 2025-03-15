@@ -10,10 +10,11 @@ export abstract class TheaterBase {
     constructor(theaterId: string, placementId: number) {
         this._theaterId = theaterId;
         this._placcementId = placementId;
+
     }
 
     public init(): void {
-        // 
+
     }
 
     public reset(): void {

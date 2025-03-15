@@ -3,7 +3,7 @@ import { TheaterBase } from "pancake";
 import InitCommand from "../commands/inits/InitCommand";
 import InitCommandBase from "../commands/inits/initcommands/bases/InitCommandBase";
 import { SoundsManager } from "../managers/SoundsManager";
-
+import { SoundId } from "../../constants/games/SoundId";
 export class SuperTheaterBase extends TheaterBase {
 
     protected _virtualGamePadConfigId: string | null = null;
@@ -15,6 +15,17 @@ export class SuperTheaterBase extends TheaterBase {
     protected _isLoaded: boolean = false;
     public readonly onFinishLoad = new Action<[SuperTheaterBase]>();
 
+    constructor(theaterId: string, placementId: number) {
+        super(theaterId, placementId);
+        this._siblingSoundsList.add(SoundId.MAIN_SOUND);
+    }
+    public override init(): void {
+        super.reset();
+        super.init();
+
+        console.log(this._siblingSoundsList);
+        SoundsManager.PlaySound(SoundId.MAIN_SOUND);
+    }
 
     public async load(): Promise<void> {
         if (!this._isLoaded && this._initCommandsList.length > 0) {

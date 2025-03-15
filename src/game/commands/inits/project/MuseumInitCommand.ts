@@ -51,11 +51,11 @@ export class MuseumInitCommand extends InitCommandBase {
         ThreeAssetsManager.AddModel(AssetId.GLTF_MUSEUM, this._getAssetPath('models/museum.glb'));
         ThreeAssetsManager.AddRGBE(AssetId.HDR_MUSEUM, this._getAssetPath('hdr/lobby.hdr'));
         ThreeAssetsManager.AddRGBE(AssetId.HDR_PARK, this._getAssetPath('hdr/park.hdr'));
-
+        // ThreeAssetsManager.AddTexture(AssetId.TEXTURE_LEFT_WALL, this._getAssetPath('images/le-matin-aux-saules.jpg'));
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_GROUND, this._getAssetPath('textures/commons/ground.png'));
         ThreeAssetsManager.AddTexture(AssetId.TEXTURE_AQUARELLE, this._getAssetPath('images/aquarelleText.webp'));
-        ThreeAssetsManager.AddTexture(AssetId.TEXTURE_WALL_MUSEUM, this._getAssetPath('textures/commons/museumBakeWall.png'));
-        ThreeAssetsManager.AddTexture(AssetId.TEXTURE_LEFT_WALL, this._getAssetPath('textures/commons/leftWall.png'));
+        // ThreeAssetsManager.AddTexture(AssetId.TEXTURE_WALL_MUSEUM, this._getAssetPath('textures/commons/museumBakeWall.png'));
+        // ThreeAssetsManager.AddTexture(AssetId.TEXTURE_LEFT_WALL, this._getAssetPath('textures/commons/leftWall.png'));
 
     }
 

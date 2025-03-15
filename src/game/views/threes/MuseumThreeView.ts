@@ -1,5 +1,6 @@
 import { ThreeAssetsManager } from "@cooker/three";
-import { AmbientLight, DirectionalLight, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PointLight, Vector2, Vector3 } from "three";
+import { AmbientLight, DirectionalLight, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PointLight, Vector2, Vector3 } from "three";
+import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { AssetId } from "../../constants/games/AssetId";
 import { Object3DId } from "../../constants/games/Object3DId";
 import { ViewId } from "../../constants/views/ViewId";
@@ -9,7 +10,6 @@ import { Object3DsProxy } from "../../core/_engine/threejs/proxies/Object3DsProx
 import { ThreeCamerasProxy } from "../../core/_engine/threejs/proxies/ThreeCamerasProxy";
 import { WithoutTransitionThreeView } from "../../core/_engine/threejs/views/WithoutTransitionThreeView";
 import { BirdWingMaterial } from "../../materials/commons/BirdWingMaterial";
-import GaleryThreeView from "./components/GaleryThreeView";
 
 export default class MuseumThreeView extends WithoutTransitionThreeView {
     private _camera!: ThreeCameraControllerBase;
@@ -19,6 +19,7 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
     private _birdWingRightMaterial: BirdWingMaterial = new BirdWingMaterial(1);
     private _birdWingLeftMaterial: BirdWingMaterial = new BirdWingMaterial(-1);
     private _scrollProgress: number = 0;
+    private _mirror: Reflector;
 
     constructor() {
         super(ViewId.THREE_MUSEUM, ViewPlacementId.THREE_MAIN);
@@ -37,7 +38,24 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
         const pointLight = new PointLight(0xffffff, 400, 160);
         pointLight.position.set(0, -200, 0);
         this.add(pointLight);
+        this._mirror = new Reflector(
+            new PlaneGeometry(200, 200),
+            {
+                clipBias: 0.03,
+                textureWidth: window.innerWidth * 2,
+                textureHeight: window.innerHeight * 2,
+                color: 0x777777,
 
+            }
+        );
+
+        const groundBlur = new Mesh(new PlaneGeometry(200, 200), new MeshStandardMaterial({ color: 0xffffff, metalness: 0.6, transparent: true, opacity: 0.9, roughness: 0.3 }));
+        groundBlur.position.set(0, -2.4, 0);
+        groundBlur.rotation.x = -Math.PI / 2;
+        this._museumMesh.add(groundBlur);
+        this._mirror.position.set(0, -2.5, 0);
+        this._mirror.rotation.x = -Math.PI / 2;
+        this._museumMesh.add(this._mirror);
         this._museumMesh.traverse((child) => {
             if (child instanceof Mesh) {
                 if (child.name === Object3DId.MUSEUM_WALL) {
@@ -56,7 +74,7 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                     child.position.x = 0.5;
                 }
                 if (child.name === Object3DId.MUSEUM_GROUND) {
-                    child.material = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_GROUND) });
+                    child.scale.set(0, 0, 0);
                 }
                 if (child.name === Object3DId.MUSEUM_BIRD_LEFT_WING) {
                     child.material = this._birdWingLeftMaterial;

@@ -13,6 +13,9 @@ import { AnalyseGLTFCommand } from '../AnalyseGLTFCommand';
 import { MuseumThreeTheater } from '../../../theaters/MuseeThreeTheater';
 import { ParkThreeTheater } from '../../../theaters/ParkThreeTheater';
 import { GaleryTheater } from '../../../theaters/GaleryTheater';
+import { AudioMixerManager, CommonAssetsManager } from '@cooker/common';
+import { SoundId } from '../../../constants/games/SoundId';
+import { AssetsUtils } from '../../../core/utils/AssetsUtils';
 
 
 export class CommonProjectInitCommand extends InitCommandBase {
@@ -26,7 +29,11 @@ export class CommonProjectInitCommand extends InitCommandBase {
 
 
     public override async initCommon(): Promise<void> {
-        // 
+        CommonAssetsManager.AddSound(SoundId.MAIN_SOUND, {
+            src: AssetsUtils.GetAssetURL('sounds/mainSound.mp3'),
+            loop: true,
+            volume: 0.25,
+        });
     }
 
     public override async initPixi(): Promise<void> {
