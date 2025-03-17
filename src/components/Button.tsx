@@ -1,7 +1,12 @@
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import React, { useRef } from 'react';
+import React, {
+  useRef,
+  forwardRef,
+  ForwardedRef,
+  useImperativeHandle,
+} from 'react';
 
 type IconPosition = 'left' | 'right';
 
@@ -13,28 +18,23 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  title,
-  icon,
-  iconPosition = 'right',
-  className = '',
-  onClick,
-}) => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const topLettersRef = useRef<(HTMLSpanElement | null)[]>([]);
-  const bottomLettersRef = useRef<(HTMLSpanElement | null)[]>([]);
-  const iconRef = useRef<HTMLSpanElement>(null);
+export interface ButtonRef {
+  buttonElement: HTMLButtonElement | null;
+  animate: (isEnter: boolean) => gsap.core.Timeline;
+}
 
-  const title_top = title.split('');
-  const title_bottom = title.split('');
+const Button = forwardRef<ButtonRef, ButtonProps>(
+  (
+    { title, icon, iconPosition = 'right', className = '', onClick },
+    forwardedRef: ForwardedRef<ButtonRef>
+  ) => {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const topLettersRef = useRef<(HTMLSpanElement | null)[]>([]);
+    const bottomLettersRef = useRef<(HTMLSpanElement | null)[]>([]);
+    const iconRef = useRef<HTMLSpanElement>(null);
 
-  useGSAP(() => {
-    if (!buttonRef.current) return;
-
-    gsap.set(bottomLettersRef.current, {
-      yPercent: 100,
-      opacity: 0,
-    });
+    const title_top = title.split('');
+    const title_bottom = title.split('');
 
     const letterAnimation = (isEnter: boolean) => {
       const staggerConfig = {
@@ -68,63 +68,79 @@ const Button: React.FC<ButtonProps> = ({
         );
     };
 
-    buttonRef.current.addEventListener('mouseenter', () => {
-      letterAnimation(true);
-    });
+    useImperativeHandle(forwardedRef, () => ({
+      buttonElement: buttonRef.current,
+      animate: letterAnimation,
+    }));
 
-    buttonRef.current.addEventListener('mouseleave', () => {
-      letterAnimation(false);
-    });
-  }, []);
+    useGSAP(() => {
+      if (!buttonRef.current) return;
 
-  return (
-    <button
-      ref={buttonRef}
-      onClick={onClick}
-      className={clsx(
-        'relative px-8 py-2 rounded-full border border-black backdrop-blur-md bg-black/5 flex items-center gap-4 text-black',
-        className
-      )}
-    >
-      {icon && iconPosition === 'left' && <span ref={iconRef}>{icon}</span>}
+      gsap.set(bottomLettersRef.current, {
+        yPercent: 100,
+        opacity: 0,
+      });
 
-      <div className='relative'>
-        <div className='flex overflow-hidden'>
-          {title_top.map((letter, index) => (
-            <span
-              key={`top-${index}`}
-              className='inline-block relative overflow-hidden'
-            >
+      buttonRef.current.addEventListener('mouseenter', () => {
+        letterAnimation(true);
+      });
+
+      buttonRef.current.addEventListener('mouseleave', () => {
+        letterAnimation(false);
+      });
+    }, []);
+
+    return (
+      <button
+        ref={buttonRef}
+        onClick={onClick}
+        className={clsx(
+          'relative px-4 py-1 md:px-8 md:py-2 rounded-full border border-white bg-white/10 flex items-center gap-4 text-white',
+          className
+        )}
+      >
+        {icon && iconPosition === 'left' && <span ref={iconRef}>{icon}</span>}
+
+        <div className='relative'>
+          <div className='flex overflow-hidden'>
+            {title_top.map((letter, index) => (
               <span
-                ref={(el) => (topLettersRef.current[index] = el)}
-                className='inline-block'
+                key={`top-${index}`}
+                className='inline-block relative overflow-hidden'
               >
-                {letter === ' ' ? '\u00A0' : letter}
+                <span
+                  ref={(el) => (topLettersRef.current[index] = el)}
+                  className='inline-block text-sm'
+                >
+                  {letter === ' ' ? '\u00A0' : letter}
+                </span>
               </span>
-            </span>
-          ))}
+            ))}
+          </div>
+
+          <div className='flex overflow-hidden absolute top-0 left-0'>
+            {title_bottom.map((letter, index) => (
+              <span
+                key={`bottom-${index}`}
+                className='inline-block relative overflow-hidden'
+              >
+                <span
+                  ref={(el) => (bottomLettersRef.current[index] = el)}
+                  className='inline-block text-sm'
+                >
+                  {letter === ' ' ? '\u00A0' : letter}
+                </span>
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className='flex overflow-hidden absolute top-0 left-0'>
-          {title_bottom.map((letter, index) => (
-            <span
-              key={`bottom-${index}`}
-              className='inline-block relative overflow-hidden'
-            >
-              <span
-                ref={(el) => (bottomLettersRef.current[index] = el)}
-                className='inline-block'
-              >
-                {letter === ' ' ? '\u00A0' : letter}
-              </span>
-            </span>
-          ))}
-        </div>
-      </div>
+        {icon && iconPosition === 'right' && <span ref={iconRef}>{icon}</span>}
+      </button>
+    );
+  }
+);
 
-      {icon && iconPosition === 'right' && <span ref={iconRef}>{icon}</span>}
-    </button>
-  );
-};
+Button.displayName = 'Button';
 
 export default Button;

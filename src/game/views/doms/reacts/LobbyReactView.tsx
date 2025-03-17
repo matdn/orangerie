@@ -11,6 +11,8 @@ import {
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 import { LobbyThreeTheater } from '../../../theaters/LobbyThreeTheater';
 import LobbyThreeView from '../../threes/LobbyThreeView';
+import Button from '../../../../components/Button';
+import { MoveRight } from 'lucide-react';
 
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const [musicIsPlaying, setMusicIsPlaying] = useState(false);
@@ -19,7 +21,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const headerIcon = useRef<SVGSVGElement>(null);
   const mainTextUp = useRef<HTMLHeadingElement>(null);
   const mainTextDown = useRef<HTMLDivElement>(null);
-  const buttonContainer = useRef<HTMLButtonElement>(null);
+  const buttonContainer = useRef<HTMLDivElement>(null);
   const footerText = useRef<HTMLParagraphElement>(null);
   const soundIcon = useRef<HTMLDivElement>(null);
 
@@ -197,7 +199,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       className='fixed inset-0 z-50 w-full flex flex-col'
     >
       <div ref={borderScreen} className='borderScreen'></div>
-      <div className='w-full p-8 px-12 flex items-center justify-between'>
+      <div className='w-full p-8 md:px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
           <svg
             ref={headerIcon}
@@ -220,19 +222,12 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
             />
           </svg>
         </div>
-        <button onClick={() => timelineAnimation()}>
-          <div className='flex items-center gap-8'>
-            <span className='text-white text-sm font-light tracking-wide'>
-              Restart
-            </span>
-          </div>
-        </button>
       </div>
       <div className='h-full w-full flex flex-col items-center justify-center'>
         <div className='overflow-hidden'>
           <h1
             ref={mainTextUp}
-            className='main-text main-text-up font-norman text-9xl text-white will-change-transform'
+            className='main-text main-text-up font-norman text-7xl md:text-9xl text-white will-change-transform'
           >
             Les Rêveries
           </h1>
@@ -242,43 +237,26 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
             ref={mainTextDown}
             className='main-text main-text-down will-change-transform'
           >
-            <h1 className='font-norman text-[10rem] leading-[1.5] text-white'>
+            <h1 className='font-norman text-7xl md:text-[10rem] leading-[1.5] text-white'>
               L'Orangerie
             </h1>
-            <span className='font-norman absolute top-24 left-40 text-white text-5xl'>
+            <span className='font-norman absolute top-10 left-[4.5rem] md:top-24 md:left-40 text-white text-2xl md:text-5xl'>
               de
             </span>
           </div>
         </div>
         <div className='overflow-hidden mt-5 rounded-full'>
-          <button
-            ref={buttonContainer}
-            className={`button-container will-change-transform relative px-8 py-2 rounded-full border border-white backdrop-blur-md bg-white/5 ${
-              isClickable ? 'cursor-pointer' : 'cursor-none'
-            } `}
+          <div ref={buttonContainer}>
+          <Button
+            title='Explore'
             onClick={showMuseumTheater}
-          >
-            <div className='button-content flex items-center gap-8'>
-              <span className='text-white/90 text-sm tracking-wide uppercase font-semibold'>
-                Explore
-              </span>
-              <svg
-                width='20'
-                height='9'
-                viewBox='0 0 20 9'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  d='M-1.5299e-07 4.5L19 4.5M19 4.5L13 0.499999M19 4.5L13 8'
-                  stroke='white'
-                />
-              </svg>
-            </div>
-          </button>
+            icon={<MoveRight strokeWidth={1.5} size={16} />}
+            iconPosition='right'
+          />
+          </div>
         </div>
       </div>
-      <div className='w-full p-8 px-12 flex items-center justify-between'>
+      <div className='w-full p-8 md:px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
           <p
             ref={footerText}
