@@ -8,7 +8,6 @@ export class I18nReader {
   public static Init(i18nData: ResourceKey, baseKey: string) {
     this._I18nData = i18nData;
     this._BaseKey = baseKey;
-    console.log(this._BaseKey);
   }
 
   public static ReadAsObject() {
@@ -18,7 +17,7 @@ export class I18nReader {
     const object = {};
 
     for (const key in textDataKeys) {
-      const myKey = textDataKeys[key].split('.')[0]; 
+      const myKey = textDataKeys[key].split('.')[0];
 
       if (myKey == this._BaseKey) {
         // const tab = textDataKeys[key].split('.');

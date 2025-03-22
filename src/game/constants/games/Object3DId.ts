@@ -11,6 +11,7 @@ export enum Object3DId {
     LOBBY_FLOAR = AssetId.GLTF_LOBBY + 'Floar',
 
     MUSEUM = AssetId.GLTF_MUSEUM + 'Museum',
+    MUSEUM_CAMERAS = AssetId.GLTF_MUSEUM + 'CameraPositions',
     MUSEUM_WALL = AssetId.GLTF_MUSEUM + 'Wall',
     MUSEUM_TOP = AssetId.GLTF_MUSEUM + 'TopLighter',
     MUSEUM_TREE = AssetId.GLTF_MUSEUM + 'tree',

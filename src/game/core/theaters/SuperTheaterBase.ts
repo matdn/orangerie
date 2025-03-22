@@ -23,7 +23,6 @@ export class SuperTheaterBase extends TheaterBase {
         super.reset();
         super.init();
 
-        console.log(this._siblingSoundsList);
         SoundsManager.PlaySound(SoundId.MAIN_SOUND);
     }
 

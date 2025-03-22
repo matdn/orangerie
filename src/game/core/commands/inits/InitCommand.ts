@@ -15,7 +15,6 @@ export default class InitCommand {
 
 
   public static async Execute(initCommands: Array<InitCommandBase>) {
-    console.log('InitCommand');
     this._InitCommandsList = [];
     if (Core.UseThree) this._ThreeAssetsManager = (await import('@cooker/three')).ThreeAssetsManager;
 

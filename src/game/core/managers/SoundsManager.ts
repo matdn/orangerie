@@ -59,7 +59,6 @@ export class SoundsManager {
     }
 
     public static PlaySound(id: string, sprite?: SpriteType) {
-        console.log('PlaySound', id);
         if (!CommonAssetsManager.HasAsset(id)) return;
         const sound = CommonAssetsManager.GetSound(id) as Sound;
         sound.play(sprite);

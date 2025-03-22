@@ -28,6 +28,24 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
   useEffect(() => {
     const handleScroll = () => {
+      const nympheasSection = document.getElementById('nympheas');
+      if (!nympheasSection) return;
+
+      const rect = nympheasSection.getBoundingClientRect();
+      const isVisible = rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
+
+      if (isVisible) {
+        console.log("🎥 Passage au mode empties !");
+        window.dispatchEvent(new CustomEvent('switchToEmptyMode'));
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       const scrollMax =
         document.documentElement.scrollHeight - window.innerHeight;
@@ -265,7 +283,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           </div>
         </SectionMuseum>
 
-        <SectionMuseum>
+        <SectionMuseum id='chapitre-3'>
           <div className='overflow-hidden'>
             <h4 className='anim-text font-instrument-italic text-3xl'>
               Chapitre 03

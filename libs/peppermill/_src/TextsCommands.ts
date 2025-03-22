@@ -15,11 +15,10 @@ export class TextsCommands {
             textIds += `  ${id} = "${key}",\n`;
         }
 
-        textIds =`export enum TextId {\n${textIds} \n}`;
-        
+        textIds = `export enum TextId {\n${textIds} \n}`;
+
         console.groupCollapsed(`Remplacer le contenu du fichier TextId par : `);
-        console.log(textIds);
-        console.groupEnd()
+        console.groupEnd();
 
     }
 
@@ -40,11 +39,11 @@ export class TextsCommands {
             }
         }
 
-        jsonKeys =`{ \n${jsonKeys} \n}`
+        jsonKeys = `{ \n${jsonKeys} \n}`;
 
         console.groupCollapsed(`Remplacer le contenu des fichiers trads (sauf celui par default) par : `);
         console.log(jsonKeys);
-        console.groupEnd()
+        console.groupEnd();
 
     }
 
@@ -56,7 +55,7 @@ export class TextsCommands {
         let jsonKeys = '';
 
         for (const key of keys) {
-             if (key !== '__EOF__') {
+            if (key !== '__EOF__') {
                 const jsonKey = `  {\n    "name": "${key}"\n  },\n`;
                 jsonKeys += jsonKey;
             } else {
@@ -65,12 +64,12 @@ export class TextsCommands {
             }
         }
 
-        const exportable = `"schema": [ \n${jsonKeys}\n]`
-        
+        const exportable = `"schema": [ \n${jsonKeys}\n]`;
+
 
         console.groupCollapsed(`Remplacer le contenu du schema dans le fichier schema.json par : `);
         console.log(exportable);
-        console.groupEnd()
+        console.groupEnd();
 
     }
 
