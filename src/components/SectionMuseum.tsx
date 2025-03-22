@@ -13,7 +13,6 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
     if (!sectionRef.current || !contentRef.current) return;
 
     const scrollTrigger = {
-      markers: true,
       trigger: sectionRef.current,
       start: 'top 30%',
       toggleActions: 'play none none reverse',

@@ -460,7 +460,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             <Button
               title='Refaire la visite'
               onClick={() => scrollToNextSection('#orangerie')}
-              icon={<CornerRightUp strokeWidth={1.5} size={16} />}
+              icon={<CornerRightUp strokeWidth={2.5} size={16} />}
               className='!border-black flex items-center gap-4 !text-black anim-button'
             />
 

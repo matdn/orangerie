@@ -110,7 +110,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>(
               >
                 <span
                   ref={(el) => (topLettersRef.current[index] = el)}
-                  className='inline-block text-sm'
+                  className='inline-block text-sm font-bold uppercase'
                 >
                   {letter === ' ' ? '\u00A0' : letter}
                 </span>
@@ -126,7 +126,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>(
               >
                 <span
                   ref={(el) => (bottomLettersRef.current[index] = el)}
-                  className='inline-block text-sm'
+                  className='inline-block text-sm font-bold uppercase'
                 >
                   {letter === ' ' ? '\u00A0' : letter}
                 </span>

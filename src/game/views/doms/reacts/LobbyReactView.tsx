@@ -250,7 +250,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           <Button
             title='Explore'
             onClick={showMuseumTheater}
-            icon={<MoveRight strokeWidth={1.5} size={16} />}
+            icon={<MoveRight strokeWidth={2.5} size={16} />}
             iconPosition='right'
           />
           </div>
