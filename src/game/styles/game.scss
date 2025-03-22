@@ -6,9 +6,13 @@
 
 @font-face {
   font-family: 'Instrument';
-  src: url('../../../assets/game/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  src: url('../../../assets/game/fonts/InstrumentSerif-Regular.woff2')
+      format('woff2'),
+    url('../../../assets/game/fonts/InstrumentSerif-Regular.woff')
+      format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 .font-instrument {
@@ -16,19 +20,21 @@
 }
 
 @font-face {
-  font-family: 'Instrument Italic';
-  src: url('../../../assets/game/fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  font-family: 'Instrument-Italic';
+  src: url('../../../assets/game/fonts/InstrumentSerif-Italic.ttf')
+    format('truetype');
   font-weight: normal;
-  font-style: italic;
+  font-style: normal;
 }
 
 .font-instrument-italic {
-  font-family: 'Instrument Italic', sans-serif;
+  font-family: 'Instrument-Italic', sans-serif;
 }
 
 @font-face {
   font-family: 'NHaasGrotesk';
-  src: url('../../../assets/game/fonts/NHaasGrotesk_Medium.ttf') format('truetype');
+  src: url('../../../assets/game/fonts/NHaasGrotesk_Medium.ttf')
+    format('truetype');
 }
 
 .font-nhaasgrotesk {
@@ -37,7 +43,8 @@
 
 @font-face {
   font-family: 'NHaasGroteskBold';
-  src: url('../../../assets/game/fonts/NHaasGrotesk_Bold.ttf') format('truetype');
+  src: url('../../../assets/game/fonts/NHaasGrotesk_Bold.ttf')
+    format('truetype');
 }
 
 .font-nhaasgrotesk-bold {
@@ -46,7 +53,8 @@
 
 @font-face {
   font-family: 'NHaasGroteskLight';
-  src: url('../../../assets/game/fonts/NHaasGrotesk_Light.ttf') format('truetype');
+  src: url('../../../assets/game/fonts/NHaasGrotesk_Light.ttf')
+    format('truetype');
 }
 
 .font-nhaasgrotesk-light {
@@ -55,7 +63,7 @@
 
 @font-face {
   font-family: 'Norman';
-  src: url('../../../assets/game/fonts/Norman Regular.ttf') format('truetype');
+  src: url('../../../assets/game/fonts/Norman_Regular.ttf') format('truetype');
   font-weight: 900;
 }
 
@@ -65,7 +73,7 @@
 
 @font-face {
   font-family: 'Norman-Italic';
-  src: url('../../../assets/game/fonts/Norman Regular.ttf') format('truetype');
+  src: url('../../../assets/game/fonts/Norman_Italic.ttf') format('truetype');
   font-weight: 900;
   font-style: italic;
 }
@@ -73,7 +81,6 @@
 .font-norman-italic {
   font-family: 'Norman-Italic', sans-serif;
 }
-
 
 canvas {
   position: fixed;
@@ -99,5 +106,9 @@ canvas {
 .glassmorphism {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  padding: 10px 20px;
+  padding: 8px 10px;
+
+  @media (min-width: 768px) {
+    padding: 10px 20px;
+  }
 }

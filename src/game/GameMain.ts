@@ -66,7 +66,6 @@ export default class GameMain {
             }
         }
         // TheatersManager.ShowById(TheaterId.LOBBY);
-
         // TheaterTransitionCommand.Show(TheaterId.LOBBY);
         TheaterTransitionCommand.Show(TheaterId.MUSEUM);
         // TheaterTransitionCommand.Show(TheaterId.PARK);

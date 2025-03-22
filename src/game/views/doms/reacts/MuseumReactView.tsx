@@ -1,9 +1,9 @@
 import { useGSAP } from '@gsap/react';
 import { useLenis } from '@studio-freight/react-lenis';
 import gsap from 'gsap';
-import { CornerRightUp } from 'lucide-react';
+import { CornerRightUp, MoveDown, MoveLeft } from 'lucide-react';
 import { TheatersManager } from 'pancake';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Button from '../../../../components/Button';
 import SectionMuseum from '../../../../components/SectionMuseum';
 import { TextMuseum } from '../../../../components/TextMuseum';
@@ -13,6 +13,7 @@ import { ReactViewBase, TransitionProps } from '../../../core/_engine/reacts/vie
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
   const lenis = useLenis();
+  const pageTransition = useRef<HTMLDivElement>(null);
   const convertTextToArray = (text: string) => {
     return text.split(' ');
   };
@@ -64,7 +65,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
   }, []);
 
   useGSAP(() => {
-    gsap.to('.page-transition', {
+    gsap.to(pageTransition.current, {
       yPercent: -100,
       duration: 1,
       delay: 0.5,
@@ -76,23 +77,26 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>
-      <div className='fixed inset-0 bg-white w-screen h-dvh page-transition z-[100]'></div>
+      <div
+        ref={pageTransition}
+        className='fixed inset-0 bg-white w-screen h-dvh page-transition z-[100]'
+      ></div>
       <div className='borderScreenMuseum'></div>
       <div className='w-full overflow-y-scroll'>
         <SectionMuseum id='orangerie'>
           <div className='overflow-hidden'>
-            <h4 className='anim-text font-instrument-italic text-3xl'>
+            <h4 className='anim-text font-instrument-italic text-2xl md:text-3xl'>
               Chapitre 01
             </h4>
           </div>
           <div className='flex flex-col justify-center items-center glassmorphism'>
             <div className='overflow-hidden'>
-              <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-8xl'>
+              <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl md:text-8xl'>
                 L'Orangerie
               </h2>
             </div>
             <div className='overflow-hidden'>
-              <h3 className='anim-text font-instrument text-3xl uppercase'>
+              <h3 className='anim-text font-instrument text-2xl md:text-3xl uppercase'>
                 à l’origine il y a la serre
               </h3>
             </div>
@@ -101,39 +105,25 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             className='anim-number bg-white px-1 py-4 rounded-full'
             onClick={() => scrollToNextSection('#construction')}
           >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='24'
-              height='24'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='black'
-              strokeWidth='1'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              className='animate-bounce'
-            >
-              <path d='M8 18L12 22L16 18' />
-              <path d='M12 2V22' />
-            </svg>
+            <MoveDown strokeWidth={1} size={24} className='animate-bounce' />
           </button>
         </SectionMuseum>
 
         <SectionMuseum id='construction'>
           <div className='flex flex-col justify-center items-center gap-2'>
             <div className='overflow-hidden'>
-              <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl'>
+              <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-3xl md:text-5xl'>
                 1852
               </h2>
             </div>
             <div className='overflow-hidden'>
-              <h4 className='anim-text font-nhaasgrotesk-light text-2xl uppercase'>
+              <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase'>
                 (Construction)
               </h4>
             </div>
           </div>
           <div className='glassmorphism'>
-            <h3 className='font-instrument text-3xl max-w-xl text-center'>
+            <h3 className='font-instrument text-2xl md:text-3xl max-w-xs md:max-w-xl text-center'>
               {convertTextToArray(TextMuseum.SECTION_ONE).map((word, index) => (
                 <span key={index} className='inline-block overflow-hidden'>
                   <span className='anim-long-text inline-block'>
@@ -148,20 +138,20 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           </div>
         </SectionMuseum>
 
-        <SectionMuseum className='!w-[50vw] pl-10'>
-          <div className='w-full flex justify-between items-center'>
+        <SectionMuseum className='md:!w-[50vw] md:pl-10 md:!items-start'>
+          <div className='w-full flex justify-between items-center max-w-xs md:max-w-none'>
             <div className='overflow-hidden'>
-              <h2 className='anim-text font-instrument text-5xl'>
+              <h2 className='anim-text font-instrument text-3xl md:text-5xl'>
                 Le dernier des Orangers
               </h2>
             </div>
-            <p className='anim-number bg-black rounded-full w-5 h-5 p-4 flex items-center justify-center aspect-square font-instrument text-white text-xl'>
+            <p className='anim-number bg-black rounded-full  p-2 w-5 h-5 md:p-4 flex items-center justify-center aspect-square font-instrument text-white text-lg md:text-xl'>
               1
             </p>
           </div>
 
-          <div className='glassmorphism'>
-            <h3 className='font-instrument text-3xl max-w-xl text-center'>
+          <div className='glassmorphism max-w-xs md:max-w-none'>
+            <h3 className='font-instrument text-2xl md:text-3xl max-w-xl text-center md:text-left text-pretty'>
               {convertTextToArray(TextMuseum.SECTION_TWO).map((word, index) => (
                 <span key={index} className='inline-block overflow-hidden'>
                   <span className='anim-long-text inline-block'>
@@ -178,18 +168,18 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
         <SectionMuseum>
           <div className='overflow-hidden'>
-            <h4 className='anim-text font-instrument-italic text-3xl'>
+            <h4 className='anim-text font-instrument-italic text-2xl md:text-3xl'>
               Chapitre 02
             </h4>
           </div>
-          <div className='flex flex-col justify-center items-center glassmorphism'>
+          <div className='flex flex-col justify-center items-center glassmorphism max-w-xs md:max-w-none  '>
             <div className='overflow-hidden'>
-              <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-8xl'>
+              <h2 className='anim-text text-center font-nhaasgrotesk-bold uppercase text-5xl md:text-8xl'>
                 Claude Monet
               </h2>
             </div>
             <div className='overflow-hidden'>
-              <h3 className='anim-text font-instrument text-3xl uppercase'>
+              <h3 className='anim-text font-instrument text-2xl md:text-3xl uppercase'>
                 l'Architecte de la Lumière
               </h3>
             </div>
@@ -198,21 +188,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             className='anim-number bg-white px-1 py-4 rounded-full'
             onClick={() => scrollToNextSection('#impressionniste')}
           >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='24'
-              height='24'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='black'
-              strokeWidth='1'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              className='animate-bounce'
-            >
-              <path d='M8 18L12 22L16 18' />
-              <path d='M12 2V22' />
-            </svg>
+            <MoveDown strokeWidth={1} size={24} className='animate-bounce' />
           </button>
         </SectionMuseum>
 
@@ -221,51 +197,51 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             <img
               src='assets/images/autoportrait.webp'
               alt='Peinture Autoportrait'
-              className='anim-img max-w-sm h-auto'
+              className='anim-img max-w-xs md:max-w-sm h-auto'
             />
           </div>
           <div className='overflow-hidden'>
-            <h4 className='anim-text font-instrument text-5xl uppercase'>
+            <h4 className='anim-text font-instrument text-3xl md:text-5xl uppercase'>
               Claude Monet
             </h4>
           </div>
 
           <div className='overflow-hidden'>
-            <h3 className='anim-text font-nhaasgrotesk-light text-3xl max-w-xl text-center'>
+            <h3 className='anim-text font-nhaasgrotesk-light text-2xl md:text-3xl max-w-xl text-center'>
               Le père de l'impressionniste
             </h3>
           </div>
         </SectionMuseum>
 
-        <SectionMuseum className='!flex-row'>
-          <div className='flex'>
+        <SectionMuseum className='md:!flex-row'>
+          <div className='hidden md:flex'>
             <div className='overflow-hidden'>
               <img
                 src='assets/images/soleil-levant.webp'
                 alt='Peinture Autoportrait'
-                className='anim-img max-w-sm h-auto'
+                className='anim-img max-w-xs md:max-w-sm h-auto'
               />
             </div>
-            <p className='anim-number -ml-4 mt-12 z-10 bg-black rounded-full w-5 h-5 p-4 flex items-center justify-center aspect-square font-instrument text-white text-xl'>
+            <p className='anim-number -ml-4 mt-12 z-10 bg-black rounded-full w-5 h-5 p-2 md:p-4 flex items-center justify-center aspect-square font-instrument text-white text-lg md:text-xl'>
               2
             </p>
           </div>
 
-          <div className='flex flex-col justify-center items-left gap-4 mt-40'>
+          <div className='flex flex-col justify-center items-center md:items-left gap-4 md:mt-40'>
             <div>
               <div className='overflow-hidden'>
-                <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl'>
+                <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-3xl md:text-5xl'>
                   1874
                 </h2>
               </div>
               <div className='overflow-hidden'>
-                <h4 className='anim-text font-nhaasgrotesk-light text-2xl uppercase'>
+                <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase'>
                   Naissance de l'impressionnisme
                 </h4>
               </div>
             </div>
-            <div className='glassmorphism ml-8'>
-              <h3 className='font-instrument text-3xl max-w-xl text-left'>
+            <div className='glassmorphism md:ml-8 max-w-xs md:max-w-none'>
+              <h3 className='font-instrument text-2xl md:text-3xl max-w-xl text-left'>
                 {convertTextToArray(TextMuseum.SECTION_THREE).map(
                   (word, index) => (
                     <span key={index} className='inline-block overflow-hidden'>
@@ -285,18 +261,18 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
         <SectionMuseum id='chapitre-3'>
           <div className='overflow-hidden'>
-            <h4 className='anim-text font-instrument-italic text-3xl'>
+            <h4 className='anim-text font-instrument-italic text-2xl md:text-3xl'>
               Chapitre 03
             </h4>
           </div>
-          <div className='flex flex-col justify-center items-center glassmorphism'>
+          <div className='flex flex-col justify-center items-center glassmorphism max-w-xs md:max-w-none'>
             <div className='overflow-hidden'>
-              <h2 className='font-nhaasgrotesk-bold uppercase text-8xl'>
+              <h2 className='font-nhaasgrotesk-bold uppercase text-5xl md:text-8xl text-center'>
                 Les Nymphéas
               </h2>
             </div>
             <div className='overflow-hidden'>
-              <h3 className='font-instrument text-3xl uppercase'>
+              <h3 className='font-instrument text-2xl md:text-3xl uppercase'>
                 l’ultime chef-dœuvre
               </h3>
             </div>
@@ -305,39 +281,25 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             className='anim-number bg-white px-1 py-4 rounded-full'
             onClick={() => scrollToNextSection('#nympheas')}
           >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='24'
-              height='24'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='black'
-              strokeWidth='1'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              className='animate-bounce'
-            >
-              <path d='M8 18L12 22L16 18' />
-              <path d='M12 2V22' />
-            </svg>
+            <MoveDown strokeWidth={1} size={24} className='animate-bounce' />
           </button>
         </SectionMuseum>
 
         <SectionMuseum id='nympheas'>
           <div className='flex flex-col justify-center items-center gap-2'>
             <div className='overflow-hidden'>
-              <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl'>
+              <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-3xl md:text-5xl text-center'>
                 L'ultime chef-d'œuvre
               </h2>
             </div>
             <div className='overflow-hidden'>
-              <h4 className='anim-text font-nhaasgrotesk-light text-2xl uppercase'>
+              <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase'>
                 1914-1926
               </h4>
             </div>
           </div>
-          <div className='glassmorphism'>
-            <h3 className='font-instrument text-3xl max-w-xl text-center'>
+          <div className='glassmorphism max-w-xs md:max-w-none'>
+            <h3 className='font-instrument text-2xl md:text-3xl max-w-xl text-center'>
               {convertTextToArray(TextMuseum.SECTION_FOUR).map(
                 (word, index) => (
                   <span key={index} className='inline-block overflow-hidden'>
@@ -353,22 +315,23 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             </h3>
           </div>
         </SectionMuseum>
-        <SectionMuseum className='!w-[50vw] pl-10'>
+
+        <SectionMuseum className='md:!w-[50vw] md:pl-10'>
           <div className='flex flex-col justify-center items-left gap-4 mt-40'>
             <div>
               <div className='overflow-hidden'>
-                <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl'>
+                <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-3xl md:text-5xl'>
                   Matin
                 </h2>
               </div>
               <div className='overflow-hidden'>
-                <h4 className='anim-text font-nhaasgrotesk-light text-2xl uppercase'>
+                <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase'>
                   1916-1922
                 </h4>
               </div>
             </div>
-            <div className='glassmorphism ml-8'>
-              <h3 className='font-instrument text-3xl max-w-xl text-left'>
+            <div className='glassmorphism max-w-xs md:max-w-none md:ml-8'>
+              <h3 className='font-instrument text-2xl md:text-3xl max-w-xl text-left'>
                 {convertTextToArray(TextMuseum.SECTION_FIVE).map(
                   (word, index) => (
                     <span key={index} className='inline-block overflow-hidden'>
@@ -385,22 +348,23 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             </div>
           </div>
         </SectionMuseum>
-        <SectionMuseum className='!items-end pr-10'>
+
+        <SectionMuseum className='md:!items-end md:pr-10'>
           <div className='flex flex-col justify-center items-end gap-4 mt-40'>
             <div>
               <div className='overflow-hidden'>
-                <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl'>
+                <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-3xl md:text-5xl'>
                   Les Nuages
                 </h2>
               </div>
               <div className='overflow-hidden'>
-                <h4 className='anim-text font-nhaasgrotesk-light text-2xl uppercase'>
+                <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase text-right'>
                   1914-1918
                 </h4>
               </div>
             </div>
-            <div className='glassmorphism mr-8'>
-              <h3 className='font-instrument text-3xl max-w-xl text-left'>
+            <div className='glassmorphism max-w-xs md:max-w-none md:mr-8'>
+              <h3 className='font-instrument text-2xl md:text-3xl max-w-xs md:max-w-xl text-right'>
                 {convertTextToArray(TextMuseum.SECTION_SIX).map(
                   (word, index) => (
                     <span key={index} className='inline-block overflow-hidden'>
@@ -417,22 +381,23 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             </div>
           </div>
         </SectionMuseum>
-        <SectionMuseum className='!w-[50vw] pl-10'>
-          <div className='flex flex-col justify-center items-left gap-4 mt-40'>
+
+        <SectionMuseum className='md:!w-[50vw] md:pl-10'>
+          <div className='flex flex-col md:justify-center items-left gap-4 mt-40'>
             <div>
               <div className='overflow-hidden'>
-                <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl'>
+                <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-3xl md:text-5xl'>
                   Soleil couchant
                 </h2>
               </div>
               <div className='overflow-hidden'>
-                <h4 className='anim-text font-nhaasgrotesk-light text-2xl uppercase'>
+                <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase'>
                   1915-1921
                 </h4>
               </div>
             </div>
-            <div className='glassmorphism ml-8'>
-              <h3 className='font-instrument text-3xl max-w-xl text-left'>
+            <div className='glassmorphism max-w-xs md:max-w-none md:ml-8'>
+              <h3 className='font-instrument text-2xl md:text-3xl max-w-xl text-left'>
                 {convertTextToArray(TextMuseum.SECTION_SEVEN).map(
                   (word, index) => (
                     <span key={index} className='inline-block overflow-hidden'>
@@ -449,22 +414,23 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             </div>
           </div>
         </SectionMuseum>
-        <SectionMuseum className='!items-end pr-10'>
+
+        <SectionMuseum className='md:!items-end md:pr-10'>
           <div className='flex flex-col justify-center items-end gap-4 mt-40'>
             <div>
               <div className='overflow-hidden'>
-                <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl'>
+                <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-3xl md:text-5xl'>
                   Reflets verts
                 </h2>
               </div>
               <div className='overflow-hidden'>
-                <h4 className='anim-text font-nhaasgrotesk-light text-2xl uppercase'>
+                <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase text-right'>
                   1920-1926
                 </h4>
               </div>
             </div>
-            <div className='glassmorphism mr-8'>
-              <h3 className='font-instrument text-3xl max-w-xl text-left'>
+            <div className='glassmorphism max-w-xs md:max-w-none md:mr-8'>
+              <h3 className='font-instrument text-2xl md:text-3xl max-w-xl text-right text-pretty'>
                 {convertTextToArray(TextMuseum.SECTION_EIGHT).map(
                   (word, index) => (
                     <span key={index} className='inline-block overflow-hidden'>
@@ -481,41 +447,27 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             </div>
           </div>
         </SectionMuseum>
+
         <SectionMuseum className='relative'>
           <div className='absolute inset-0 -z-10 h-dvh w-screen flex justify-center items-center anim-blur'></div>
           <div className='h-dvh w-screen flex flex-col justify-center items-center gap-12'>
             <div className='overflow-hidden'>
-              <h1 className='anim-text font-nhaasgrotesk-bold uppercase text-8xl'>
+              <h1 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl md:text-8xl text-center'>
                 Fin de la visite
               </h1>
             </div>
 
-            <div className='overflow-hidden rounded-full'>
-              <Button
-                title='Refaire la visite'
-                onClick={() => scrollToNextSection('#orangerie')}
-                icon={<CornerRightUp strokeWidth={1.5} size={16} />}
-              />
-            </div>
+            <Button
+              title='Refaire la visite'
+              onClick={() => scrollToNextSection('#orangerie')}
+              icon={<CornerRightUp strokeWidth={1.5} size={16} />}
+              className='!border-black flex items-center gap-4 !text-black anim-button'
+            />
 
             <div className='absolute bottom-3 left-3'>
               <button className='anim-number group' onClick={backToLobby}>
                 <div className='flex items-center gap-4'>
-                  <svg
-                    className='transform transition-transform duration-300 group-hover:translate-x-1'
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='24'
-                    height='24'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='1'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  >
-                    <path d='M6 8L2 12L6 16' />
-                    <path d='M2 12H22' />
-                  </svg>
+                  <MoveLeft strokeWidth={1.5} size={16} />
                   <span className='text-black/90 text-xs tracking-wide uppercase font-semibold transition-all duration-300 group-hover:-translate-x-1'>
                     Retour à l'accueil
                   </span>
