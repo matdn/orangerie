@@ -178,13 +178,13 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
 
                     // 🔹 Debug : Vérification de la position et de la rotation du dernier empty
                     if (index === this._cameraPositions.length - 1) {
-                        console.log("📌 Dernière Position Captée:", end.position);
-                        console.log("📌 Dernière Rotation Captée:", end.rotation);
+                        // console.log("📌 Dernière Position Captée:", end.position);
+                        // console.log("📌 Dernière Rotation Captée:", end.rotation);
                     }
                 }
             }
         }
-        console.log(this._camera.rotation.y);
+        // console.log(this._camera.rotation.y);
     }
 
 
