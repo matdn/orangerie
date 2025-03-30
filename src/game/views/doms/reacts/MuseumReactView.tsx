@@ -8,8 +8,10 @@ import Button from '../../../../components/Button';
 import SectionMuseum from '../../../../components/SectionMuseum';
 import { TextMuseum } from '../../../../components/TextMuseum';
 import { TheaterId } from '../../../constants/theaters/TheaterId';
-import { ReactViewBase, TransitionProps } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
-
+import {
+  ReactViewBase,
+  TransitionProps,
+} from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
   const lenis = useLenis();
@@ -33,10 +35,12 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       if (!nympheasSection) return;
 
       const rect = nympheasSection.getBoundingClientRect();
-      const isVisible = rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
+      const isVisible =
+        rect.top <= window.innerHeight / 2 &&
+        rect.bottom >= window.innerHeight / 2;
 
       if (isVisible) {
-        console.log("🎥 Passage au mode empties !");
+        console.log('🎥 Passage au mode empties !');
         window.dispatchEvent(new CustomEvent('switchToEmptyMode'));
       }
     };
@@ -72,8 +76,6 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       ease: 'power2.inOut',
     });
   }, []);
-
-
 
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>
@@ -249,7 +251,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_THREE).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -307,7 +309,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                       {word}
                       {index !==
                         convertTextToArray(TextMuseum.SECTION_FOUR).length -
-                        1 && '\u00A0'}
+                          1 && '\u00A0'}
                     </span>
                   </span>
                 )
@@ -339,7 +341,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_FIVE).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -372,7 +374,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_SIX).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -405,7 +407,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_SEVEN).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -438,7 +440,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_EIGHT).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -464,11 +466,30 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               className='!border-black flex items-center gap-4 !text-black anim-button'
             />
 
+            <div className='flex flex-col items-end justify-center absolute bottom-3 right-3'>
+              <p>By </p>
+              <a
+                href='https://github.com/matdn'
+                target='_blank'
+                className='font-bold '
+              >
+                {' '}
+                Matis Dene
+              </a>
+              <a
+                href='https://august1.dev/'
+                target='_blank'
+                className='font-bold '
+              >
+                Augustin Briolon
+              </a>{' '}
+            </div>
+
             <div className='absolute bottom-3 left-3'>
               <button className='anim-number group' onClick={backToLobby}>
                 <div className='flex items-center gap-4'>
                   <MoveLeft strokeWidth={1.5} size={16} />
-                  <span className='text-black/90 text-xs tracking-wide uppercase font-semibold transition-all duration-300 group-hover:-translate-x-1'>
+                  <span className='font-bold text-black/90 text-xs tracking-wide uppercase transition-all duration-300 group-hover:-translate-x-1'>
                     Retour à l'accueil
                   </span>
                 </div>
