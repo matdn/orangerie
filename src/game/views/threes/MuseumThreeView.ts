@@ -22,6 +22,8 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
     private _scrollProgress: number = 0;
     private _mirror: Reflector;
     private _cameraPositions: { position: Vector3; rotation: Euler; }[] = [];
+    private _treeMesh: Mesh | null = null;
+    private _orangesMesh: Mesh | null = null;
 
 
 
@@ -62,7 +64,6 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
         this._mirror.position.set(0, -2.5, 0);
         this._mirror.rotation.x = -Math.PI / 2;
         this._museumMesh.add(this._mirror);
-        const camerasEmpty = this._museumMesh.getObjectByName(Object3DId.MUSEUM_CAMERAS);
 
 
 
@@ -86,21 +87,18 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                     child.add(pointLight);
                 }
                 if (child.name === Object3DId.MUSEUM_TREE) {
-                    child.material = new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.1 });
+                    child.material = new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.1, transparent: true, opacity: 1 });
                     child.position.x = 0.5;
+                    this._treeMesh = child;
                 }
                 if (child.name === Object3DId.MUSEUM_ORANGES) {
                     child.material = new MeshPhysicalMaterial({ color: 0xFF9500, opacity: 0.9, transparent: true });
                     child.position.x = 0.5;
+                    this._orangesMesh = child;
                 }
+
                 if (child.name === Object3DId.MUSEUM_GROUND) {
                     child.scale.set(0, 0, 0);
-                }
-                if (child.name === Object3DId.MUSEUM_BIRD_LEFT_WING) {
-                    child.material = this._birdWingLeftMaterial;
-                }
-                if (child.name === Object3DId.MUSEUM_BIRD_RIGHT_WING) {
-                    child.material = this._birdWingRightMaterial;
                 }
                 if (child.name === Object3DId.MUSEUM_LEFT_PAINT || child.name === Object3DId.MUSEUM_MIDDLE_PAINT) {
                     child.material = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_LEFT_WALL) });
@@ -113,8 +111,9 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                 cam.rotation.y = -Math.PI;
             }
             if (index === 6) {
-                cam.rotation.y = -Math.PI;
+                cam.rotation.y = -4.7;
             }
+
         });
 
     }
@@ -130,9 +129,17 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
         this._camera.start();
 
         const progress = Math.min(Math.max((this._scrollProgress - 0.5) * 2, 0), 1);
+        if (progress > 0 && this._treeMesh && this._orangesMesh) {
+            const fadeSpeed = 5;
+            const fastFade = Math.min(progress * fadeSpeed, 1);
+            const opacity = 1 - fastFade;
+            (this._treeMesh.material as MeshPhysicalMaterial).opacity = opacity;
+            (this._orangesMesh.material as MeshPhysicalMaterial).opacity = opacity;
+            this._treeMesh.visible = opacity > 0.01;
+            this._orangesMesh.visible = opacity > 0.01;
+        }
 
         if (this._scrollProgress < 0.5) {
-            // 🌍 Mode Mouvement Circulaire (scroll progress < 50%)
             const center = new Vector3(0, 0, 0);
             const radius = 10;
             const angle = (this._scrollProgress * 2) * Math.PI * 2;
@@ -144,23 +151,20 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
             this._camera.position.lerp(circularPosition, 0.05);
             this._camera.lookAt(center);
         } else {
-            // 🎯 Mode Empties (scroll progress >= 50%)
             if (this._cameraPositions.length > 0) {
                 const index = Math.floor(progress * (this._cameraPositions.length - 1));
                 let nextIndex = Math.min(index + 1, this._cameraPositions.length - 1);
                 let lerpFactor = (progress * (this._cameraPositions.length - 1)) % 1;
 
-                // 🔹 Correction : si on est sur le dernier point, on garde la dernière position
                 if (index >= this._cameraPositions.length - 1) {
                     nextIndex = index;
-                    lerpFactor = 1.0; // 🔹 Fix du lerpFactor pour éviter les valeurs incohérentes
+                    lerpFactor = 1.0;
                 }
 
                 const start = this._cameraPositions[index];
                 const end = this._cameraPositions[nextIndex];
 
                 if (start && end) {
-                    // 🔹 Interpolation fluide entre les positions avec GSAP
                     gsap.to(this._camera.position, {
                         x: start.position.x * (1 - lerpFactor) + end.position.x * lerpFactor,
                         y: start.position.y * (1 - lerpFactor) + end.position.y * lerpFactor,
@@ -169,14 +173,12 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                         ease: "power2.out",
                     });
 
-                    // 🔹 Interpolation fluide de la rotation (sans prendre la rotation du suivant trop tôt)
                     gsap.to(this._camera.rotation, {
                         y: -(start.rotation.y * (1 - lerpFactor) + end.rotation.y * lerpFactor), // 🔹 Correction de Y
                         duration: 0.5,
                         ease: "power2.out",
                     });
 
-                    // 🔹 Debug : Vérification de la position et de la rotation du dernier empty
                     if (index === this._cameraPositions.length - 1) {
                         console.log("📌 Dernière Position Captée:", end.position);
                         console.log("📌 Dernière Rotation Captée:", end.rotation);
