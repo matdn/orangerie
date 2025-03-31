@@ -111,6 +111,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
     // ViewsProxy.GetView<LobbyThreeView>(ViewId.THREE_LOBBY).animationStatus(
     //   true
     // );
+
     tl.to(
       mainTextUp.current,
       {

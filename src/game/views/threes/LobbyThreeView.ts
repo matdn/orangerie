@@ -1,5 +1,4 @@
 import { ThreeAssetsManager } from "@cooker/three";
-
 import gsap from "gsap";
 import { TheatersProxy } from "pancake";
 import { DoubleSide, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PointLight, Vector2 } from "three";
