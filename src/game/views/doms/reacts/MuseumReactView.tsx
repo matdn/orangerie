@@ -38,7 +38,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       });
 
       tl.to(pageToLobby.current, {
-        yPercent: 100,
+        yPercent: -100,
         opacity: 1,
         duration: 1,
         ease: 'power2.inOut',
@@ -469,7 +469,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
         <SectionMuseum className='relative'>
           <div
             ref={pageToLobby}
-            className='fixed inset-0 bg-black w-screen h-dvh z-[100] opacity-0 -translate-y-full'
+            className='fixed inset-0 bg-black w-screen h-dvh z-[100] opacity-50 translate-y-full'
           ></div>
           <div className='fixed inset-0 -z-10 h-dvh w-screen flex justify-center items-center anim-blur'></div>
           <div className='h-dvh w-screen flex flex-col justify-center items-center gap-12'>
