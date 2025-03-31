@@ -87,7 +87,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
       ></div>
       <div className='borderScreenMuseum'></div>
       <div className='w-full overflow-y-scroll'>
-        {/* <SectionMuseum id='orangerie'>
+        <SectionMuseum id='orangerie'>
           <div className='overflow-hidden'>
             <h4 className='anim-text font-instrument-italic text-2xl md:text-3xl'>
               Chapitre 01
@@ -450,7 +450,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               </h3>
             </div>
           </div>
-        </SectionMuseum> */}
+        </SectionMuseum>
 
         <SectionMuseum className='relative'>
           <div className='absolute inset-0 -z-10 h-dvh w-screen flex justify-center items-center anim-blur'></div>

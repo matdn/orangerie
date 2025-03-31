@@ -41,7 +41,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this._camera.position.z = 140;
         gsap.to(this._camera.position, {
             z: 150,
-            duration: 5,
+            duration: 2,
             ease: "power4.out",
         });
 
@@ -175,7 +175,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this._time += dt;
 
         if (this._animationStatus) {
-            if (this._camera.position.z > 100) {
+            if (this._camera.position.z > 0) {
                 this._camera.position.z -= 1;
             }
 
