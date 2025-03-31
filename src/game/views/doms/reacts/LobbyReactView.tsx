@@ -23,6 +23,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const buttonContainer = useRef<HTMLDivElement>(null);
   const footerText = useRef<HTMLParagraphElement>(null);
   const soundIcon = useRef<HTMLDivElement>(null);
+  const creditText = useRef<HTMLDivElement>(null);
 
   const toggleMusic = () => {
     setMusicIsPlaying((prev) => !prev);
@@ -77,6 +78,16 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
     );
     tl.from(
       footerText.current,
+      {
+        duration: 1,
+        opacity: 0,
+        yPercent: '100',
+        ease: 'power1.out',
+      },
+      '<0.2'
+    );
+    tl.from(
+      creditText.current,
       {
         duration: 1,
         opacity: 0,
@@ -189,7 +200,6 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
     >
       <div ref={borderScreen} className='borderScreen'></div>
       <div className='w-full p-8 md:px-12 flex items-center justify-end'>
-
         <div className='overflow-hidden cursor-pointer'>
           <SoundIcon
             ref={soundIcon}
@@ -228,9 +238,9 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
               onClick={showMuseumTheater}
               iconPosition='right'
             />
-          </div >
-        </div >
-      </div >
+          </div>
+        </div>
+      </div>
       <div className='w-full p-8 md:px-12 flex items-center justify-between'>
         <div className='overflow-hidden'>
           <p
@@ -239,6 +249,28 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           >
             Unofficial museum website
           </p>
+        </div>
+        <div className='overflow-hidden'>
+          <div
+            className='flex items-end justify-center gap-1 text-white/50 text-[0.8rem]'
+            ref={creditText}
+          >
+            <a
+              href='https://github.com/matdn'
+              target='_blank'
+              className='font-bold'
+            >
+              MATIS DENE
+            </a>
+            <p>&</p>
+            <a
+              href='https://august1.dev/'
+              target='_blank'
+              className='font-bold'
+            >
+              AUGUSTIN BRIOLON
+            </a>
+          </div>
         </div>
       </div>
     </ReactViewBase >
