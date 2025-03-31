@@ -112,3 +112,41 @@ canvas {
     padding: 10px 20px;
   }
 }
+
+.underline-effect {
+  position: relative;
+  display: inline-block;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+
+  &:hover {
+    &:after {
+      transform: scaleX(1);
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+
+  &:not(:hover) {
+    &:after {
+      transform: scaleX(0);
+      transform-origin: right center;
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+}
+
+.underline-black {
+  &:after {
+    background-color: black;
+  }
+}

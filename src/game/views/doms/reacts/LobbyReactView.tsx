@@ -13,7 +13,6 @@ import { LobbyThreeTheater } from '../../../theaters/LobbyThreeTheater';
 import LobbyThreeView from '../../threes/LobbyThreeView';
 
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
-  const [musicIsPlaying, setMusicIsPlaying] = useState(false);
   const [isClickable, setIsClickable] = useState(false);
   const pageTransition = useRef<HTMLDivElement>(null);
   const borderScreen = useRef<HTMLDivElement>(null);
@@ -209,7 +208,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </div>
         </div>
       </div>
-      <div className='w-full p-8 md:px-12 flex flex-col md:flex-row items-end md:items-center justify-between'>
+      <div className='w-full p-8 md:px-12 flex flex-col md:flex-row items-end md:items-start justify-between'>
         <div className='overflow-hidden'>
           <p
             ref={footerText}
@@ -218,7 +217,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
             Unofficial museum website
           </p>
         </div>
-        <div className='overflow-hidden'>
+        <div className='overflow-hidden pb-1'>
           <div
             className='flex flex-row items-end justify-center gap-1 text-white/50 text-[0.8rem]'
             ref={creditText}
@@ -226,7 +225,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
             <a
               href='https://github.com/matdn'
               target='_blank'
-              className='font-bold'
+              className='font-bold underline-effect'
             >
               MATIS DENE
             </a>
@@ -234,7 +233,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
             <a
               href='https://august1.dev/'
               target='_blank'
-              className='font-bold'
+              className='font-bold underline-effect'
             >
               AUGUSTIN BRIOLON
             </a>

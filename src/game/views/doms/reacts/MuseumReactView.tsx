@@ -1,18 +1,18 @@
 import { useGSAP } from '@gsap/react';
-import { useLenis } from '@studio-freight/react-lenis';
 import gsap from 'gsap';
-import { CornerRightUp, MoveDown, MoveLeft, View } from 'lucide-react';
-import { TheatersManager, ViewsManager, ViewsProxy } from 'pancake';
+import { useLenis } from '@studio-freight/react-lenis';
+import { MoveDown, MoveLeft } from 'lucide-react';
+import { TheatersManager, ViewsManager } from 'pancake';
 import React, { useEffect, useRef } from 'react';
 import Button from '../../../../components/Button';
 import SectionMuseum from '../../../../components/SectionMuseum';
 import { TextMuseum } from '../../../../components/TextMuseum';
-import { TheaterId } from '../../../constants/theaters/TheaterId';
+import { TheaterId } from '../../../constants/theaters/TheaterId.ts';
+import { ViewId } from '../../../constants/views/ViewId';
 import {
   ReactViewBase,
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
-import { ViewId } from '../../../constants/views/ViewId';
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
   const lenis = useLenis();
@@ -471,7 +471,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             ref={pageToLobby}
             className='fixed inset-0 bg-black w-screen h-dvh z-[100] opacity-0 -translate-y-full'
           ></div>
-          <div className='absolute inset-0 -z-10 h-dvh w-screen flex justify-center items-center anim-blur'></div>
+          <div className='fixed inset-0 -z-10 h-dvh w-screen flex justify-center items-center anim-blur'></div>
           <div className='h-dvh w-screen flex flex-col justify-center items-center gap-12'>
             <div className='overflow-hidden'>
               <h1 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl md:text-8xl text-center'>
@@ -485,12 +485,12 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               className='!border-black flex items-center gap-4 !text-black anim-button !bg-white'
             />
 
-            <div className='overflow-hidden'>
-              <div className='flex flex-row items-end justify-center gap-1 text-black/80 text-[0.8rem]'>
+            <div className='overflow-hidden pb-1'>
+              <div className='flex flex-row items-end justify-center gap-1 text-black/80 text-[0.8rem] anim-text'>
                 <a
                   href='https://github.com/matdn'
                   target='_blank'
-                  className='font-bold'
+                  className='font-bold underline-effect underline-black'
                 >
                   MATIS DENE
                 </a>
@@ -498,7 +498,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                 <a
                   href='https://august1.dev/'
                   target='_blank'
-                  className='font-bold'
+                  className='font-bold underline-effect underline-black'
                 >
                   AUGUSTIN BRIOLON
                 </a>
