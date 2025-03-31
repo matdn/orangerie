@@ -252,7 +252,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_THREE).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -310,7 +310,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                       {word}
                       {index !==
                         convertTextToArray(TextMuseum.SECTION_FOUR).length -
-                        1 && '\u00A0'}
+                          1 && '\u00A0'}
                     </span>
                   </span>
                 )
@@ -342,7 +342,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_FIVE).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -375,7 +375,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_SIX).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -408,7 +408,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_SEVEN).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -441,7 +441,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_EIGHT).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -463,29 +463,30 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             <Button
               title='Refaire la visite'
               onClick={() => scrollToNextSection('#orangerie')}
-              className='!border-black flex items-center gap-4 !text-black anim-button'
+              className='!border-black flex items-center gap-4 !text-black anim-button !bg-white'
             />
 
-            <div className='flex flex-col items-end justify-center absolute bottom-3 right-3'>
-              <p>By </p>
-              <a
-                href='https://github.com/matdn'
-                target='_blank'
-                className='font-bold '
-              >
-                {' '}
-                Matis Dene
-              </a>
-              <a
-                href='https://august1.dev/'
-                target='_blank'
-                className='font-bold '
-              >
-                Augustin Briolon
-              </a>{' '}
+            <div className='overflow-hidden'>
+              <div className='flex flex-row items-end justify-center gap-1 text-black/80 text-[0.8rem]'>
+                <a
+                  href='https://github.com/matdn'
+                  target='_blank'
+                  className='font-bold'
+                >
+                  MATIS DENE
+                </a>
+                <p>&</p>
+                <a
+                  href='https://august1.dev/'
+                  target='_blank'
+                  className='font-bold'
+                >
+                  AUGUSTIN BRIOLON
+                </a>
+              </div>
             </div>
 
-            <div className='absolute bottom-3 left-3'>
+            <div className='absolute top-3 left-3'>
               <button className='anim-number group' onClick={backToLobby}>
                 <div className='flex items-center gap-4'>
                   <MoveLeft strokeWidth={1.5} size={16} />

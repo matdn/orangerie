@@ -100,9 +100,6 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                 if (child.name === Object3DId.MUSEUM_GROUND) {
                     child.scale.set(0, 0, 0);
                 }
-                if (child.name === Object3DId.MUSEUM_LEFT_PAINT || child.name === Object3DId.MUSEUM_MIDDLE_PAINT) {
-                    child.material = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_LEFT_WALL) });
-                }
             }
         });
         this.setupScrollListener();

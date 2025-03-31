@@ -95,17 +95,6 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       },
       '<0.2'
     );
-    tl.from(
-      soundIcon.current,
-      {
-        duration: 1,
-        opacity: 0,
-        scale: 0,
-        yPercent: 100,
-        ease: 'power1.out',
-      },
-      '<0.2'
-    );
   };
 
   useGSAP(() => {
@@ -164,16 +153,6 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       '<'
     );
     tl.to(
-      soundIcon.current,
-      {
-        duration: 1,
-        opacity: 0,
-        scale: 0,
-        ease: 'power1.out',
-      },
-      '<'
-    );
-    tl.to(
       borderScreen.current,
       {
         duration: 1,
@@ -199,14 +178,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
     >
       <div ref={borderScreen} className='borderScreen'></div>
       <div className='w-full p-8 md:px-12 flex items-center justify-end'>
-        <div className='overflow-hidden cursor-pointer'>
-          <SoundIcon
-            ref={soundIcon}
-            isPlaying={musicIsPlaying}
-            className='h-6'
-            onClick={toggleMusic}
-          />
-        </div>
+
       </div>
       <div className='h-full w-full flex flex-col items-center justify-center'>
         <div className='overflow-hidden'>
@@ -240,7 +212,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </div>
         </div>
       </div>
-      <div className='w-full p-8 md:px-12 flex items-center justify-between'>
+      <div className='w-full p-8 md:px-12 flex flex-col md:flex-row items-end md:items-center justify-between'>
         <div className='overflow-hidden'>
           <p
             ref={footerText}
@@ -251,7 +223,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         </div>
         <div className='overflow-hidden'>
           <div
-            className='flex items-end justify-center gap-1 text-white/50 text-[0.8rem]'
+            className='flex flex-row items-end justify-center gap-1 text-white/50 text-[0.8rem]'
             ref={creditText}
           >
             <a
