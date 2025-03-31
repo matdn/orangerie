@@ -6,7 +6,7 @@ export default class ModelLoader extends LoaderBase {
     private _path: string;
     private _model: GLTF | undefined;
 
-    private static  _DracoLoader: DRACOLoader = new DRACOLoader().setDecoderPath('./assets/game/draco/');
+    private static  _DracoLoader: DRACOLoader = new DRACOLoader().setDecoderPath('./game/draco/');
     private _loader: GLTFLoader = new GLTFLoader().setDRACOLoader(ModelLoader._DracoLoader);
 
     constructor(id: string, path: string) {

@@ -198,7 +198,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
         <SectionMuseum id='impressionniste'>
           <div className='overflow-hidden'>
             <img
-              src='assets/images/autoportrait.webp'
+              src='images/autoportrait.webp'
               alt='Peinture Autoportrait'
               className='anim-img max-w-xs md:max-w-sm h-auto'
             />
@@ -220,7 +220,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           <div className='hidden md:flex'>
             <div className='overflow-hidden'>
               <img
-                src='assets/images/soleil-levant.webp'
+                src='images/soleil-levant.webp'
                 alt='Peinture Autoportrait'
                 className='anim-img max-w-xs md:max-w-sm h-auto'
               />
