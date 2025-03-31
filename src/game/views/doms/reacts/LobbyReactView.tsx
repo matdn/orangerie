@@ -114,9 +114,9 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
 
   const showMuseumTheater = () => {
     if (!isClickable) return null;
-    ViewsProxy.GetView<LobbyThreeView>(ViewId.THREE_LOBBY).animationStatus(
-      true
-    );
+
+    const lobbyView = ViewsProxy.GetView<LobbyThreeView>(ViewId.THREE_LOBBY);
+    lobbyView.triggerFogAndZoomOut(); // 👉 joue uniquement le recul et fog ici
     tl.to(headerIcon.current, {
       duration: 1,
       opacity: 0,
@@ -247,12 +247,12 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         </div>
         <div className='overflow-hidden mt-5 rounded-full'>
           <div ref={buttonContainer}>
-          <Button
-            title='Explore'
-            onClick={showMuseumTheater}
-            icon={<MoveRight strokeWidth={2.5} size={16} />}
-            iconPosition='right'
-          />
+            <Button
+              title='Explore'
+              onClick={showMuseumTheater}
+              icon={<MoveRight strokeWidth={2.5} size={16} />}
+              iconPosition='right'
+            />
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import { useGSAP } from '@gsap/react';
 import { useLenis } from '@studio-freight/react-lenis';
 import gsap from 'gsap';
-import { CornerRightUp, MoveDown, MoveLeft } from 'lucide-react';
-import { TheatersManager } from 'pancake';
+import { CornerRightUp, MoveDown, MoveLeft, View } from 'lucide-react';
+import { TheatersManager, ViewsManager, ViewsProxy } from 'pancake';
 import React, { useEffect, useRef } from 'react';
 import Button from '../../../../components/Button';
 import SectionMuseum from '../../../../components/SectionMuseum';
@@ -12,6 +12,7 @@ import {
   ReactViewBase,
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
+import { ViewId } from '../../../constants/views/ViewId';
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
   const lenis = useLenis();
@@ -26,6 +27,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
   const backToLobby = () => {
     TheatersManager.HideById(TheaterId.MUSEUM);
+    ViewsManager.ShowById(ViewId.THREE_LOBBY);
     TheatersManager.ShowById(TheaterId.LOBBY);
   };
 
@@ -251,7 +253,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_THREE).length -
-                            1 && '\u00A0'}
+                          1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -309,7 +311,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                       {word}
                       {index !==
                         convertTextToArray(TextMuseum.SECTION_FOUR).length -
-                          1 && '\u00A0'}
+                        1 && '\u00A0'}
                     </span>
                   </span>
                 )
@@ -341,7 +343,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_FIVE).length -
-                            1 && '\u00A0'}
+                          1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -374,7 +376,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_SIX).length -
-                            1 && '\u00A0'}
+                          1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -407,7 +409,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_SEVEN).length -
-                            1 && '\u00A0'}
+                          1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -440,7 +442,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_EIGHT).length -
-                            1 && '\u00A0'}
+                          1 && '\u00A0'}
                       </span>
                     </span>
                   )

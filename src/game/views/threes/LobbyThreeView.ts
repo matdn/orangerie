@@ -1,5 +1,15 @@
 import { ThreeAssetsManager } from "@cooker/three";
-import { CameraHelper, DoubleSide, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PointLight, Vector2 } from "three";
+import {
+    CameraHelper,
+    DoubleSide,
+    Mesh,
+    MeshPhysicalMaterial,
+    MeshStandardMaterial,
+    Object3D,
+    PlaneGeometry,
+    PointLight,
+    Vector2,
+} from "three";
 import { AssetId } from "../../constants/games/AssetId";
 import { Object3DId } from "../../constants/games/Object3DId";
 import { ViewId } from "../../constants/views/ViewId";
@@ -27,26 +37,27 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
     private _time: number = 0;
     private _animationStatus: boolean = false;
     private _fogScale: number = 150;
+
     constructor() {
-
         super(ViewId.THREE_LOBBY, ViewPlacementId.THREE_MAIN);
-
 
         this._lobbyMesh = Object3DsProxy.GetObject3D(Object3DId.LOBBY);
         this.add(this._lobbyMesh);
+
         this._camera = ThreeCamerasProxy.CamerasMap.get('LOBBY');
         this.add(this._camera);
+
         this._camera.position.z = 140;
         gsap.to(this._camera.position, {
-            z: 150, // Position finale
-            duration: 5, // Durée en secondes
-            ease: "power4.out" // Effet d'accélération/décélération
+            z: 150,
+            duration: 5,
+            ease: "power4.out",
         });
 
         this._initMouseListener();
         this._imagePlane = new Mesh();
-
         this._titlePlane = new Mesh();
+
         const geometry = new PlaneGeometry(100, 100, 1, 1);
         const cloudGeometry = new PlaneGeometry(100, 100, 1, 1);
 
@@ -68,15 +79,16 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
             emissive: 0xffffff,
             emissiveIntensity: 0.9,
         });
+
         this._secondClouds = this._clouds.clone();
-        window.addEventListener('updateCameraPosition', this._onUpdateCameraPosition.bind(this));
+
         this._pointLight = new PointLight(0xffffff, 250, 100);
         this._pointLight.position.set(0, 10, 0);
 
         const glassMaterial = new MeshPhysicalMaterial({
             color: 0xffffff,
             metalness: 1,
-            roughness: .1,
+            roughness: 0.1,
             envMapIntensity: 0.2,
             clearcoat: 1,
             transparent: true,
@@ -85,10 +97,9 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
             reflectivity: 0.9,
             ior: 0.1,
         });
-        const whiteMaterial = new MeshPhysicalMaterial({
-            color: 0xffffff,
 
-        });
+        const whiteMaterial = new MeshPhysicalMaterial({ color: 0xffffff });
+
         const paintMaterial = new MeshPhysicalMaterial({
             color: 0xffffff,
             roughness: 0,
@@ -104,6 +115,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
                     }
                 });
             }
+
             if (child.name === Object3DId.LOBBY_WHITE) {
                 child.traverse((whiteChild: Object3D) => {
                     if (whiteChild instanceof Mesh) {
@@ -111,6 +123,7 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
                     }
                 });
             }
+
             if (child.name === Object3DId.LOBBY_PAINT) {
                 child.traverse((paintChild: Object3D) => {
                     if (paintChild instanceof Mesh) {
@@ -118,39 +131,40 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
                     }
                 });
             }
+
             if (child.name === Object3DId.LOBBY_MIDDLE_BLOC) {
-                const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_MIDDLE_BLOC) });
-                child.traverse((child: Object3D) => {
-                    if (child instanceof Mesh) {
-                        child.material = basMat;
+                const mat = new MeshStandardMaterial({
+                    map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_MIDDLE_BLOC),
+                });
+                child.traverse((c: Object3D) => {
+                    if (c instanceof Mesh) {
+                        c.material = mat;
                     }
                 });
             }
 
             if (child.name === Object3DId.LOBBY_FLOAR) {
-                const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_FLOAR) });
-                child.traverse((child: Object3D) => {
-                    if (child instanceof Mesh) {
-                        child.material = basMat;
+                const mat = new MeshStandardMaterial({
+                    map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_FLOAR),
+                });
+                child.traverse((c: Object3D) => {
+                    if (c instanceof Mesh) {
+                        c.material = mat;
                     }
                 });
             }
 
             if (child.name === Object3DId.LOBBY_WALL) {
-                const basMat = new MeshStandardMaterial({ map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_WALL_BAKE) });
-                child.traverse((child: Object3D) => {
-                    if (child instanceof Mesh) {
-                        child.material = basMat;
+                const mat = new MeshStandardMaterial({
+                    map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_WALL_BAKE),
+                });
+                child.traverse((c: Object3D) => {
+                    if (c instanceof Mesh) {
+                        c.material = mat;
                     }
                 });
             }
-
         });
-
-        // ADD HDR BACKGROUND
-
-        // Suivi de la souris
-        this._initMouseListener();
     }
 
     private _initMouseListener(): void {
@@ -160,8 +174,8 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         });
     }
 
-    private _onUpdateCameraPosition(event: CustomEvent) {
-        this._scrollProgress = event.detail;
+    public triggerFogAndZoomOut() {
+        this._animationStatus = true;
     }
 
     public override update(dt: number): void {
@@ -169,15 +183,13 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         super.update(dt);
         this._time += dt;
 
-        if (this._animationStatus === true) {
-            this._camera.position.z -= 1;
+        if (this._animationStatus) {
+            if (this._camera.position.z > 100) {
+                this._camera.position.z -= 1;
+            }
 
             this._fogScale = Math.max(10, this._fogScale - 5.5);
             theater.setFogScale(this._fogScale);
         }
-    }
-
-    public animationStatus(value: boolean) {
-        this._animationStatus = value;
     }
 }
