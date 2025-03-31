@@ -3,7 +3,6 @@ import gsap from 'gsap';
 import { TheatersManager, TheatersProxy, ViewsProxy } from 'pancake';
 import React, { useRef, useState } from 'react';
 import Button from '../../../../components/Button';
-import { SoundIcon } from '../../../../components/SoundIcon';
 import { TheaterId } from '../../../constants/theaters/TheaterId';
 import { ViewId } from '../../../constants/views/ViewId';
 import {
@@ -16,17 +15,13 @@ import LobbyThreeView from '../../threes/LobbyThreeView';
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const [musicIsPlaying, setMusicIsPlaying] = useState(false);
   const [isClickable, setIsClickable] = useState(false);
+  const pageTransition = useRef<HTMLDivElement>(null);
   const borderScreen = useRef<HTMLDivElement>(null);
   const mainTextUp = useRef<HTMLHeadingElement>(null);
   const mainTextDown = useRef<HTMLDivElement>(null);
   const buttonContainer = useRef<HTMLDivElement>(null);
   const footerText = useRef<HTMLParagraphElement>(null);
-  const soundIcon = useRef<HTMLDivElement>(null);
   const creditText = useRef<HTMLDivElement>(null);
-
-  const toggleMusic = () => {
-    setMusicIsPlaying((prev) => !prev);
-  };
 
   const tl = gsap.timeline({
     onComplete: () => {
@@ -35,6 +30,12 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   });
 
   const timelineAnimation = () => {
+    tl.to(pageTransition.current, {
+      yPercent: -100,
+      duration: 1,
+      delay: 0.5,
+      ease: 'power2.inOut',
+    });
     tl.from(
       borderScreen.current,
       {
@@ -103,14 +104,8 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
 
   const showMuseumTheater = () => {
     if (!isClickable) return null;
-
     const lobbyView = ViewsProxy.GetView<LobbyThreeView>(ViewId.THREE_LOBBY);
-    lobbyView.triggerFogAndZoomOut(); // 👉 joue uniquement le recul et fog ici
-
-    // ViewsProxy.GetView<LobbyThreeView>(ViewId.THREE_LOBBY).animationStatus(
-    //   true
-    // );
-
+    lobbyView.triggerFogAndZoomOut();
     tl.to(
       mainTextUp.current,
       {
@@ -176,10 +171,12 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       {...props}
       className='fixed inset-0 z-50 w-full flex flex-col'
     >
+      <div
+        ref={pageTransition}
+        className='fixed inset-0 bg-black w-screen h-dvh page-transition z-[100]'
+      ></div>
       <div ref={borderScreen} className='borderScreen'></div>
-      <div className='w-full p-8 md:px-12 flex items-center justify-end'>
-
-      </div>
+      <div className='w-full p-8 md:px-12 flex items-center justify-end'></div>
       <div className='h-full w-full flex flex-col items-center justify-center'>
         <div className='overflow-hidden'>
           <h1
@@ -244,7 +241,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </div>
         </div>
       </div>
-    </ReactViewBase >
+    </ReactViewBase>
   );
 };
 

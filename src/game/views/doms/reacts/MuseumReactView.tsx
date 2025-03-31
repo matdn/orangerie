@@ -17,6 +17,7 @@ import { ViewId } from '../../../constants/views/ViewId';
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
   const lenis = useLenis();
   const pageTransition = useRef<HTMLDivElement>(null);
+  const pageToLobby = useRef<HTMLDivElement>(null);
   const convertTextToArray = (text: string) => {
     return text.split(' ');
   };
@@ -26,9 +27,23 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
   };
 
   const backToLobby = () => {
-    TheatersManager.HideById(TheaterId.MUSEUM);
-    ViewsManager.ShowById(ViewId.THREE_LOBBY);
-    TheatersManager.ShowById(TheaterId.LOBBY);
+    return new Promise<void>((resolve) => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          TheatersManager.HideById(TheaterId.MUSEUM);
+          ViewsManager.ShowById(ViewId.THREE_LOBBY);
+          TheatersManager.ShowById(TheaterId.LOBBY);
+          resolve();
+        },
+      });
+
+      tl.to(pageToLobby.current, {
+        yPercent: 100,
+        opacity: 1,
+        duration: 1,
+        ease: 'power2.inOut',
+      });
+    });
   };
 
   useEffect(() => {
@@ -452,6 +467,10 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
         </SectionMuseum>
 
         <SectionMuseum className='relative'>
+          <div
+            ref={pageToLobby}
+            className='fixed inset-0 bg-black w-screen h-dvh z-[100] opacity-0 -translate-y-full'
+          ></div>
           <div className='absolute inset-0 -z-10 h-dvh w-screen flex justify-center items-center anim-blur'></div>
           <div className='h-dvh w-screen flex flex-col justify-center items-center gap-12'>
             <div className='overflow-hidden'>
