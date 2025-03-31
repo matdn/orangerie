@@ -30,14 +30,10 @@ export default class GameMain {
             new CommonProjectInitCommand(),
             new LobbyInitCommand(),
             new MuseumInitCommand(),
-
-
         ]).then(() => {
             GameMain._IsInit = true;
             GameMain.OnInitFinish.execute();
             // GameMain._Start();
-
-
         });
 
     }
