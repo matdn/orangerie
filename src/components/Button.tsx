@@ -95,14 +95,14 @@ const Button = forwardRef<ButtonRef, ButtonProps>(
         ref={buttonRef}
         onClick={onClick}
         className={clsx(
-          'relative px-4 py-1 md:px-8 md:py-2 rounded-full border border-white bg-white/10 flex items-center gap-4 text-white',
+          'relative px-4 py-1 md:px-8 md:py-2 rounded-full  bg-white/30 flex items-center gap-4 text-white',
           className
         )}
       >
         {icon && iconPosition === 'left' && <span ref={iconRef}>{icon}</span>}
 
         <div className='relative'>
-          <div className='flex overflow-hidden'>
+          <div className='flex overflow-hidden gap-[1px]'>
             {title_top.map((letter, index) => (
               <span
                 key={`top-${index}`}
@@ -110,7 +110,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>(
               >
                 <span
                   ref={(el) => (topLettersRef.current[index] = el)}
-                  className='inline-block text-sm font-bold uppercase'
+                  className='inline-block text-sm font-medium uppercase'
                 >
                   {letter === ' ' ? '\u00A0' : letter}
                 </span>
@@ -118,7 +118,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>(
             ))}
           </div>
 
-          <div className='flex overflow-hidden absolute top-0 left-0'>
+          <div className='flex gap-[1px] overflow-hidden absolute top-0 left-0'>
             {title_bottom.map((letter, index) => (
               <span
                 key={`bottom-${index}`}
@@ -126,7 +126,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>(
               >
                 <span
                   ref={(el) => (bottomLettersRef.current[index] = el)}
-                  className='inline-block text-sm font-bold uppercase'
+                  className='inline-block text-sm font-medium uppercase'
                 >
                   {letter === ' ' ? '\u00A0' : letter}
                 </span>
