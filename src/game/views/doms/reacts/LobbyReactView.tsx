@@ -222,8 +222,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </div>
         </div>
         <div className='overflow-hidden mt-5 rounded-full'>
-          <div ref={buttonContainer}>;
-            {/*  */}
+          <div ref={buttonContainer}>
             <Button
               title='Explore'
               onClick={showMuseumTheater}

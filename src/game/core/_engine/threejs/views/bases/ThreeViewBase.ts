@@ -23,5 +23,7 @@ export class ThreeViewBase extends Mixin(SuperViewBase, Object3DBase) {
 
     private _update = (dt: number): void => {
         this.update(dt);
-    }
+    };
+
+
 }

@@ -7,7 +7,7 @@ export abstract class ViewBase {
     protected _placementId: number;
     protected _viewState: ViewState;
 
-    public readonly onStateChangeAction = new Set<(view : ViewBase, state : ViewState) => void>();
+    public readonly onStateChangeAction = new Set<(view: ViewBase, state: ViewState) => void>();
 
     constructor(viewId: string, placementId: number) {
         this._viewState = ViewState.OFF;
@@ -21,6 +21,10 @@ export abstract class ViewBase {
 
     public playIntro(): void {
         this._setViewState(ViewState.PLAYING_INTRO);
+    }
+
+    public onShow(): void {
+        this._setViewState(ViewState.SHOW);
     }
 
     protected _introFinish(): void {

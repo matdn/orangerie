@@ -164,11 +164,19 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         });
     }
 
+    public override onShow(): void {
+        super.onShow();
+        this._animationStatus = false;
+        this._camera.position.z = 140;
+    }
+
+
     public triggerFogAndZoomOut() {
         this._animationStatus = true;
     }
 
     public override update(dt: number): void {
+        console.log(this._animationStatus);
         const theater = TheatersProxy.GetTheater<LobbyThreeTheater>(TheaterId.LOBBY);
         super.update(dt);
         this._time += dt;

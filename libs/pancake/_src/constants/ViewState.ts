@@ -4,4 +4,5 @@ export enum ViewState {
     PLAYING_INTRO = 'playingIntro',
     LIVE = 'live',
     PLAYING_OUTRO = 'playingOutro',
+    SHOW = 'show'
 }
