@@ -42,7 +42,6 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
         rect.bottom >= window.innerHeight / 2;
 
       if (isVisible) {
-        console.log('🎥 Passage au mode empties !');
         window.dispatchEvent(new CustomEvent('switchToEmptyMode'));
       }
     };

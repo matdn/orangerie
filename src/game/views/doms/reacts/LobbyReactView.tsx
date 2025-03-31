@@ -2,6 +2,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { TheatersManager, TheatersProxy, ViewsProxy } from 'pancake';
 import React, { useRef, useState } from 'react';
+import Button from '../../../../components/Button';
 import { SoundIcon } from '../../../../components/SoundIcon';
 import { TheaterId } from '../../../constants/theaters/TheaterId';
 import { ViewId } from '../../../constants/views/ViewId';
@@ -11,8 +12,6 @@ import {
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 import { LobbyThreeTheater } from '../../../theaters/LobbyThreeTheater';
 import LobbyThreeView from '../../threes/LobbyThreeView';
-import Button from '../../../../components/Button';
-import { MoveRight } from 'lucide-react';
 
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const [musicIsPlaying, setMusicIsPlaying] = useState(false);

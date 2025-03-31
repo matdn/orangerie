@@ -176,7 +176,6 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
     }
 
     public override update(dt: number): void {
-        console.log(this._animationStatus);
         const theater = TheatersProxy.GetTheater<LobbyThreeTheater>(TheaterId.LOBBY);
         super.update(dt);
         this._time += dt;
