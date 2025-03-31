@@ -31,8 +31,8 @@ export class CommonProjectInitCommand extends InitCommandBase {
     public override async initCommon(): Promise<void> {
         CommonAssetsManager.AddSound(SoundId.MAIN_SOUND, {
             src: AssetsUtils.GetAssetURL('sounds/mainSound.mp3'),
-            loop: true,
-            volume: 0.25,
+            mute: true,
+            volume: 0,
         });
     }
 

@@ -1,16 +1,16 @@
 import { ThreeAssetsManager } from "@cooker/three";
-import { CameraHelper, DoubleSide, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PointLight, Vector2 } from "three";
+import gsap from "gsap";
+import { TheatersProxy } from "pancake";
+import { DoubleSide, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PointLight, Vector2 } from "three";
 import { AssetId } from "../../constants/games/AssetId";
 import { Object3DId } from "../../constants/games/Object3DId";
+import { TheaterId } from "../../constants/theaters/TheaterId";
 import { ViewId } from "../../constants/views/ViewId";
 import { ViewPlacementId } from "../../constants/views/ViewPlacementId";
 import { ThreeCameraControllerBase } from "../../core/_engine/threejs/cameras/bases/ThreeCameraControllerBase";
 import { Object3DsProxy } from "../../core/_engine/threejs/proxies/Object3DsProxy";
 import { ThreeCamerasProxy } from "../../core/_engine/threejs/proxies/ThreeCamerasProxy";
 import { WithoutTransitionThreeView } from "../../core/_engine/threejs/views/WithoutTransitionThreeView";
-import gsap from "gsap";
-import { TheatersProxy } from "pancake";
-import { TheaterId } from "../../constants/theaters/TheaterId";
 import { LobbyThreeTheater } from "../../theaters/LobbyThreeTheater";
 
 export default class LobbyThreeView extends WithoutTransitionThreeView {
