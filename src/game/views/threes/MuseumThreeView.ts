@@ -121,8 +121,8 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
         if (this._treeMesh) {
             this._treeMesh.visible = true;
             if ('opacity' in this._treeMesh.material) {
-                console.log('opacity');
                 (this._treeMesh.material as MeshPhysicalMaterial).opacity = 1;
+                console.log(this._treeMesh.material.opacity);
             }
         }
     }
