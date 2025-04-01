@@ -2,7 +2,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { TheatersManager, TheatersProxy, ViewsProxy } from 'pancake';
 import React, { useRef, useState } from 'react';
-import { SoundIcon } from '../../../../components/SoundIcon';
+import Button from '../../../../components/Button';
 import { TheaterId } from '../../../constants/theaters/TheaterId';
 import { ViewId } from '../../../constants/views/ViewId';
 import {
@@ -11,22 +11,16 @@ import {
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 import { LobbyThreeTheater } from '../../../theaters/LobbyThreeTheater';
 import LobbyThreeView from '../../threes/LobbyThreeView';
-import Button from '../../../../components/Button';
-import { MoveRight } from 'lucide-react';
 
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
-  const [musicIsPlaying, setMusicIsPlaying] = useState(false);
   const [isClickable, setIsClickable] = useState(false);
+  const pageTransition = useRef<HTMLDivElement>(null);
   const borderScreen = useRef<HTMLDivElement>(null);
   const mainTextUp = useRef<HTMLHeadingElement>(null);
   const mainTextDown = useRef<HTMLDivElement>(null);
   const buttonContainer = useRef<HTMLDivElement>(null);
   const footerText = useRef<HTMLParagraphElement>(null);
-  const soundIcon = useRef<HTMLDivElement>(null);
-
-  const toggleMusic = () => {
-    setMusicIsPlaying((prev) => !prev);
-  };
+  const creditText = useRef<HTMLDivElement>(null);
 
   const tl = gsap.timeline({
     onComplete: () => {
@@ -35,6 +29,12 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   });
 
   const timelineAnimation = () => {
+    tl.to(pageTransition.current, {
+      yPercent: -100,
+      duration: 1,
+      delay: 0.5,
+      ease: 'power2.inOut',
+    });
     tl.from(
       borderScreen.current,
       {
@@ -86,12 +86,11 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       '<0.2'
     );
     tl.from(
-      soundIcon.current,
+      creditText.current,
       {
         duration: 1,
         opacity: 0,
-        scale: 0,
-        yPercent: 100,
+        yPercent: '100',
         ease: 'power1.out',
       },
       '<0.2'
@@ -104,14 +103,8 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
 
   const showMuseumTheater = () => {
     if (!isClickable) return null;
-
     const lobbyView = ViewsProxy.GetView<LobbyThreeView>(ViewId.THREE_LOBBY);
-    lobbyView.triggerFogAndZoomOut(); // 👉 joue uniquement le recul et fog ici
-
-    // ViewsProxy.GetView<LobbyThreeView>(ViewId.THREE_LOBBY).animationStatus(
-    //   true
-    // );
-
+    lobbyView.triggerFogAndZoomOut();
     tl.to(
       mainTextUp.current,
       {
@@ -154,16 +147,6 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       '<'
     );
     tl.to(
-      soundIcon.current,
-      {
-        duration: 1,
-        opacity: 0,
-        scale: 0,
-        ease: 'power1.out',
-      },
-      '<'
-    );
-    tl.to(
       borderScreen.current,
       {
         duration: 1,
@@ -187,18 +170,12 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       {...props}
       className='fixed inset-0 z-50 w-full flex flex-col'
     >
+      <div
+        ref={pageTransition}
+        className='fixed inset-0 bg-black w-screen h-dvh page-transition z-[100]'
+      ></div>
       <div ref={borderScreen} className='borderScreen'></div>
-      <div className='w-full p-8 md:px-12 flex items-center justify-end'>
-
-        <div className='overflow-hidden cursor-pointer'>
-          <SoundIcon
-            ref={soundIcon}
-            isPlaying={musicIsPlaying}
-            className='h-6'
-            onClick={toggleMusic}
-          />
-        </div>
-      </div>
+      <div className='w-full p-8 md:px-12 flex items-center justify-end'></div>
       <div className='h-full w-full flex flex-col items-center justify-center'>
         <div className='overflow-hidden'>
           <h1
@@ -228,10 +205,10 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
               onClick={showMuseumTheater}
               iconPosition='right'
             />
-          </div >
-        </div >
-      </div >
-      <div className='w-full p-8 md:px-12 flex items-center justify-between'>
+          </div>
+        </div>
+      </div>
+      <div className='w-full p-8 md:px-12 flex flex-col md:flex-row items-end md:items-start justify-between'>
         <div className='overflow-hidden'>
           <p
             ref={footerText}
@@ -240,8 +217,30 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
             Unofficial museum website
           </p>
         </div>
+        <div className='overflow-hidden pb-1'>
+          <div
+            className='flex flex-row items-end justify-center gap-1 text-white/50 text-[0.8rem]'
+            ref={creditText}
+          >
+            <a
+              href='https://github.com/matdn'
+              target='_blank'
+              className='font-bold underline-effect'
+            >
+              MATIS DENE
+            </a>
+            <p>&</p>
+            <a
+              href='https://august1.dev/'
+              target='_blank'
+              className='font-bold underline-effect'
+            >
+              AUGUSTIN BRIOLON
+            </a>
+          </div>
+        </div>
       </div>
-    </ReactViewBase >
+    </ReactViewBase>
   );
 };
 

@@ -17,19 +17,7 @@ export default class GaleryThreeView extends WithoutTransitionThreeView {
 
     constructor() {
         super(ViewId.THREE_GALERY, ViewPlacementId.THREE_MAIN);
-        this._imagesContainer = [
-            AssetId.GALERY_6,
-            AssetId.GALERY_1,
-            AssetId.GALERY_2,
-            AssetId.GALERY_7,
-            AssetId.GALERY_3,
-            AssetId.GALERY_4,
-            AssetId.GALERY_5,
-        ];
         this._camera = ThreeCamerasProxy.CamerasMap.get('GALERY');
-
-        // this._camera.rotation.set(0, 0, 0);
-        // this._camera.rotateY(1);
 
         this.add(this._camera);
 

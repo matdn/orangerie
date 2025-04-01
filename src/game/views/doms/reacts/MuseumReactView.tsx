@@ -1,22 +1,23 @@
 import { useGSAP } from '@gsap/react';
-import { useLenis } from '@studio-freight/react-lenis';
 import gsap from 'gsap';
-import { CornerRightUp, MoveDown, MoveLeft, View } from 'lucide-react';
-import { TheatersManager, ViewsManager, ViewsProxy } from 'pancake';
+import { useLenis } from '@studio-freight/react-lenis';
+import { MoveDown, MoveLeft } from 'lucide-react';
+import { TheatersManager, ViewsManager } from 'pancake';
 import React, { useEffect, useRef } from 'react';
 import Button from '../../../../components/Button';
 import SectionMuseum from '../../../../components/SectionMuseum';
 import { TextMuseum } from '../../../../components/TextMuseum';
-import { TheaterId } from '../../../constants/theaters/TheaterId';
+import { TheaterId } from '../../../constants/theaters/TheaterId.ts';
+import { ViewId } from '../../../constants/views/ViewId';
 import {
   ReactViewBase,
   TransitionProps,
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
-import { ViewId } from '../../../constants/views/ViewId';
 
 const MuseumReactView: React.FC<TransitionProps> = (props) => {
   const lenis = useLenis();
   const pageTransition = useRef<HTMLDivElement>(null);
+  const pageToLobby = useRef<HTMLDivElement>(null);
   const convertTextToArray = (text: string) => {
     return text.split(' ');
   };
@@ -26,9 +27,23 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
   };
 
   const backToLobby = () => {
-    TheatersManager.HideById(TheaterId.MUSEUM);
-    ViewsManager.ShowById(ViewId.THREE_LOBBY);
-    TheatersManager.ShowById(TheaterId.LOBBY);
+    return new Promise<void>((resolve) => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          TheatersManager.HideById(TheaterId.MUSEUM);
+          ViewsManager.ShowById(ViewId.THREE_LOBBY);
+          TheatersManager.ShowById(TheaterId.LOBBY);
+          resolve();
+        },
+      });
+
+      tl.to(pageToLobby.current, {
+        yPercent: -100,
+        opacity: 1,
+        duration: 1,
+        ease: 'power2.inOut',
+      });
+    });
   };
 
   useEffect(() => {
@@ -42,7 +57,6 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
         rect.bottom >= window.innerHeight / 2;
 
       if (isVisible) {
-        console.log('🎥 Passage au mode empties !');
         window.dispatchEvent(new CustomEvent('switchToEmptyMode'));
       }
     };
@@ -199,7 +213,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
         <SectionMuseum id='impressionniste'>
           <div className='overflow-hidden'>
             <img
-              src='assets/images/autoportrait.webp'
+              src='images/autoportrait.webp'
               alt='Peinture Autoportrait'
               className='anim-img max-w-xs md:max-w-sm h-auto'
             />
@@ -221,7 +235,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           <div className='hidden md:flex'>
             <div className='overflow-hidden'>
               <img
-                src='assets/images/soleil-levant.webp'
+                src='images/soleil-levant.webp'
                 alt='Peinture Autoportrait'
                 className='anim-img max-w-xs md:max-w-sm h-auto'
               />
@@ -253,7 +267,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_THREE).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -311,7 +325,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                       {word}
                       {index !==
                         convertTextToArray(TextMuseum.SECTION_FOUR).length -
-                        1 && '\u00A0'}
+                          1 && '\u00A0'}
                     </span>
                   </span>
                 )
@@ -343,7 +357,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_FIVE).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -376,7 +390,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_SIX).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -409,7 +423,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_SEVEN).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -442,7 +456,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_EIGHT).length -
-                          1 && '\u00A0'}
+                            1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -453,7 +467,11 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
         </SectionMuseum>
 
         <SectionMuseum className='relative'>
-          <div className='absolute inset-0 -z-10 h-dvh w-screen flex justify-center items-center anim-blur'></div>
+          <div
+            ref={pageToLobby}
+            className='fixed inset-0 bg-black w-screen h-dvh z-[100] opacity-50 translate-y-full'
+          ></div>
+          <div className='fixed inset-0 -z-10 h-dvh w-screen flex justify-center items-center anim-blur'></div>
           <div className='h-dvh w-screen flex flex-col justify-center items-center gap-12'>
             <div className='overflow-hidden'>
               <h1 className='anim-text font-nhaasgrotesk-bold uppercase text-5xl md:text-8xl text-center'>
@@ -464,29 +482,30 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             <Button
               title='Refaire la visite'
               onClick={() => scrollToNextSection('#orangerie')}
-              className='!border-black flex items-center gap-4 !text-black anim-button'
+              className='!border-black flex items-center gap-4 !text-black anim-button !bg-white'
             />
 
-            <div className='flex flex-col items-end justify-center absolute bottom-3 right-3'>
-              <p>By </p>
-              <a
-                href='https://github.com/matdn'
-                target='_blank'
-                className='font-bold '
-              >
-                {' '}
-                Matis Dene
-              </a>
-              <a
-                href='https://august1.dev/'
-                target='_blank'
-                className='font-bold '
-              >
-                Augustin Briolon
-              </a>{' '}
+            <div className='overflow-hidden pb-1'>
+              <div className='flex flex-row items-end justify-center gap-1 text-black/80 text-[0.8rem] anim-text'>
+                <a
+                  href='https://github.com/matdn'
+                  target='_blank'
+                  className='font-bold underline-effect underline-black'
+                >
+                  MATIS DENE
+                </a>
+                <p>&</p>
+                <a
+                  href='https://august1.dev/'
+                  target='_blank'
+                  className='font-bold underline-effect underline-black'
+                >
+                  AUGUSTIN BRIOLON
+                </a>
+              </div>
             </div>
 
-            <div className='absolute bottom-3 left-3'>
+            <div className='absolute top-3 left-3'>
               <button className='anim-number group' onClick={backToLobby}>
                 <div className='flex items-center gap-4'>
                   <MoveLeft strokeWidth={1.5} size={16} />

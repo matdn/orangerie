@@ -6,9 +6,9 @@
 
 @font-face {
   font-family: 'Instrument';
-  src: url('../../../assets/game/fonts/InstrumentSerif-Regular.woff2')
+  src: url('../../../game/fonts/InstrumentSerif-Regular.woff2')
       format('woff2'),
-    url('../../../assets/game/fonts/InstrumentSerif-Regular.woff')
+    url('../../../game/fonts/InstrumentSerif-Regular.woff')
       format('woff');
   font-weight: normal;
   font-style: normal;
@@ -21,7 +21,7 @@
 
 @font-face {
   font-family: 'Instrument-Italic';
-  src: url('../../../assets/game/fonts/InstrumentSerif-Italic.ttf')
+  src: url('../../../game/fonts/InstrumentSerif-Italic.ttf')
     format('truetype');
   font-weight: normal;
   font-style: normal;
@@ -33,7 +33,7 @@
 
 @font-face {
   font-family: 'NHaasGrotesk';
-  src: url('../../../assets/game/fonts/NHaasGrotesk_Medium.ttf')
+  src: url('../../../game/fonts/NHaasGrotesk_Medium.ttf')
     format('truetype');
 }
 
@@ -43,7 +43,7 @@
 
 @font-face {
   font-family: 'NHaasGroteskBold';
-  src: url('../../../assets/game/fonts/NHaasGrotesk_Bold.ttf')
+  src: url('../../../game/fonts/NHaasGrotesk_Bold.ttf')
     format('truetype');
 }
 
@@ -53,7 +53,7 @@
 
 @font-face {
   font-family: 'NHaasGroteskLight';
-  src: url('../../../assets/game/fonts/NHaasGrotesk_Light.ttf')
+  src: url('../../../game/fonts/NHaasGrotesk_Light.ttf')
     format('truetype');
 }
 
@@ -63,7 +63,7 @@
 
 @font-face {
   font-family: 'Norman';
-  src: url('../../../assets/game/fonts/Norman_Regular.ttf') format('truetype');
+  src: url('../../../game/fonts/Norman_Regular.ttf') format('truetype');
   font-weight: 900;
 }
 
@@ -73,7 +73,7 @@
 
 @font-face {
   font-family: 'Norman-Italic';
-  src: url('../../../assets/game/fonts/Norman_Italic.ttf') format('truetype');
+  src: url('../../../game/fonts/Norman_Italic.ttf') format('truetype');
   font-weight: 900;
   font-style: italic;
 }
@@ -110,5 +110,43 @@ canvas {
 
   @media (min-width: 768px) {
     padding: 10px 20px;
+  }
+}
+
+.underline-effect {
+  position: relative;
+  display: inline-block;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+
+  &:hover {
+    &:after {
+      transform: scaleX(1);
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+
+  &:not(:hover) {
+    &:after {
+      transform: scaleX(0);
+      transform-origin: right center;
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+}
+
+.underline-black {
+  &:after {
+    background-color: black;
   }
 }

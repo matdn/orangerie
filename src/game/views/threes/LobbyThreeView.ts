@@ -61,14 +61,6 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
         this._clouds.geometry = cloudGeometry;
         this._clouds.position.set(-20, 30, 10);
         this._clouds.scale.set(2.2, 2.2, 2.2);
-        this._clouds.material = new MeshStandardMaterial({
-            map: ThreeAssetsManager.GetTexture(AssetId.TEXTURE_CLOUDS),
-            side: DoubleSide,
-            transparent: true,
-            opacity: 0.2,
-            emissive: 0xffffff,
-            emissiveIntensity: 0.9,
-        });
 
         this._secondClouds = this._clouds.clone();
 
@@ -176,7 +168,6 @@ export default class LobbyThreeView extends WithoutTransitionThreeView {
     }
 
     public override update(dt: number): void {
-        console.log(this._animationStatus);
         const theater = TheatersProxy.GetTheater<LobbyThreeTheater>(TheaterId.LOBBY);
         super.update(dt);
         this._time += dt;

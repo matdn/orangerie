@@ -1,9 +1,6 @@
-//#region InitCore
-import './commands/inits/initCore';
-//#endregion
-
 import { Action } from "cookware";
 import { ViewsManager } from "pancake";
+import './commands/inits/initCore';
 import { CommonProjectInitCommand } from "./commands/inits/project/CommonProjectInitCommand";
 import { LobbyInitCommand } from './commands/inits/project/LobbyInitCommand.ts';
 import { MuseumInitCommand } from './commands/inits/project/MuseumInitCommand.ts';
@@ -23,8 +20,6 @@ export default class GameMain {
         if (GameMain._Initiated) return;
 
         GameMain._Initiated = true;
-        // await TranslationKeyManager.Init();
-
 
         InitCommand.Execute([
             new CommonProjectInitCommand(),
@@ -42,12 +37,9 @@ export default class GameMain {
         ScormService.SetScormStatus('incomplete');
         ViewsManager.RemoveAll();
         if (DebugManager.IsDev) {
-            // CustomStats.Init();
             QuickLinksReactViewOptions.className = "bottom left";
             ViewsManager.ShowById(QuickLinksReactViewId);
         }
-
-
         GameMain._ShowFirstTheater();
     }
 
@@ -61,13 +53,8 @@ export default class GameMain {
                 }
             }
         }
-        // TheatersManager.ShowById(TheaterId.LOBBY);
-        
         TheaterTransitionCommand.Show(TheaterId.LOBBY);
         // TheaterTransitionCommand.Show(TheaterId.MUSEUM);
-        // TheaterTransitionCommand.Show(TheaterId.PARK);
-        // TheaterTransitionCommand.Show(TheaterId.GALERY);
-        // TheaterTransitionCommand.Show(TheaterId.MAIN);
 
     }
 

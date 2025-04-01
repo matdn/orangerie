@@ -56,7 +56,6 @@ export class VirtualGamePadConfigsManager {
 
     private static _OnChangeTheater = (): void => {
         this._CurrentConfig = this._GetTopVirtualGamePadConfig();
-        console.log('VirtualGamePadConfigsManager._OnChangeTheater', this._CurrentConfig);
         this.OnChange.execute();
     }
 
