@@ -1,5 +1,6 @@
 import { ThreeAssetsManager } from "@cooker/three";
-import { AmbientLight, DirectionalLight, Euler, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PointLight, Vector2, Vector3 } from "three";
+import gsap from "gsap";
+import { AmbientLight, DirectionalLight, Euler, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, PlaneGeometry, PointLight, Vector3 } from "three";
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { AssetId } from "../../constants/games/AssetId";
 import { Object3DId } from "../../constants/games/Object3DId";
@@ -9,23 +10,15 @@ import { ThreeCameraControllerBase } from "../../core/_engine/threejs/cameras/ba
 import { Object3DsProxy } from "../../core/_engine/threejs/proxies/Object3DsProxy";
 import { ThreeCamerasProxy } from "../../core/_engine/threejs/proxies/ThreeCamerasProxy";
 import { WithoutTransitionThreeView } from "../../core/_engine/threejs/views/WithoutTransitionThreeView";
-import { BirdWingMaterial } from "../../materials/commons/BirdWingMaterial";
-import gsap from "gsap";
 
 export default class MuseumThreeView extends WithoutTransitionThreeView {
     private _camera!: ThreeCameraControllerBase;
     private _museumMesh: Object3D;
-    private _cameraRotationFactor: number = 0.09;
-    private _mouse: Vector2 = new Vector2(0, 0);
-    private _birdWingRightMaterial: BirdWingMaterial = new BirdWingMaterial(1);
-    private _birdWingLeftMaterial: BirdWingMaterial = new BirdWingMaterial(-1);
     private _scrollProgress: number = 0;
     private _mirror: Reflector;
     private _cameraPositions: { position: Vector3; rotation: Euler; }[] = [];
     private _treeMesh: Mesh | null = null;
     private _orangesMesh: Mesh | null = null;
-
-
 
     constructor() {
         super(ViewId.THREE_MUSEUM, ViewPlacementId.THREE_MAIN);
@@ -34,9 +27,6 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
         const light = new AmbientLight(0xffffff, 0.5);
         light.position.set(0, 5, 5);
         this.add(light);
-
-        const colors = [0xff0000, 0x0000ff, 0x00ff00]; // Rouge, Bleu, Vert
-
 
         this._camera = ThreeCamerasProxy.CamerasMap.get('MUSEUM');
         this.add(this._camera);
@@ -47,6 +37,7 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
         const pointLight = new PointLight(0xffffff, 400, 160);
         pointLight.position.set(0, -200, 0);
         this.add(pointLight);
+
         this._mirror = new Reflector(
             new PlaneGeometry(200, 200),
             {
@@ -57,6 +48,7 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
 
             }
         );
+
         const groundBlur = new Mesh(new PlaneGeometry(200, 200), new MeshStandardMaterial({ color: 0xffffff, metalness: 0.6, transparent: true, opacity: 0.9, roughness: 0.3 }));
         groundBlur.position.set(0, -2.4, 0);
         groundBlur.rotation.x = -Math.PI / 2;
@@ -105,6 +97,7 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                 }
             }
         });
+
         this.setupScrollListener();
         this._cameraPositions.forEach((cam, index) => {
             if (index === 5) {
@@ -113,15 +106,25 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
             if (index === 6) {
                 cam.rotation.y = -4.7;
             }
-
         });
-
     }
 
     private setupScrollListener() {
         window.addEventListener("museumScroll", (event: any) => {
             this._scrollProgress = event.detail.progress;
         });
+    }
+
+    public override onShow(): void {
+        super.onShow();
+        console.log("hello");
+        if (this._treeMesh) {
+            this._treeMesh.visible = true;
+            if ('opacity' in this._treeMesh.material) {
+                console.log('opacity');
+                (this._treeMesh.material as MeshPhysicalMaterial).opacity = 1;
+            }
+        }
     }
 
     public override update(dt: number): void {
@@ -150,6 +153,7 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
             const circularPosition = new Vector3(x, 0, z);
             this._camera.position.lerp(circularPosition, 0.05);
             this._camera.lookAt(center);
+
         } else {
             if (this._cameraPositions.length > 0) {
                 const index = Math.floor(progress * (this._cameraPositions.length - 1));
@@ -174,20 +178,12 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
                     });
 
                     gsap.to(this._camera.rotation, {
-                        y: -(start.rotation.y * (1 - lerpFactor) + end.rotation.y * lerpFactor), // 🔹 Correction de Y
+                        y: -(start.rotation.y * (1 - lerpFactor) + end.rotation.y * lerpFactor),
                         duration: 0.5,
                         ease: "power2.out",
                     });
-
-                    if (index === this._cameraPositions.length - 1) {
-                        // console.log("📌 Dernière Position Captée:", end.position);
-                        // console.log("📌 Dernière Rotation Captée:", end.rotation);
-                    }
                 }
             }
         }
-        // console.log(this._camera.rotation.y);
     }
-
-
 }

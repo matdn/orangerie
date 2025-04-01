@@ -101,7 +101,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             </div>
             <div className='overflow-hidden'>
               <h3 className='anim-text font-instrument text-2xl md:text-3xl uppercase'>
-                à l’origine il y a la serre
+                À l’origine, il y a la serre
               </h3>
             </div>
           </div>
@@ -184,7 +184,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             </div>
             <div className='overflow-hidden'>
               <h3 className='anim-text font-instrument text-2xl md:text-3xl uppercase'>
-                l'Architecte de la Lumière
+                L’architecte de la lumière
               </h3>
             </div>
           </div>
@@ -212,7 +212,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
           <div className='overflow-hidden'>
             <h3 className='anim-text font-nhaasgrotesk-light text-2xl md:text-3xl max-w-xl text-center'>
-              Le père de l'impressionniste
+              Le père de l’Impressionnisme
             </h3>
           </div>
         </SectionMuseum>
@@ -240,7 +240,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               </div>
               <div className='overflow-hidden'>
                 <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase'>
-                  Naissance de l'impressionnisme
+                  Naissance de l’impressionnisme
                 </h4>
               </div>
             </div>
@@ -276,8 +276,8 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               </h2>
             </div>
             <div className='overflow-hidden'>
-              <h3 className='font-instrument text-2xl md:text-3xl uppercase'>
-                l’ultime chef-dœuvre
+              <h3 className='anim-text font-instrument text-2xl md:text-3xl uppercase'>
+                L’ultime chef-d’œuvre
               </h3>
             </div>
           </div>
