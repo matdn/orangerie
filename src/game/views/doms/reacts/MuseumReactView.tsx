@@ -226,7 +226,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
           <div className='overflow-hidden'>
             <h3 className='anim-text font-nhaasgrotesk-light text-2xl md:text-3xl max-w-xl text-center'>
-              Le père de l’Impressionnisme
+              Le père de l’impressionnisme
             </h3>
           </div>
         </SectionMuseum>
@@ -267,7 +267,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_THREE).length -
-                            1 && '\u00A0'}
+                          1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -307,12 +307,12 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
           <div className='flex flex-col justify-center items-center gap-2'>
             <div className='overflow-hidden'>
               <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-3xl md:text-5xl text-center'>
-                L'ultime chef-d'œuvre
+                L’illusion d’un tout sans fin
               </h2>
             </div>
             <div className='overflow-hidden'>
               <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase'>
-                1914-1926
+                1895-1926
               </h4>
             </div>
           </div>
@@ -325,7 +325,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                       {word}
                       {index !==
                         convertTextToArray(TextMuseum.SECTION_FOUR).length -
-                          1 && '\u00A0'}
+                        1 && '\u00A0'}
                     </span>
                   </span>
                 )
@@ -339,12 +339,12 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
             <div>
               <div className='overflow-hidden'>
                 <h2 className='anim-text font-nhaasgrotesk-bold uppercase text-3xl md:text-5xl'>
-                  Matin
+                  REFLETS VERTS
                 </h2>
               </div>
               <div className='overflow-hidden'>
                 <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase'>
-                  1916-1922
+                  1914-1926
                 </h4>
               </div>
             </div>
@@ -357,7 +357,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_FIVE).length -
-                            1 && '\u00A0'}
+                          1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -377,7 +377,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               </div>
               <div className='overflow-hidden'>
                 <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase text-right'>
-                  1914-1918
+                  1914-1926
                 </h4>
               </div>
             </div>
@@ -390,7 +390,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_SIX).length -
-                            1 && '\u00A0'}
+                          1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -410,7 +410,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
               </div>
               <div className='overflow-hidden'>
                 <h4 className='anim-text font-nhaasgrotesk-light text-xl md:text-2xl uppercase'>
-                  1915-1921
+                  1914-1926
                 </h4>
               </div>
             </div>
@@ -423,7 +423,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_SEVEN).length -
-                            1 && '\u00A0'}
+                          1 && '\u00A0'}
                       </span>
                     </span>
                   )
@@ -456,7 +456,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
                         {word}
                         {index !==
                           convertTextToArray(TextMuseum.SECTION_EIGHT).length -
-                            1 && '\u00A0'}
+                          1 && '\u00A0'}
                       </span>
                     </span>
                   )

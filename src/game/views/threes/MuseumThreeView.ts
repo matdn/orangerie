@@ -114,20 +114,31 @@ export default class MuseumThreeView extends WithoutTransitionThreeView {
 
     public override onShow(): void {
         super.onShow();
-        console.log("hello");
+
         if (this._treeMesh) {
             this._treeMesh.visible = true;
             if ('opacity' in this._treeMesh.material) {
                 (this._treeMesh.material as MeshPhysicalMaterial).opacity = 1;
-                console.log(this._treeMesh.material.opacity);
             }
         }
+
+        if (this._orangesMesh) {
+            this._orangesMesh.visible = true;
+            if ('opacity' in this._orangesMesh.material) {
+                (this._orangesMesh.material as MeshPhysicalMaterial).opacity = 1;
+            }
+        }
+
+        this._camera.position.x = 10;
+        this._camera.position.y = 0;
+        this._camera.position.z = 0;
+        this._camera.lookAt(0, 0, 0);
     }
+
 
     public override update(dt: number): void {
         super.update(dt);
         this._camera.start();
-
         const progress = Math.min(Math.max((this._scrollProgress - 0.5) * 2, 0), 1);
         if (progress > 0 && this._treeMesh && this._orangesMesh) {
             const fadeSpeed = 5;

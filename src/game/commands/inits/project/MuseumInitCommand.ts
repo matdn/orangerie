@@ -1,6 +1,5 @@
 import { ThreeAssetsManager } from '@cooker/three';
 import { ViewsProxy } from 'pancake';
-import { GaleryCameraController } from '../../../cameras/GaleryCameraController';
 import { MuseumCameraController } from '../../../cameras/MuseumCameraController';
 import { AssetId } from '../../../constants/games/AssetId';
 import { ViewId } from '../../../constants/views/ViewId';
@@ -19,7 +18,6 @@ export class MuseumInitCommand extends InitCommandBase {
 
     public override async initProxies(): Promise<void> {
         ThreeCamerasProxy.AddCamera(new MuseumCameraController());
-        ThreeCamerasProxy.AddCamera(new GaleryCameraController());
     }
 
     public override async initManagers(): Promise<void> {
