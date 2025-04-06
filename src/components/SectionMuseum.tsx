@@ -14,7 +14,7 @@ interface ScrollTriggerConfig {
   trigger: Element | null;
   start: string;
   toggleActions: string;
-  markers: boolean;
+  markers?: boolean;
 }
 
 const SectionMuseum = ({ children, className = '', id = '' }) => {
@@ -32,7 +32,7 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
         trigger: sectionRef.current,
         start: 'top 30%',
         toggleActions: 'play none none reverse',
-        markers: true
+        // markers: true
       };
       setupAnimations(scrollTrigger);
     });
@@ -42,7 +42,7 @@ const SectionMuseum = ({ children, className = '', id = '' }) => {
         trigger: sectionRef.current,
         start: 'top 10%', 
         toggleActions: 'play none none reverse',
-        markers: true
+        // markers: true
       };
       
       setupAnimations(scrollTrigger);
