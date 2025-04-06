@@ -95,7 +95,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>(
         ref={buttonRef}
         onClick={onClick}
         className={clsx(
-          'relative px-6 py-1.5 md:px-8 md:py-2 rounded-full bg-white/30 flex items-center gap-4 text-white',
+          'relative px-6 py-1.5 md:px-8 md:py-2 rounded-full bg-white/30 md:bg-white/30 flex items-center gap-4 text-white will-change-transform',
           className
         )}
       >

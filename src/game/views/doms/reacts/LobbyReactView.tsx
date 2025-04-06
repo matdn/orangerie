@@ -175,7 +175,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
         className='fixed inset-0 bg-black w-screen h-dvh page-transition z-[100]'
       ></div>
       <div ref={borderScreen} className='borderScreen'></div>
-      <div className='w-full p-8 md:px-12 flex items-center justify-end'></div>
+      <div className='w-full px-8 md:px-12 p-8'></div>
       <div className='h-full w-full flex flex-col items-center justify-center'>
         <div className='overflow-hidden'>
           <h1
@@ -208,7 +208,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
           </div>
         </div>
       </div>
-      <div className='w-full p-8 md:px-12 flex flex-col md:flex-row items-end md:items-start justify-between'>
+      <div className='w-full px-8 md:px-12 py-4 md:py-8 flex flex-col md:flex-row items-end md:items-start justify-between gap-2'>
         <div className='overflow-hidden'>
           <p
             ref={footerText}
