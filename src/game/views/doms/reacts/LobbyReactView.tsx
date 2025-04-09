@@ -11,6 +11,7 @@ import {
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 import { LobbyThreeTheater } from '../../../theaters/LobbyThreeTheater';
 import LobbyThreeView from '../../threes/LobbyThreeView';
+import PreloadReactView from './preloads/PreloadReactView';
 
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const [isClickable, setIsClickable] = useState(false);
@@ -32,7 +33,7 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
     tl.to(pageTransition.current, {
       yPercent: -100,
       duration: 1,
-      delay: 0.5,
+      delay: 0,
       ease: 'power2.inOut',
     });
     tl.from(
@@ -170,10 +171,11 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
       {...props}
       className='fixed inset-0 z-50 w-full flex flex-col'
     >
-      <div
+      {/* <PreloadReactView /> */}
+      {/* <div
         ref={pageTransition}
-        className='fixed inset-0 bg-black w-screen h-dvh page-transition z-[100]'
-      ></div>
+        className='fixed inset-0 bg-white w-screen h-dvh page-transition z-[100]'
+      ></div> */}
       <div ref={borderScreen} className='borderScreen'></div>
       <div className='w-full px-8 md:px-12 p-8'></div>
       <div className='h-full w-full flex flex-col items-center justify-center'>
