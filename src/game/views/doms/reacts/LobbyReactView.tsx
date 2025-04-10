@@ -11,11 +11,9 @@ import {
 } from '../../../core/_engine/reacts/views/bases/ReactViewBase';
 import { LobbyThreeTheater } from '../../../theaters/LobbyThreeTheater';
 import LobbyThreeView from '../../threes/LobbyThreeView';
-import PreloadReactView from './preloads/PreloadReactView';
 
 const LobbyReactView: React.FC<TransitionProps> = (props) => {
   const [isClickable, setIsClickable] = useState(false);
-  const pageTransition = useRef<HTMLDivElement>(null);
   const borderScreen = useRef<HTMLDivElement>(null);
   const mainTextUp = useRef<HTMLHeadingElement>(null);
   const mainTextDown = useRef<HTMLDivElement>(null);
@@ -30,16 +28,11 @@ const LobbyReactView: React.FC<TransitionProps> = (props) => {
   });
 
   const timelineAnimation = () => {
-    tl.to(pageTransition.current, {
-      yPercent: -100,
-      duration: 1,
-      delay: 0,
-      ease: 'power2.inOut',
-    });
     tl.from(
       borderScreen.current,
       {
         duration: 1,
+        delay: 2,
         opacity: 0.4,
         ease: 'power1.out',
       },
