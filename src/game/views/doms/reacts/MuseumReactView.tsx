@@ -95,7 +95,7 @@ const MuseumReactView: React.FC<TransitionProps> = (props) => {
 
   return (
     <ReactViewBase {...props} className='w-screen h-fit z-50 relative'>
-      <div id="awwwards" className="fixed z-[999] top-1/2 -translate-y-1/2 right-0"><a
+      <div id="awwwards" className="fixed z-[10] top-1/2 -translate-y-1/2 right-0"><a
         href="https://www.awwwards.com/sites/les-reveries-de-lorangerie" target="_blank"><svg width="53.08"
           height="171.358">
           <path className="js-color-bg" fill="black" d="M0 0h53.08v171.358H0z"></path>

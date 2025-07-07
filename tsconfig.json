@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "ESNext",
-        "lib": ["DOM", "DOM.Iterable", "ESNext"],
+        "lib": [ "DOM", "DOM.Iterable", "ESNext" ],
         "module": "ESNext",
         "skipLibCheck": true,
 
@@ -15,6 +15,6 @@
         "jsx": "react-jsx",
         "allowJs": true
     },
-    "include": ["src"],
-    "references": [{ "path": "./tsconfig.node.json" }]
+    "include": [ "src", "../portfolio_tree/src/game/views/threes/CinemaThreeView.ts" ],
+    "references": [ { "path": "./tsconfig.node.json" } ]
 }

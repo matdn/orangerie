@@ -5,6 +5,8 @@ export enum AssetId {
     GLTF_MUSEUM = 'GLTF_MUSEUM',
     GLTF_COMMON = 'GLTF_COMMON',
 
+    GLTF_CINEMA = 'GLTF_CINEMA',
+
     HDR_LOBBY = 'HDR_LOBBY',
     HDR_LOBBY_2 = 'HDR_LOBBY_2',
     HDR_MUSEUM = 'HDR_MUSEUM',
